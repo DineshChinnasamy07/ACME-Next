@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bosco.Auth.Domain\Bosco.Auth.Domain.csproj" />
+    <ProjectReference Include="..\Bosco.Common\Bosco.Common.csproj" />
+    <ProjectReference Include="..\Bosco.Contracts\Bosco.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
