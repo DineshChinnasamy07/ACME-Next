@@ -15,8 +15,9 @@ namespace Bosco.Auth.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("user_role");
             builder.HasKey(role => role.UserRoleId);
-            builder.Property(role => role.UserRoleId).HasColumnName("USERROLE_ID");
+            builder.Property(role => role.UserRoleId).HasColumnName("USERROLE_ID").ValueGeneratedOnAdd();
             builder.Property(role => role.UserRole).HasColumnName("USERROLE");
+            builder.Property(role => role.Accessibility).HasColumnName("ACCESSIBILITY");
         }
     }
 }

@@ -4,6 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Bosco.Common\Bosco.Common.csproj" />
     <ProjectReference Include="..\Bosco.Data\Bosco.Data.csproj" />
+    <ProjectReference Include="..\Bosco.Organization.Application\Bosco.Organization.Application.csproj" />
+    <ProjectReference Include="..\Bosco.Organization.Domain\Bosco.Organization.Domain.csproj" />
     <ProjectReference Include="..\Bosco.Organization.Infrastructure\Bosco.Organization.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 /*  Class Name      : UsersController.cs
- *  Purpose         : Auth service file
+ *  Purpose         : User list, get, save, delete, and status endpoints
  *  Author          : Dinesh C
  *  Created on      : 22-Oct-2026
  */
@@ -14,6 +14,7 @@ using System.Security.Claims;
 namespace Bosco.Auth.Api.Controllers
 {
     [Authorize]
+    [ApiExplorerSettings(GroupName = "Users")]
     [ApiController]
     [Route("api/users")]
     public class UsersController : ControllerBase
@@ -52,6 +53,11 @@ namespace Bosco.Auth.Api.Controllers
 
         #region Controller 
 
+        /// <summary>
+        /// Fetches the user details for the signed-in creator.
+        /// </summary>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The user details.</returns>
         [HttpGet]
         public async Task<IActionResult> FetchUserDetail(CancellationToken cancellationToken)
         {
@@ -62,6 +68,13 @@ namespace Bosco.Auth.Api.Controllers
             }
             return Ok(await _users.FetchUserDetail(createdBy, cancellationToken));
         }
+
+        /// <summary>
+        /// Fetches one user by user id for edit or view.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The user details when found; otherwise not found.</returns>
         [HttpGet("{userId:int}")]
         public async Task<IActionResult> FetchUserDetail(int userId, CancellationToken cancellationToken)
         {
@@ -73,6 +86,12 @@ namespace Bosco.Auth.Api.Controllers
             return Ok(row);
         }
 
+        /// <summary>
+        /// Adds or updates a user.
+        /// </summary>
+        /// <param name="request">The user details to save.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The save result.</returns>
         [HttpPost]
         public async Task<IActionResult> SaveUser([FromBody] UserSaveRequest? request, CancellationToken cancellationToken)
         {
@@ -94,6 +113,12 @@ namespace Bosco.Auth.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Deletes a user by user id.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The delete result.</returns>
         [HttpDelete("{userId:int}")]
         public async Task<IActionResult> DeleteUser(int userId, CancellationToken cancellationToken)
         {
@@ -104,6 +129,14 @@ namespace Bosco.Auth.Api.Controllers
             }
             return Ok(result);
         }
+
+        /// <summary>
+        /// Updates the active or inactive status of a user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="request">The status value to apply.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The status update result.</returns>
         [HttpPut("{userId:int}/status")]
         public async Task<IActionResult> UpdateUserStatus(int userId, [FromBody] UserStatusRequest? request, CancellationToken cancellationToken) 
         {
@@ -116,6 +149,36 @@ namespace Bosco.Auth.Api.Controllers
             {
                 return BadRequest(new { message = result.Message });
             }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Sets a new password for the selected user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="request">The old password, new password, and confirm password.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The password change result.</returns>
+        [HttpPost("{userId:int}/password")]
+        public async Task<IActionResult> SetPassword(int userId, [FromBody] SetPasswordRequest? request, CancellationToken cancellationToken)
+        {
+            int createdBy = ReadUserId();
+            if (createdBy <= 0)
+            {
+                return Unauthorized();
+            }
+
+            if (request == null)
+            {
+                return BadRequest(new { message = "Old password, new password, and confirm password are required." });
+            }
+
+            UserActionResult result = await _users.SetPassword(userId, request.OldPassword, request.NewPassword, request.ConfirmPassword, cancellationToken);
+            if (!result.Success)
+            {
+                return BadRequest(new { message = result.Message });
+            }
+
             return Ok(result);
         }
 

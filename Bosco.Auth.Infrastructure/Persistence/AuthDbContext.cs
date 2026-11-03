@@ -23,6 +23,10 @@ namespace Bosco.Auth.Infrastructure.Persistence
 
         public DbSet<BranchOffice> BranchOffices { get; set; } = null!;
 
+        public DbSet<RightsActivity> RightsActivities { get; set; } = null!;
+
+        public DbSet<RightsUser> RightsUsers { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthDbContext).Assembly);

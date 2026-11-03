@@ -10,5 +10,7 @@ namespace Bosco.Auth.Domain.Entities
         public int UserRoleId { get; set; }
 
         public string UserRole { get; set; } = string.Empty;
+
+        public int Accessibility { get; set; }
     }
 }

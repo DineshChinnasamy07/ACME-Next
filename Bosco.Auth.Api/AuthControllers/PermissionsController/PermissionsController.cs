@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Auth.Api.Controllers
 {
+    [ApiExplorerSettings(GroupName = "Permissions")]
+    [ApiController]
+    [Route("api/permissions")]
     public class PermissionsController : ControllerBase
     {
     }

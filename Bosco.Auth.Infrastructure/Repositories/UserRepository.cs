@@ -246,5 +246,32 @@ namespace Bosco.Auth.Infrastructure.Repositories
             };
         }
 
+        public async Task<bool> CheckCurrentPassword(int userId, string encryptedPassword, string passWord, CancellationToken cancellationToken)
+        {
+            return await _portal.Users.AsNoTracking().AnyAsync(
+                user => user.UserId == userId
+                    && (user.Password == encryptedPassword || user.Password == passWord),
+                cancellationToken);
+        }
+
+        public async Task<UserActionResult> ResetPassword(int userId, string encryptedPassword, int passwordStatus, CancellationToken cancellationToken)
+        {
+            User? existing = await _portal.Users.FirstOrDefaultAsync(user => user.UserId == userId, cancellationToken);
+            if (existing == null)
+            {
+                return new UserActionResult { Success = false, Message = "User not found." };
+            }
+
+            existing.Password = encryptedPassword;
+            existing.PasswordStatus = passwordStatus;
+            await _portal.SaveChangesAsync(cancellationToken);
+            return new UserActionResult
+            {
+                Success = true,
+                Message = "Your password has been changed successfully.",
+                UserId = userId
+            };
+        }
+
     }
 }

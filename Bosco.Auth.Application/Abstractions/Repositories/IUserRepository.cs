@@ -24,5 +24,9 @@ namespace Bosco.Auth.Application.Abstractions.Repositories
 
         Task<UserActionResult> UpdateUserStatus(int userId, int status, CancellationToken cancellationToken);
 
+        Task<bool> CheckCurrentPassword(int userId, string encryptedPassword, string passWord, CancellationToken cancellationToken);
+
+        Task<UserActionResult> ResetPassword(int userId, string encryptedPassword, int passwordStatus, CancellationToken cancellationToken);
+
     }
 }

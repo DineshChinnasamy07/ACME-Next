@@ -6,6 +6,7 @@
 using Bosco.Auth.Application.Abstractions.Repositories;
 using Bosco.Auth.Application.Abstractions.Services;
 using Bosco.Auth.Application.Features.Authentication.Login;
+using Bosco.Auth.Application.Features.UserManagement;
 using Bosco.Auth.Infrastructure.Persistence;
 using Bosco.Auth.Infrastructure.Repositories;
 using Bosco.Auth.Infrastructure.Security;
@@ -34,9 +35,13 @@ namespace Bosco.Auth.Infrastructure.Extensions
             services.AddDbContext<AuthDbContext>(options => options.UseNpgsql(connectionString));
             services.AddScoped<IHeadOfficeRepository, HeadOfficeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRightRepository, RightRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<UserSystem>();
+            services.AddScoped<UserRoleSystem>();
+            services.AddScoped<RightSystem>();
             return services;
         }
     }

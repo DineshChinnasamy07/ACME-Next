@@ -3,6 +3,7 @@
  *  Author          : Dinesh C
  *  Created on      : 24-Oct-2026
  */
+using System.Text.RegularExpressions;
 using Bosco.Auth.Application.Abstractions.Repositories;
 using Bosco.Auth.Application.Abstractions.Services;
 using Bosco.Auth.Application.Dtos;
@@ -16,6 +17,10 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
     {
         public const string PortalCode = "portal";
         private const int AutomaticPassword = 0;
+        private const int ResetPasswordStatus = 1;
+        private static readonly Regex NewPasswordRule = new Regex(
+            @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%^()\-*#?&])[A-Za-z\d$@$!%^()\-*#?&]{8,}$",
+            RegexOptions.Compiled);
 
         private readonly IHeadOfficeRepository _headOffices;
         private readonly IUserRepository _users;
@@ -147,6 +152,85 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
         public Task<UserActionResult> DeleteUser(int userId, CancellationToken cancellationToken)
         {
             return _users.DeleteUser(userId, cancellationToken);
+        }
+
+        public async Task<UserActionResult> ChangePassword(int userId, ChangePasswordRequest request, CancellationToken cancellationToken)
+        {
+            if (userId <= 0)
+            {
+                return new UserActionResult { Success = false, Message = "User not found." };
+            }
+
+            string currentPassword = request == null || request.CurrentPassword == null ? string.Empty : request.CurrentPassword.Trim();
+            string newPassword = request == null || request.NewPassword == null ? string.Empty : request.NewPassword.Trim();
+            string confirmPassword = request == null || request.ConfirmPassword == null ? string.Empty : request.ConfirmPassword.Trim();
+
+            if (currentPassword.Length == 0 || newPassword.Length == 0 || confirmPassword.Length == 0)
+            {
+                return new UserActionResult { Success = false, Message = "Current password, new password, and confirm password are required." };
+            }
+
+            if (!string.Equals(newPassword, confirmPassword, StringComparison.Ordinal))
+            {
+                return new UserActionResult { Success = false, Message = "New password and confirm password do not match." };
+            }
+
+            if (!NewPasswordRule.IsMatch(newPassword))
+            {
+                return new UserActionResult { Success = false, Message = "New password must be at least 8 characters and include a letter, a number, and a symbol." };
+            }
+
+            string encryptedCurrent = _passwords.EncryptValue(currentPassword);
+            bool oldOk = await _users.CheckCurrentPassword(userId, encryptedCurrent, currentPassword, cancellationToken);
+            if (!oldOk)
+            {
+                return new UserActionResult { Success = false, Message = "Please Enter Correct Old Password" };
+            }
+
+            string encryptedNew = _passwords.EncryptValue(newPassword);
+            return await _users.ResetPassword(userId, encryptedNew, ResetPasswordStatus, cancellationToken);
+        }
+
+        public async Task<UserActionResult> SetPassword(int userId, string oldPassword, string newPassword, string confirmPassword, CancellationToken cancellationToken)
+        {
+            if (userId <= 0)
+            {
+                return new UserActionResult { Success = false, Message = "User not found." };
+            }
+
+            string currentPassword = oldPassword == null ? string.Empty : oldPassword.Trim();
+            string nextPassword = newPassword == null ? string.Empty : newPassword.Trim();
+            string confirm = confirmPassword == null ? string.Empty : confirmPassword.Trim();
+            if (currentPassword.Length == 0 || nextPassword.Length == 0 || confirm.Length == 0)
+            {
+                return new UserActionResult { Success = false, Message = "Old password, new password, and confirm password are required." };
+            }
+
+            if (!string.Equals(nextPassword, confirm, StringComparison.Ordinal))
+            {
+                return new UserActionResult { Success = false, Message = "New password and confirm password do not match." };
+            }
+
+            if (!NewPasswordRule.IsMatch(nextPassword))
+            {
+                return new UserActionResult { Success = false, Message = "New password must be at least 8 characters and include a letter, a number, and a symbol." };
+            }
+
+            string encryptedCurrent = _passwords.EncryptValue(currentPassword);
+            bool oldOk = await _users.CheckCurrentPassword(userId, encryptedCurrent, currentPassword, cancellationToken);
+            if (!oldOk)
+            {
+                return new UserActionResult { Success = false, Message = "Please Enter Correct Old Password" };
+            }
+
+            string encryptedNew = _passwords.EncryptValue(nextPassword);
+            UserActionResult result = await _users.ResetPassword(userId, encryptedNew, ResetPasswordStatus, cancellationToken);
+            if (result.Success)
+            {
+                result.Message = "Password has been changed successfully.";
+            }
+
+            return result;
         }
     }
 }

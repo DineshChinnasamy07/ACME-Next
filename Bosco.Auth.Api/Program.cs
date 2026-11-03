@@ -15,7 +15,7 @@ builder.Host.UseBoscoSerilog();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
-builder.Services.AddBoscoSwaggerWithJwt();
+builder.Services.AddBoscoSwaggerWithJwt("Auth", "Users", "Roles", "Rights", "Permissions");
 builder.Services.AddAuthServices(builder.Configuration);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -39,7 +39,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseBoscoSwaggerUI("Auth", "Users", "Roles", "Rights", "Permissions");
 }
 
 if (!app.Environment.IsDevelopment())

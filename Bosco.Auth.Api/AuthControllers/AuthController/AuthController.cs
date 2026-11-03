@@ -1,15 +1,19 @@
 /*  Class Name      : AuthController.cs
- *  Purpose         : AuthenticateUser, SignIn, and SetLogout HTTP endpoints
+ *  Purpose         : AuthenticateUser, SignIn, SetLogout, and ChangePassword HTTP endpoints
  *  Author          : Dinesh C
  *  Created on      : 24-Oct-2026
  */
+using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.DTOs;
 using Bosco.Auth.Application.Features.Authentication.Login;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NpgsqlTypes;
+using System.Security.Claims;
 
 namespace Bosco.Auth.Api.Controllers
 {
+    [ApiExplorerSettings(GroupName = "Auth")]
     [ApiController]
     [Route("api/auth")]
     public class AuthController : ControllerBase
@@ -21,8 +25,28 @@ namespace Bosco.Auth.Api.Controllers
             _users = users;
         }
 
+        private int ReadUserId()
+        {
+            string? value = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId;
+            if (!int.TryParse(value, out userId))
+            {
+                return 0;
+            }
+
+            return userId;
+        }
+
+        /// <summary>
+        /// Authenticates the user with head office code, user name, and password (JSON body).
+        /// </summary>
+        /// <param name="request">The login credentials.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The login response with access token when successful.</returns>
         [AllowAnonymous]
         [HttpPost("login")]
+        [ProducesResponseType(typeof(LoginResponseDto), 200)]
+        [ProducesResponseType(typeof(ProblemDetails), 400)]
         public async Task<IActionResult> AuthenticateUser([FromBody] LoginRequestDto? request, CancellationToken cancellationToken)
         {
             AuthenticationOutcome outcome = await _users.AuthenticateUser(
@@ -33,6 +57,14 @@ namespace Bosco.Auth.Api.Controllers
             return Map(outcome);
         }
 
+        /// <summary>
+        /// Signs in the portal user using form or JSON credentials (hocode, username, password).
+        /// </summary>
+        /// <param name="hocode">The head office code.</param>
+        /// <param name="username">The user name.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The login response with access token when successful.</returns>
         [AllowAnonymous]
         [HttpPost("login/public")]
         [Consumes("application/json", "application/x-www-form-urlencoded", "multipart/form-data")]
@@ -60,11 +92,45 @@ namespace Bosco.Auth.Api.Controllers
             return Map(outcome);
         }
 
+        /// <summary>
+        /// Signs out the current authenticated user.
+        /// </summary>
+        /// <returns>The logout result.</returns>
         [Authorize]
         [HttpPost("logout")]
         public IActionResult SetLogout()
         {
             return Ok(_users.SetLogout());
+        }
+
+        /// <summary>
+        /// Changes the password for the signed-in user.
+        /// </summary>
+        /// <param name="request">The current password, new password, and confirm password.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The change-password result.</returns>
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest? request, CancellationToken cancellationToken)
+        {
+            int userId = ReadUserId();
+            if (userId <= 0)
+            {
+                return Unauthorized();
+            }
+
+            if (request == null)
+            {
+                return BadRequest(new { message = "Current password, new password, and confirm password are required." });
+            }
+
+            UserActionResult result = await _users.ChangePassword(userId, request, cancellationToken);
+            if (!result.Success)
+            {
+                return BadRequest(new { message = result.Message });
+            }
+
+            return Ok(result);
         }
 
         private IActionResult Map(AuthenticationOutcome outcome)
