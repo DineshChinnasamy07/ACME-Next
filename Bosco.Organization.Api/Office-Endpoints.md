@@ -2,6 +2,8 @@
 
 Service: **Bosco.Organization** (EF Core only). Portal DB: `admin_Portal` via `ConnectionStrings:AcpErp`.
 
+Auth: every Head Office, Country, and Branch Office route requires JWT (`Authorization: Bearer`). Get the token from Auth `POST /api/auth/login`. Swagger UI (`/swagger` and `/openapi`) requires Basic Auth from `Swagger:Username` / `Swagger:Password` in this API `appsettings.json`. Then use Swagger Authorize with the JWT to call APIs.
+
 Follow this document for method names and purpose. Do not invent alternate names when a method is listed here.
 
 Status values: `1` = Created, `2` = Activated, `3` = DeActivated.
@@ -67,9 +69,9 @@ Status values: `1` = Created, `2` = Activated, `3` = DeActivated.
 | `FetchBranchOfficeDetails` | List all portal branch offices for the grid | Done |
 | `FillBranchOfficeDetails` | Load one branch office by `BRANCH_OFFICE_ID` for edit/view | Done |
 | `SaveBranchOfficeDetails` | Add (`BranchOfficeId == 0`) or update existing portal `branch_office` row | Done |
-| `UpdateOfficeStatus` | Branch status lifecycle | Later |
-| `DeleteBranchOfficeDetails` | Delete branch (+ license later) | Later |
-| HO dropdown | Only Activated head offices | Later (`GET /api/headoffices/active` already exists) |
+| `UpdateOfficeStatus` | Set status Created / Activated / DeActivated by full branch office code | Done |
+| `DeleteBranchOfficeDetails` | Delete portal `branch_office` by full branch office code (license delete later) | Done |
+| HO dropdown | Only Activated head offices | Done (`GET /api/headoffices/active`) |
 
 ### Branch Office HTTP API
 
@@ -78,6 +80,8 @@ Status values: `1` = Created, `2` = Activated, `3` = DeActivated.
 | GET | `/api/branchoffices` | `FetchBranchOfficeDetails` | List all portal branch offices for the grid |
 | GET | `/api/branchoffices/{branchOfficeId}` | `FillBranchOfficeDetails` | Load one branch office by id for edit/view |
 | POST | `/api/branchoffices` | `SaveBranchOfficeDetails` | Add or update a portal branch office |
+| PUT | `/api/branchoffices/{branchOfficeCode}/status` | `UpdateOfficeStatus` | Set status Created / Activated / DeActivated by full branch office code |
+| DELETE | `/api/branchoffices/{branchOfficeCode}` | `DeleteBranchOfficeDetails` | Delete portal branch office by full code (no license delete this pass) |
 
 List row: `branchOfficeId`, `headOfficeCode`, `code` (`BRANCH_PART_CODE`), `name`, `deploymentType`, `systemType` (Standalone / Client-Server), `status`, `officeStatus` (Created / Activated / DeActivated), `isSubBranch`, `subBranch` (Yes / No). Ordered by status, then branch office code.
 
@@ -92,10 +96,21 @@ Save rules (portal only, no HO tenant dual-write):
 - Update: does not change status; sets `MODIFIED_DATE`.
 - Duplicate full code rejected.
 
+Status / delete rules (portal only, no HO tenant dual-write):
+- Status required; must be 1, 2, or 3.
+- Status lookup is by full `BRANCH_OFFICE_CODE`.
+- Delete is portal row only this pass. License delete is later.
+- Missing code or missing row returns the catalog message.
+
+User-facing messages: `MessageCatalog.Office` keys in `Bosco.Common/Resources/OfficeMessages.resx` (+ `OfficeMessages.fr-FR.resx`). Controllers and systems use `MessageRender.GetMessage(key)`.
+
+Swagger group: `BranchOffice` on `BranchOfficeController`. XML comments are on list, get-by-id, save, status, and delete.
+
 ---
 
-## C. Out of scope for current pass
+## C. Later (not this Branch pass)
 
-- Physical HO database create/restore
-- Dual write into each HO tenant database
-- Email / license key / frontend screens
+- Dual-write branch row into HO tenant database
+- First Activate creates Branch Admin user in HO DB
+- Delete license before delete branch
+- Email / license key screens

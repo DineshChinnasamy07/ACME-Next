@@ -3518,6 +3518,69 @@ namespace Bosco.Common
             public const string PAYAMENT_TEXT = "PAYAMENT_TEXT";
         } 
         #endregion
+
+        #region Office
+        public class Office
+        {
+            public const string StatusRequired = "OFFICE_STATUS_REQUIRED";
+            public const string StatusInvalid = "OFFICE_STATUS_INVALID";
+            public const string HeadOfficeRequired = "HEAD_OFFICE_REQUIRED";
+            public const string HeadOfficeMustBeActivated = "HEAD_OFFICE_MUST_BE_ACTIVATED";
+            public const string BranchOfficeDetailsRequired = "BRANCH_OFFICE_DETAILS_REQUIRED";
+            public const string BranchOfficeNotFound = "BRANCH_OFFICE_NOT_FOUND";
+            public const string BranchOfficeCodeRequired = "BRANCH_OFFICE_CODE_REQUIRED";
+            public const string BranchOfficeCodeLength = "BRANCH_OFFICE_CODE_LENGTH";
+            public const string BranchOfficeCodeSameAsHo = "BRANCH_OFFICE_CODE_SAME_AS_HO";
+            public const string BranchOfficeNameRequired = "BRANCH_OFFICE_NAME_REQUIRED";
+            public const string BranchOfficeNameMax = "BRANCH_OFFICE_NAME_MAX";
+            public const string BranchOfficeCodeExists = "BRANCH_OFFICE_CODE_EXISTS";
+            public const string BranchOfficeSaved = "BRANCH_OFFICE_SAVED";
+            public const string BranchOfficeDeleted = "BRANCH_OFFICE_DELETED";
+            public const string BranchOfficeCreated = "BRANCH_OFFICE_CREATED";
+            public const string BranchOfficeActivated = "BRANCH_OFFICE_ACTIVATED";
+            public const string BranchOfficeDeactivated = "BRANCH_OFFICE_DEACTIVATED";
+            public const string BranchOfficeActivateConfirm = "BRANCH_OFFICE_ACTIVATE_CONFIRM";
+            public const string BranchOfficeDeactivateConfirm = "BRANCH_OFFICE_DEACTIVATE_CONFIRM";
+            public const string HeadOfficeDetailsRequired = "HEAD_OFFICE_DETAILS_REQUIRED";
+            public const string HeadOfficeNotFound = "HEAD_OFFICE_NOT_FOUND";
+            public const string HeadOfficeCodeRequired = "HEAD_OFFICE_CODE_REQUIRED";
+            public const string HeadOfficeCodeMax = "HEAD_OFFICE_CODE_MAX";
+            public const string HeadOfficeNameRequired = "HEAD_OFFICE_NAME_REQUIRED";
+            public const string HeadOfficeCodeExists = "HEAD_OFFICE_CODE_EXISTS";
+            public const string HeadOfficeSaved = "HEAD_OFFICE_SAVED";
+            public const string HeadOfficeSavedPortalOnly = "HEAD_OFFICE_SAVED_PORTAL_ONLY";
+            public const string HeadOfficeSavedPortalWithNote = "HEAD_OFFICE_SAVED_PORTAL_WITH_NOTE";
+            public const string HeadOfficeCreated = "HEAD_OFFICE_CREATED";
+            public const string HeadOfficeActivated = "HEAD_OFFICE_ACTIVATED";
+            public const string HeadOfficeDeactivated = "HEAD_OFFICE_DEACTIVATED";
+            public const string HeadOfficeCannotDeactivate = "HEAD_OFFICE_CANNOT_DEACTIVATE";
+            public const string HeadOfficeCannotDeleteActivated = "HEAD_OFFICE_CANNOT_DELETE_ACTIVATED";
+            public const string HeadOfficeDeleted = "HEAD_OFFICE_DELETED";
+            public const string HeadOfficeActivateConfirm = "HEAD_OFFICE_ACTIVATE_CONFIRM";
+            public const string HeadOfficeDeactivateConfirm = "HEAD_OFFICE_DEACTIVATE_CONFIRM";
+            public const string DatabaseDetailsRequired = "DATABASE_DETAILS_REQUIRED";
+            public const string DatabaseInfoUpdated = "DATABASE_INFO_UPDATED";
+            public const string UserCreatedStatusRequired = "USER_CREATED_STATUS_REQUIRED";
+            public const string UserCreatedStatusInvalid = "USER_CREATED_STATUS_INVALID";
+            public const string UserCreatedStatusUpdated = "USER_CREATED_STATUS_UPDATED";
+            public const string HeadOfficeDualWriteSaved = "HEAD_OFFICE_DUAL_WRITE_SAVED";
+            public const string HeadOfficeStatusDualWriteSaved = "HEAD_OFFICE_STATUS_DUAL_WRITE_SAVED";
+            public const string HeadOfficeSyncFailed = "HEAD_OFFICE_SYNC_FAILED";
+            public const string HeadOfficeStatusSyncFailed = "HEAD_OFFICE_STATUS_SYNC_FAILED";
+            public const string HeadOfficeAdminExists = "HEAD_OFFICE_ADMIN_EXISTS";
+            public const string HeadOfficeAdminCreated = "HEAD_OFFICE_ADMIN_CREATED";
+            public const string HeadOfficeAdminCreateFailed = "HEAD_OFFICE_ADMIN_CREATE_FAILED";
+            public const string HeadOfficeDbConnectionRequired = "HEAD_OFFICE_DB_CONNECTION_REQUIRED";
+            public const string HeadOfficeDbCreateFieldsRequired = "HEAD_OFFICE_DB_CREATE_FIELDS_REQUIRED";
+            public const string HeadOfficeDbNameInvalid = "HEAD_OFFICE_DB_NAME_INVALID";
+            public const string HeadOfficeDbAlreadyExists = "HEAD_OFFICE_DB_ALREADY_EXISTS";
+            public const string HeadOfficeDbTemplateMissing = "HEAD_OFFICE_DB_TEMPLATE_MISSING";
+            public const string HeadOfficeDbRestored = "HEAD_OFFICE_DB_RESTORED";
+            public const string HeadOfficeDbRestoreFailed = "HEAD_OFFICE_DB_RESTORE_FAILED";
+            public const string HeadOfficeCodeAndNameRequired = "HEAD_OFFICE_CODE_AND_NAME_REQUIRED";
+            public const string HeadOfficeNewDbFieldsRequired = "HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED";
+        }
+        #endregion
     }
 }
 

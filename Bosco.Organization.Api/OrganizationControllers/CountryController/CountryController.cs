@@ -4,10 +4,12 @@
  *  Created on      : 28-Oct-2026
  */
 using Bosco.Organization.Application.Features.Office;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Organization.Api.HeadOfficeControllers
 {
+    [Authorize]
     [ApiExplorerSettings(GroupName = "Country")]
     [ApiController]
     [Route("api/countries")]

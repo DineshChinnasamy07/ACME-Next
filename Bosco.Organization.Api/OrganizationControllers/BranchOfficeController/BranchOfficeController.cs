@@ -1,15 +1,18 @@
 ﻿/*  Class Name      : BranchOfficeController.cs
- *  Purpose         : Branch Office list, get-by-id, and save endpoints
+ *  Purpose         : Branch Office list, get-by-id, save, status, and delete endpoints
  *  Author          : Dinesh C
  *  Created on      : 02-Nov-2026
  */
+using Bosco.Common;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Application.Features.Office;
 using Bosco.Organization.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Organization.Api.OrganizationControllers.BranchOfficeController
 {
+    [Authorize]
     [ApiExplorerSettings(GroupName = "BranchOffice")]
     [ApiController]
     [Route("api/branchoffices")]
@@ -45,7 +48,7 @@ namespace Bosco.Organization.Api.OrganizationControllers.BranchOfficeController
             BranchOffice? row = await _branchOffices.FillBranchOfficeDetails(branchOfficeId, cancellationToken);
             if (row == null)
             {
-                return NotFound(new { message = "Branch Office not found." });
+                return NotFound(new { message = MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNotFound) });
             }
 
             return Ok(row);
@@ -62,7 +65,7 @@ namespace Bosco.Organization.Api.OrganizationControllers.BranchOfficeController
         {
             if (request == null)
             {
-                return BadRequest(new { message = "Branch Office details are required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeDetailsRequired) });
             }
 
             BranchOfficeActionResult result = await _branchOffices.SaveBranchOfficeDetails(request, 0, cancellationToken);
@@ -71,6 +74,45 @@ namespace Bosco.Organization.Api.OrganizationControllers.BranchOfficeController
                 return BadRequest(new { message = result.Message });
             }
 
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Sets the branch office status to Created, Activated, or DeActivated by branch office code.
+        /// </summary>
+        /// <param name="branchOfficeCode">The full branch office code.</param>
+        /// <param name="request">The status value to apply.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The status update result.</returns>
+        [HttpPut("{branchOfficeCode}/status")]
+        public async Task<IActionResult> UpdateOfficeStatus(string branchOfficeCode, [FromBody] OfficeStatusRequest? request, CancellationToken cancellationToken) 
+        {
+            if (request == null)
+            {
+              return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.StatusRequired) });
+            }
+            BranchOfficeActionResult result = await _branchOffices.UpdateOfficeStatus(branchOfficeCode, request.Status, cancellationToken);
+            if (!result.Success)
+            {
+                return BadRequest(new { message = result.Message });
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Deletes a portal branch office by branch office code.
+        /// </summary>
+        /// <param name="branchOfficeCode">The full branch office code.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The delete result.</returns>
+        [HttpDelete("{branchOfficeCode}")]
+        public async Task<IActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken)
+        {
+            BranchOfficeActionResult result = await _branchOffices.DeleteBranchOfficeDetails(branchOfficeCode, cancellationToken);
+            if (!result.Success)
+            {
+                return BadRequest(new { message = result.Message });
+            }
             return Ok(result);
         }
     }

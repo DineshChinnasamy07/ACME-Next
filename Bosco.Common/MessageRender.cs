@@ -4,6 +4,7 @@
  *  Created on      : 16-Oct-2026
  */
 using System;
+using System.Resources;
 
 namespace Bosco.Common
 {
@@ -16,6 +17,10 @@ namespace Bosco.Common
 
     public class MessageRender
     {
+        private static readonly ResourceManager OfficeMessages = new ResourceManager(
+            "Bosco.Common.Resources.OfficeMessages",
+            typeof(MessageRender).Assembly);
+
         private static ResultArgs returnResult;
 
         public static event EventHandler<MessageEventArgs> MessageRaised;
@@ -52,7 +57,24 @@ namespace Bosco.Common
 
         public static string GetMessage(string keyCode)
         {
-            return keyCode;
+            if (string.IsNullOrEmpty(keyCode))
+            {
+                return string.Empty;
+            }
+
+            string text = OfficeMessages.GetString(keyCode);
+            return string.IsNullOrEmpty(text) ? keyCode : text;
+        }
+
+        public static string GetMessage(string keyCode, params object[] args)
+        {
+            string text = GetMessage(keyCode);
+            if (args == null || args.Length == 0)
+            {
+                return text;
+            }
+
+            return string.Format(text, args);
         }
 
         public static string GetReportMessage(string keyCode)

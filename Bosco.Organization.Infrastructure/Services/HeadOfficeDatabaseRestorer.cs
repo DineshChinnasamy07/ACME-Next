@@ -3,6 +3,7 @@
  *  Author          : Dinesh C
  *  Created on      : 28-Oct-2026
  */
+using Bosco.Common;
 using System.Text;
 using System.Text.RegularExpressions;
 using Bosco.Organization.Application.Abstractions.Services;
@@ -50,11 +51,11 @@ namespace Bosco.Organization.Infrastructure.Services
 
             if (host.Length == 0 || db.Length == 0 || user.Length == 0)
             {
-                return Fail("HostName, DbName, and UserName are required to create HO database.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbCreateFieldsRequired));
             }
             if (!Regex.IsMatch(db, "^[a-z][a-z0-9_]*$")) 
             {
-                return Fail("DbName must start with a letter and use only letters, numbers, underscore.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbNameInvalid));
             }
 
             int port = ReadPort();
@@ -65,7 +66,7 @@ namespace Bosco.Organization.Infrastructure.Services
                 bool exists = await DatabaseExists(maintenanceCs, db, cancellationToken);
                 if (exists) 
                 {
-                    return Ok("HO database already exists.");
+                    return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbAlreadyExists));
                 }
 
                 await using (NpgsqlConnection admin = new NpgsqlConnection(maintenanceCs))
@@ -79,7 +80,7 @@ namespace Bosco.Organization.Infrastructure.Services
                 string templatePath = _configuration["HeadOfficeTenant:TemplateSqlPath"] ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(templatePath) || !File.Exists(templatePath))
                 {
-                    return Fail("HO database created, but TemplateSqlPath is missing or file not found: " + templatePath);
+                    return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbTemplateMissing, templatePath));
                 }
                 string sql = await File.ReadAllTextAsync(templatePath, Encoding.UTF8, cancellationToken);
                 sql = sql.Replace("@DB@", db);
@@ -93,12 +94,12 @@ namespace Bosco.Organization.Infrastructure.Services
                         await cmd.ExecuteNonQueryAsync(cancellationToken);
                     }
                 }
-                return Ok("HO database created and template restored.");
+                return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbRestored));
             }
             catch (Exception ex)
             {
 
-                return Fail("HO database restore failed: " + ex.Message);
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbRestoreFailed, ex.Message));
             }
         }
 

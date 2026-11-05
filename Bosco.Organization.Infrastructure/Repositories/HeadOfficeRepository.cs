@@ -3,6 +3,7 @@
  *  Author          : Dinesh C
  *  Created on      : 27-Oct-2026
  */
+using Bosco.Common;
 using Bosco.Organization.Application.Abstractions.Repositories;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Domain.Entities;
@@ -83,12 +84,12 @@ namespace Bosco.Organization.Infrastructure.Repositories
 
             if (code.Length == 0 || code.Length > 6)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code is required (max 6 characters)." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeMax) };
             }
 
             if (name.Length == 0)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Name is required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNameRequired) };
             }
 
             bool duplicate = await _portal.HeadOffices.AnyAsync(
@@ -96,7 +97,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (duplicate)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code already exists." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeExists) };
             }
 
             if (request.HeadOfficeId == 0)
@@ -138,7 +139,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 return new HeadOfficeActionResult
                 {
                     Success = true,
-                    Message = "Head Office Saved.",
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSaved),
                     HeadOfficeId = row.HeadOfficeId
                 };
             }
@@ -148,7 +149,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (existing == null)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office not found." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) };
             }
 
             existing.HeadOfficeCode = code;
@@ -195,7 +196,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "Head Office Saved.",
+                Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSaved),
                 HeadOfficeId = existing.HeadOfficeId
             };
         }
@@ -205,12 +206,12 @@ namespace Bosco.Organization.Infrastructure.Repositories
             string code = (headOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
             if (code.Length == 0)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code is required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired) };
             }
 
             if (status < 1 || status > 3)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Status must be 1, 2, or 3." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.StatusInvalid) };
             }
 
             HeadOffice? existing = await _portal.HeadOffices.FirstOrDefaultAsync(
@@ -218,18 +219,22 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (existing == null)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office not found." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) };
             }
 
             existing.Status = status;
             existing.ModifiedDate = DateTime.UtcNow;
             await _portal.SaveChangesAsync(cancellationToken);
 
-            string label = status == 1 ? "Created" : status == 2 ? "Activated" : "DeActivated";
+            string statusKey = status == 1
+                ? MessageCatalog.Office.HeadOfficeCreated
+                : status == 2
+                    ? MessageCatalog.Office.HeadOfficeActivated
+                    : MessageCatalog.Office.HeadOfficeDeactivated;
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "Head Office " + label + ".",
+                Message = MessageRender.GetMessage(statusKey),
                 HeadOfficeId = existing.HeadOfficeId
             };
         }
@@ -239,7 +244,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
             string code = (headOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
             if (code.Length == 0)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code is required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired) };
             }
 
             HeadOffice? existing = await _portal.HeadOffices.FirstOrDefaultAsync(
@@ -247,12 +252,12 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (existing == null)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office not found." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) };
             }
 
             if (existing.Status == 2)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Cannot delete an Activated Head Office." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCannotDeleteActivated) };
             }
 
             _portal.HeadOffices.Remove(existing);
@@ -260,7 +265,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "Head Office Deleted.",
+                Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDeleted),
                 HeadOfficeId = existing.HeadOfficeId
             };
         }
@@ -349,18 +354,18 @@ namespace Bosco.Organization.Infrastructure.Repositories
             string code = (headOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
             if (code.Length == 0) 
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code is required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired) };
             }
             if (request == null) 
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Database details are required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.DatabaseDetailsRequired) };
             }
 
             HeadOffice? existing = await _portal.HeadOffices.FirstOrDefaultAsync(
                 office => office.HeadOfficeCode == code, cancellationToken);
             if (existing == null)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office not found." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) };
             }
 
             existing.HostName = TrimOrNull(request.HostName);
@@ -373,7 +378,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "Database info updated.",
+                Message = MessageRender.GetMessage(MessageCatalog.Office.DatabaseInfoUpdated),
                 HeadOfficeId = existing.HeadOfficeId
             };
         }
@@ -383,12 +388,12 @@ namespace Bosco.Organization.Infrastructure.Repositories
             string code = (headOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
             if (code.Length == 0)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office Code is required." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired) };
             }
 
             if (userCreatedStatus < 0 || userCreatedStatus > 3)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "UserCreatedStatus must be 0, 1, 2, or 3." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.UserCreatedStatusInvalid) };
             }
 
             HeadOffice? existing = await _portal.HeadOffices.FirstOrDefaultAsync(
@@ -396,7 +401,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (existing == null)
             {
-                return new HeadOfficeActionResult { Success = false, Message = "Head Office not found." };
+                return new HeadOfficeActionResult { Success = false, Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) };
             }
 
             existing.UserCreatedStatus = userCreatedStatus;
@@ -406,7 +411,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "User created status updated.",
+                Message = MessageRender.GetMessage(MessageCatalog.Office.UserCreatedStatusUpdated),
                 HeadOfficeId = existing.HeadOfficeId
             };
         }

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OFFICE_STATUS_REQUIRED" xml:space="preserve">
+    <value>Status is required.</value>
+  </data>
+  <data name="OFFICE_STATUS_INVALID" xml:space="preserve">
+    <value>Status must be 1, 2, or 3.</value>
+  </data>
+  <data name="HEAD_OFFICE_REQUIRED" xml:space="preserve">
+    <value>Head Office is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_MUST_BE_ACTIVATED" xml:space="preserve">
+    <value>Head Office must be Activated.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Branch Office details are required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Branch Office not found.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Branch Office Code is required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_LENGTH" xml:space="preserve">
+    <value>Code or Username is minimum of 6 and maximum of 10 characters required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_SAME_AS_HO" xml:space="preserve">
+    <value>Branch Office code can'not be same as Head Office</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Branch Office Name is required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_MAX" xml:space="preserve">
+    <value>Branch Office Name max length is 50.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Branch Office Code already exists.</value>
+  </data>
+  <data name="BRANCH_OFFICE_SAVED" xml:space="preserve">
+    <value>Branch Office Saved.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DELETED" xml:space="preserve">
+    <value>Branch Office is Deleted</value>
+  </data>
+  <data name="BRANCH_OFFICE_CREATED" xml:space="preserve">
+    <value>Branch Office Created.</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>Branch Office is activated</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>Branch Office deactivated</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activate {0}?</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Deactivate {0}?</value>
+  </data>
+  <data name="HEAD_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Head Office details are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Head Office not found.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Head Office Code is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_MAX" xml:space="preserve">
+    <value>Head Office Code is required (max 6 characters).</value>
+  </data>
+  <data name="HEAD_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Head Office Name is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Head Office Code already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED" xml:space="preserve">
+    <value>Head Office Saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_ONLY" xml:space="preserve">
+    <value>Head Office Saved on portal. HO database sync skipped (portal row not found).</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_WITH_NOTE" xml:space="preserve">
+    <value>Head Office Saved on portal. {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CREATED" xml:space="preserve">
+    <value>Head Office Created.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>Head Office is activated</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>Head Office is deactivated</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DEACTIVATE" xml:space="preserve">
+    <value>Head Office cannot be deactivated</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DELETE_ACTIVATED" xml:space="preserve">
+    <value>Cannot delete an Activated Head Office.</value>
+  </data>
+  <data name="HEAD_OFFICE_DELETED" xml:space="preserve">
+    <value>Head Office Deleted.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activate {0}?</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Deactivate {0}?</value>
+  </data>
+  <data name="DATABASE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Database details are required.</value>
+  </data>
+  <data name="DATABASE_INFO_UPDATED" xml:space="preserve">
+    <value>Database info updated.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_REQUIRED" xml:space="preserve">
+    <value>UserCreatedStatus is required.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_INVALID" xml:space="preserve">
+    <value>UserCreatedStatus must be 0, 1, 2, or 3.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_UPDATED" xml:space="preserve">
+    <value>User created status updated.</value>
+  </data>
+  <data name="HEAD_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Head Office dual-write saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Head Office status dual-write saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_SYNC_FAILED" xml:space="preserve">
+    <value>HO database sync failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_SYNC_FAILED" xml:space="preserve">
+    <value>HO status sync failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+    <value>Head Office admin user already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATED" xml:space="preserve">
+    <value>Head Office admin user created.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+    <value>HO admin user create failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CONNECTION_REQUIRED" xml:space="preserve">
+    <value>HO database connection details (HostName, DbName, UserName) are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CREATE_FIELDS_REQUIRED" xml:space="preserve">
+    <value>HostName, DbName, and UserName are required to create HO database.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_NAME_INVALID" xml:space="preserve">
+    <value>DbName must start with a letter and use only letters, numbers, underscore.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_ALREADY_EXISTS" xml:space="preserve">
+    <value>HO database already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_TEMPLATE_MISSING" xml:space="preserve">
+    <value>HO database created, but TemplateSqlPath is missing or file not found: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORED" xml:space="preserve">
+    <value>HO database created and template restored.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORE_FAILED" xml:space="preserve">
+    <value>HO database restore failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_AND_NAME_REQUIRED" xml:space="preserve">
+    <value>Head Office code and name are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Host name, database name, and DB user name are required for a new Head Office.</value>
+  </data>
+</root>

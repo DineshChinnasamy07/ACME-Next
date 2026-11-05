@@ -5,6 +5,7 @@
  */
 using Bosco.Budget.Infrastructure.Extensions;
 using Bosco.Common.Logging;
+using Bosco.Common.Security;
 using Bosco.Common.Swagger;
 using Bosco.Data;
 
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 builder.Services.AddBoscoSwaggerWithJwt();
+builder.Services.AddBoscoJwtAuthentication(builder.Configuration);
 builder.Services.AddBoscoDatabase(builder.Configuration);
 builder.Services.AddBudgetServices();
 
@@ -22,6 +24,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -29,6 +32,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

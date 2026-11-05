@@ -3,13 +3,16 @@
  *  Author          : Dinesh C
  *  Created on      : 27-Oct-2026
  */
+using Bosco.Common;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Application.Features.Office;
 using Bosco.Organization.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Organization.Api.HeadOfficeControllers
 {
+    [Authorize]
     [ApiExplorerSettings(GroupName = "HeadOffice")]
     [ApiController]
     [Route("api/headoffices")]
@@ -67,7 +70,7 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
             HeadOffice? row = await _headOffices.HeadOfficeDetailById(headOfficeId, cancellationToken);
             if (row == null)
             {
-                return NotFound(new { message = "Head Office not found." });
+                return NotFound(new { message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeNotFound) });
             }
 
             return Ok(row);
@@ -84,7 +87,7 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
         {
             if (request == null)
             {
-                return BadRequest(new { message = "Head Office details are required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDetailsRequired) });
             }
 
             HeadOfficeActionResult result = await _headOffices.SaveHeadOfficeDetails(request, 0, cancellationToken);
@@ -120,7 +123,7 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
         {
             if (request == null)
             {
-                return BadRequest(new { message = "Status is required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.StatusRequired) });
             }
 
             HeadOfficeActionResult result = await _headOffices.UpdateOfficeStatus(headOfficeCode, request.Status, cancellationToken);
@@ -143,7 +146,7 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
         {
             if (request == null)
             {
-                return BadRequest(new { message = "Database details are required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.DatabaseDetailsRequired) });
             }
 
             HeadOfficeActionResult result = await _headOffices.UpdateDatabase(headOfficeCode, request, cancellationToken);
@@ -167,7 +170,7 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
         {
             if (request == null)
             {
-                return BadRequest(new { message = "UserCreatedStatus is required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.Office.UserCreatedStatusRequired) });
             }
 
             HeadOfficeActionResult result = await _headOffices.UpdateUserCreatedStatus(headOfficeCode, request.UserCreatedStatus, cancellationToken);

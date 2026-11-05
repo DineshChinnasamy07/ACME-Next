@@ -30,6 +30,7 @@ app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();

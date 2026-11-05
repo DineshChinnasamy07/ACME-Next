@@ -5,6 +5,7 @@
  */
 
 using Bosco.Common.Logging;
+using Bosco.Common.Security;
 using Bosco.Common.Swagger;
 using Bosco.Data;
 using Bosco.FixedAsset.Infrastructure.Extensions;
@@ -20,6 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 builder.Services.AddBoscoSwaggerWithJwt();
+builder.Services.AddBoscoJwtAuthentication(builder.Configuration);
 
 // Configure database connection
 builder.Services.AddBoscoDatabase(builder.Configuration);
@@ -36,6 +38,7 @@ app.UseSerilogRequestLogging();
 // Swagger configuration
 if (app.Environment.IsDevelopment())
 {
+    app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -43,6 +46,7 @@ if (app.Environment.IsDevelopment())
 
 // Middleware
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Map API controllers

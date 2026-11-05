@@ -4,6 +4,7 @@
  *  Created on      : 28-Oct-2026
  */
 using System.Security.Cryptography;
+using Bosco.Common;
 using Bosco.Organization.Application.Abstractions.Services;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Domain.Entities;
@@ -47,18 +48,18 @@ namespace Bosco.Organization.Infrastructure.Services
                         row.HeadOfficeId = 0;
                         tenant.HeadOffices.Add(row);
                         await tenant.SaveChangesAsync(cancellationToken);
-                        return Ok("Head Office dual-write saved.", row.HeadOfficeId);
+                        return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDualWriteSaved), row.HeadOfficeId);
                     }
 
                     ApplyWithoutSecrets(existing, portalOffice);
                     existing.ModifiedDate = DateTime.UtcNow;
                     await tenant.SaveChangesAsync(cancellationToken);
-                    return Ok("Head Office dual-write saved.", existing.HeadOfficeId);
+                    return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDualWriteSaved), existing.HeadOfficeId);
                 }
             }
             catch (Exception ex)
             {
-                return Fail("HO database sync failed: " + ex.Message);
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSyncFailed, ex.Message));
             }
         }
 
@@ -87,18 +88,18 @@ namespace Bosco.Organization.Infrastructure.Services
                         row.Status = status;
                         tenant.HeadOffices.Add(row);
                         await tenant.SaveChangesAsync(cancellationToken);
-                        return Ok("Head Office status dual-write saved.", row.HeadOfficeId);
+                        return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusDualWriteSaved), row.HeadOfficeId);
                     }
 
                     existing.Status = status;
                     existing.ModifiedDate = DateTime.UtcNow;
                     await tenant.SaveChangesAsync(cancellationToken);
-                    return Ok("Head Office status dual-write saved.", existing.HeadOfficeId);
+                    return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusDualWriteSaved), existing.HeadOfficeId);
                 }
             }
             catch (Exception ex)
             {
-                return Fail("HO status sync failed: " + ex.Message);
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusSyncFailed, ex.Message));
             }
         }
 
@@ -114,7 +115,7 @@ namespace Bosco.Organization.Infrastructure.Services
             string code = (portalOffice.HeadOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
             if (code.Length == 0)
             {
-                return Fail("Head Office Code is required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired));
             }
 
             string plainPassword = CreateRandomPassword();
@@ -132,7 +133,7 @@ namespace Bosco.Organization.Infrastructure.Services
                         return new HeadOfficeActionResult
                         {
                             Success = true,
-                            Message = "Head Office admin user already exists.",
+                            Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminExists),
                             HeadOfficeId = portalOffice.HeadOfficeId
                         };
                     }
@@ -159,7 +160,7 @@ namespace Bosco.Organization.Infrastructure.Services
                     return new HeadOfficeActionResult
                     {
                         Success = true,
-                        Message = "Head Office admin user created.",
+                        Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminCreated),
                         HeadOfficeId = portalOffice.HeadOfficeId,
                         GeneratedAdminPassword = plainPassword
                     };
@@ -167,7 +168,7 @@ namespace Bosco.Organization.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                return Fail("HO admin user create failed: " + ex.Message);
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminCreateFailed, ex.Message));
             }
         }
 
@@ -176,7 +177,7 @@ namespace Bosco.Organization.Infrastructure.Services
             tenant = null;
             if (portalOffice == null)
             {
-                return Fail("Head Office details are required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDetailsRequired));
             }
 
             string host = (portalOffice.HostName ?? string.Empty).Trim();
@@ -186,7 +187,7 @@ namespace Bosco.Organization.Infrastructure.Services
 
             if (host.Length == 0 || database.Length == 0 || user.Length == 0)
             {
-                return Fail("HO database connection details (HostName, DbName, UserName) are required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbConnectionRequired));
             }
 
             string connectionString = BuildTenantConnectionString(host, database, user, password);

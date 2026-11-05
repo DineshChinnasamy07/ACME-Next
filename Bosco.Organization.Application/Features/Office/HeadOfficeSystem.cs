@@ -3,6 +3,7 @@
  *  Author          : Dinesh C
  *  Created on      : 27-Oct-2026
  */
+using Bosco.Common;
 using Bosco.Organization.Application.Abstractions.Repositories;
 using Bosco.Organization.Application.Abstractions.Services;
 using Bosco.Organization.Application.Dtos;
@@ -47,7 +48,7 @@ namespace Bosco.Organization.Application.Features.Office
                 return new HeadOfficeActionResult
                 {
                     Success = false,
-                    Message = "Head Office details are required."
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDetailsRequired)
                 };
             }
             if (request.HeadOfficeId == 0)
@@ -75,7 +76,7 @@ namespace Bosco.Organization.Application.Features.Office
                 return new HeadOfficeActionResult
                 {
                     Success = true,
-                    Message = "Head Office Saved on portal. HO database sync skipped (portal row not found).",
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSavedPortalOnly),
                     HeadOfficeId = portalResult.HeadOfficeId
                 };
             }
@@ -88,7 +89,7 @@ namespace Bosco.Organization.Application.Features.Office
                 return new HeadOfficeActionResult
                 {
                     Success = true,
-                    Message = "Head Office Saved on portal. " + tenantResult.Message,
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSavedPortalWithNote, tenantResult.Message),
                     HeadOfficeId = portalResult.HeadOfficeId
                 };
             }
@@ -96,7 +97,7 @@ namespace Bosco.Organization.Application.Features.Office
             return new HeadOfficeActionResult
             {
                 Success = true,
-                Message = "Head Office Saved.",
+                Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSaved),
                 HeadOfficeId = portalResult.HeadOfficeId
             };
         }
@@ -111,7 +112,7 @@ namespace Bosco.Organization.Application.Features.Office
                     return new HeadOfficeActionResult
                     {
                         Success = false,
-                        Message = "Head Office cannot be deactivated"
+                        Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCannotDeactivate)
                     };
                 }
             }
@@ -207,7 +208,7 @@ namespace Bosco.Organization.Application.Features.Office
                 return Task.FromResult(new HeadOfficeActionResult
                 {
                     Success = false,
-                    Message = "Database details are required."
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.DatabaseDetailsRequired)
                 });
             }
 

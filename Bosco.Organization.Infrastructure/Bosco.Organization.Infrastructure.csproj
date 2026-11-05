@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bosco.Common\Bosco.Common.csproj" />
     <ProjectReference Include="..\Bosco.Organization.Application\Bosco.Organization.Application.csproj" />
     <ProjectReference Include="..\Bosco.Organization.Domain\Bosco.Organization.Domain.csproj" />
   </ItemGroup>

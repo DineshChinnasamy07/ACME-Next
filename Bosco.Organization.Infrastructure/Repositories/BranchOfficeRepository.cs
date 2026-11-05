@@ -3,6 +3,7 @@
  *  Author          : Dinesh C
  *  Created on      : 02-Nov-2026
  */
+using Bosco.Common;
 using Bosco.Organization.Application.Abstractions.Repositories;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Domain.Entities;
@@ -97,7 +98,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
 
             if (headOfficeCode.Length == 0)
             {
-                return Fail("Head Office is required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeRequired));
             }
 
             HeadOffice? headOffice = await _portal.HeadOffices
@@ -105,27 +106,27 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 .FirstOrDefaultAsync(office => office.HeadOfficeCode == headOfficeCode, cancellationToken);
             if (headOffice == null || headOffice.Status != 2)
             {
-                return Fail("Head Office must be Activated.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeMustBeActivated));
             }
 
             if (partCode.Length < 6 || partCode.Length > 10)
             {
-                return Fail("Code or Username is minimum of 6 and maximum of 10 characters required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeLength));
             }
 
             if (string.Equals(partCode, headOfficeCode, StringComparison.OrdinalIgnoreCase))
             {
-                return Fail("Branch Office code can'not be same as Head Office");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeSameAsHo));
             }
 
             if (name.Length == 0)
             {
-                return Fail("Branch Office Name is required.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNameRequired));
             }
 
             if (name.Length > 50)
             {
-                return Fail("Branch Office Name max length is 50.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNameMax));
             }
 
             string fullCode = (headOfficeCode + partCode).ToLowerInvariant();
@@ -134,7 +135,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (duplicate)
             {
-                return Fail("Branch Office Code already exists.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeExists));
             }
 
             if (request.BranchOfficeId == 0)
@@ -166,7 +167,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
 
                 _portal.BranchOffices.Add(row);
                 await _portal.SaveChangesAsync(cancellationToken);
-                return Ok("Branch Office Saved.", row.BranchOfficeId);
+                return Ok(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeSaved), row.BranchOfficeId);
             }
 
             BranchOffice? existing = await _portal.BranchOffices.FirstOrDefaultAsync(
@@ -174,7 +175,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                 cancellationToken);
             if (existing == null)
             {
-                return Fail("Branch Office not found.");
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNotFound));
             }
 
             existing.HeadOfficeCode = headOfficeCode;
@@ -198,8 +199,56 @@ namespace Bosco.Organization.Infrastructure.Repositories
             existing.ModifiedBy = modifiedBy;
 
             await _portal.SaveChangesAsync(cancellationToken);
-            return Ok("Branch Office Saved.", existing.BranchOfficeId);
+            return Ok(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeSaved), existing.BranchOfficeId);
         }
+
+        public async Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode,int status, CancellationToken cancellationToken) 
+        {
+            string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            if (code.Length == 0) 
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeRequired));
+            }
+            if (status < 1 || status > 3) 
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.StatusInvalid));
+            }
+            BranchOffice? existing = await _portal.BranchOffices.FirstOrDefaultAsync(branch => branch.BranchOfficeCode == code, cancellationToken);
+            if (existing == null)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNotFound));
+            }
+
+            existing.Status = status;
+            existing.ModifiedDate = DateTime.UtcNow;
+            await _portal.SaveChangesAsync(cancellationToken);
+
+            string statusMessage = status == 1
+                ? MessageCatalog.Office.BranchOfficeCreated
+                : status == 2
+                    ? MessageCatalog.Office.BranchOfficeActivated
+                    : MessageCatalog.Office.BranchOfficeDeactivated;
+            return Ok(MessageRender.GetMessage(statusMessage), existing.BranchOfficeId);
+        }
+
+        public async Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken) 
+        {
+            string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            if (code.Length == 0)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeRequired));
+            }
+            BranchOffice? existing = await _portal.BranchOffices.FirstOrDefaultAsync(branch => branch.BranchOfficeCode == code, cancellationToken);
+            if (existing == null) 
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNotFound));    
+            }
+            _portal.BranchOffices.Remove(existing);
+            await _portal.SaveChangesAsync(cancellationToken);
+            return Ok(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeDeleted), existing.BranchOfficeId);
+        }
+
+
 
         #endregion
     }

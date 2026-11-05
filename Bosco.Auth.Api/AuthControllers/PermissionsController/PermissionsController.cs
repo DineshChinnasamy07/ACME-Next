@@ -3,10 +3,12 @@
  *  Author          : Dinesh C
  *  Created on      : 22-Oct-2026
  */
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Auth.Api.Controllers
 {
+    [Authorize]
     [ApiExplorerSettings(GroupName = "Permissions")]
     [ApiController]
     [Route("api/permissions")]

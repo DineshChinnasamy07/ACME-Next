@@ -15,5 +15,11 @@ namespace Bosco.Organization.Application.Abstractions.Repositories
         Task<BranchOffice?> FillBranchOfficeDetails(int branchOfficeId, CancellationToken cancellationToken);
 
         Task<BranchOfficeActionResult> SaveBranchOfficeDetails(BranchOfficeSaveRequest request, int modifiedBy, CancellationToken cancellationToken);
+
+
+        Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode, int status, CancellationToken cancellationToken);
+
+        Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken);
+
     }
 }

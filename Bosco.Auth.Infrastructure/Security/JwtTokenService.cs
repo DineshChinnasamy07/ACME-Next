@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using Bosco.Auth.Application.Abstractions.Services;
 using Bosco.Auth.Application.DTOs;
+using Bosco.Common.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -58,20 +59,7 @@ namespace Bosco.Auth.Infrastructure.Security
 
         public static TokenValidationParameters CreateValidationParameters(IConfiguration configuration)
         {
-            string issuer = configuration["Jwt:Issuer"] ?? string.Empty;
-            string audience = configuration["Jwt:Audience"] ?? string.Empty;
-            string key = configuration["Jwt:Key"] ?? string.Empty;
-            return new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = issuer,
-                ValidAudience = audience,
-                IssuerSigningKey = SigningKey(key),
-                ClockSkew = TimeSpan.FromMinutes(1)
-            };
+            return JwtAuthenticationExtensions.CreateValidationParameters(configuration);
         }
 
         private static SymmetricSecurityKey SigningKey(string key)

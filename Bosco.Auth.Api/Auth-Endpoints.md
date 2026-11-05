@@ -4,6 +4,8 @@ Base URL: `http://localhost:5118`
 
 Swagger: `http://localhost:5118/swagger`
 
+The Swagger page itself uses browser Basic Auth (`Swagger:Username` / `Swagger:Password` in Auth `appsettings.json`). That only opens the page. Login still does not need a JWT. Users, Roles, Rights, Permissions, logout, and change-password need `Authorization: Bearer`.
+
 Gateway: `http://localhost:5080/auth` followed by the same path. Example: `http://localhost:5080/auth/api/auth/login`
 
 These three actions live on `AuthController`. Login does not need a token. Logout does.

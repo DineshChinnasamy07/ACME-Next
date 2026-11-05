@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OFFICE_STATUS_REQUIRED" xml:space="preserve">
+    <value>Le statut est obligatoire.</value>
+  </data>
+  <data name="OFFICE_STATUS_INVALID" xml:space="preserve">
+    <value>Le statut doit être 1, 2 ou 3.</value>
+  </data>
+  <data name="HEAD_OFFICE_REQUIRED" xml:space="preserve">
+    <value>Le siège social est obligatoire.</value>
+  </data>
+  <data name="HEAD_OFFICE_MUST_BE_ACTIVATED" xml:space="preserve">
+    <value>Le siège social doit être activé.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de la succursale sont obligatoires.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Succursale introuvable.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Le code de la succursale est obligatoire.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_LENGTH" xml:space="preserve">
+    <value>Le code ou le nom d'utilisateur doit contenir entre 6 et 10 caractères.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_SAME_AS_HO" xml:space="preserve">
+    <value>Le code de la succursale ne peut pas être identique au siège social</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Le nom de la succursale est obligatoire.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_MAX" xml:space="preserve">
+    <value>Le nom de la succursale ne peut pas dépasser 50 caractères.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Le code de la succursale existe déjà.</value>
+  </data>
+  <data name="BRANCH_OFFICE_SAVED" xml:space="preserve">
+    <value>Succursale enregistrée.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DELETED" xml:space="preserve">
+    <value>La succursale a été supprimée</value>
+  </data>
+  <data name="BRANCH_OFFICE_CREATED" xml:space="preserve">
+    <value>Succursale créée.</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>La succursale est activée</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>La succursale est désactivée</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activer {0} ?</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Désactiver {0} ?</value>
+  </data>
+  <data name="HEAD_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du siège social sont obligatoires.</value>
+  </data>
+  <data name="HEAD_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Siège social introuvable.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Le code du siège social est obligatoire.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_MAX" xml:space="preserve">
+    <value>Le code du siège social est obligatoire (6 caractères maximum).</value>
+  </data>
+  <data name="HEAD_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Le nom du siège social est obligatoire.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Le code du siège social existe déjà.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED" xml:space="preserve">
+    <value>Siège social enregistré.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_ONLY" xml:space="preserve">
+    <value>Siège social enregistré sur le portail. Synchronisation de la base du siège ignorée (ligne portail introuvable).</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_WITH_NOTE" xml:space="preserve">
+    <value>Siège social enregistré sur le portail. {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CREATED" xml:space="preserve">
+    <value>Siège social créé.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>Le siège social est activé</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>Le siège social est désactivé</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DEACTIVATE" xml:space="preserve">
+    <value>Le siège social ne peut pas être désactivé</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DELETE_ACTIVATED" xml:space="preserve">
+    <value>Impossible de supprimer un siège social activé.</value>
+  </data>
+  <data name="HEAD_OFFICE_DELETED" xml:space="preserve">
+    <value>Le siège social a été supprimé.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activer {0} ?</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Désactiver {0} ?</value>
+  </data>
+  <data name="DATABASE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de la base de données sont obligatoires.</value>
+  </data>
+  <data name="DATABASE_INFO_UPDATED" xml:space="preserve">
+    <value>Les informations de la base de données ont été mises à jour.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_REQUIRED" xml:space="preserve">
+    <value>UserCreatedStatus est obligatoire.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_INVALID" xml:space="preserve">
+    <value>UserCreatedStatus doit être 0, 1, 2 ou 3.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_UPDATED" xml:space="preserve">
+    <value>Le statut de création de l'utilisateur a été mis à jour.</value>
+  </data>
+  <data name="HEAD_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Double écriture du siège social enregistrée.</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Double écriture du statut du siège social enregistrée.</value>
+  </data>
+  <data name="HEAD_OFFICE_SYNC_FAILED" xml:space="preserve">
+    <value>Échec de la synchronisation de la base du siège : {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_SYNC_FAILED" xml:space="preserve">
+    <value>Échec de la synchronisation du statut du siège : {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+    <value>L'utilisateur administrateur du siège social existe déjà.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATED" xml:space="preserve">
+    <value>L'utilisateur administrateur du siège social a été créé.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+    <value>Échec de la création de l'administrateur du siège : {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CONNECTION_REQUIRED" xml:space="preserve">
+    <value>Les détails de connexion à la base du siège (HostName, DbName, UserName) sont obligatoires.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CREATE_FIELDS_REQUIRED" xml:space="preserve">
+    <value>HostName, DbName et UserName sont obligatoires pour créer la base du siège.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_NAME_INVALID" xml:space="preserve">
+    <value>DbName doit commencer par une lettre et ne contenir que des lettres, des chiffres et le caractère souligné.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_ALREADY_EXISTS" xml:space="preserve">
+    <value>La base du siège existe déjà.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_TEMPLATE_MISSING" xml:space="preserve">
+    <value>Base du siège créée, mais TemplateSqlPath est manquant ou le fichier est introuvable : {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORED" xml:space="preserve">
+    <value>Base du siège créée et modèle restauré.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORE_FAILED" xml:space="preserve">
+    <value>Échec de la restauration de la base du siège : {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_AND_NAME_REQUIRED" xml:space="preserve">
+    <value>Le code et le nom du siège social sont obligatoires.</value>
+  </data>
+  <data name="HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Le nom d'hôte, le nom de la base et le nom d'utilisateur de la base sont obligatoires pour un nouveau siège social.</value>
+  </data>
+</root>
