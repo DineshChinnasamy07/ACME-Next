@@ -1,20 +1,22 @@
 /*  Class Name      : IRoleRepository.cs
- *  Purpose         : Portal user_role CRUD used by UserRoleSystem
+ *  Purpose         : user_role CRUD used by UserRoleSystem (portal database or one head office database)
  *  Author          : Dinesh C
  *  Created on      : 22-Oct-2026
  */
 using Bosco.Auth.Application.Dtos;
+using Bosco.Auth.Domain.Entities;
 
 namespace Bosco.Auth.Application.Abstractions.Repositories
 {
     public interface IRoleRepository
     {
-        Task<IReadOnlyList<RoleListItemDto>> FetchUserRoleDetails(CancellationToken cancellationToken);
+        // office == null runs on the portal database; otherwise on that head office database.
+        Task<IReadOnlyList<RoleListItemDto>> FetchUserRoleDetails(HeadOffice? office, CancellationToken cancellationToken);
 
-        Task<RoleSaveRequest?> FetchUserDetailsbyId(int userRoleId, CancellationToken cancellationToken);
+        Task<RoleSaveRequest?> FetchUserDetailsbyId(int userRoleId, HeadOffice? office, CancellationToken cancellationToken);
 
-        Task<RoleActionResult> SaveUserRoles(RoleSaveRequest request, int accessibility, CancellationToken cancellationToken);
+        Task<RoleActionResult> SaveUserRoles(RoleSaveRequest request, int accessibility, HeadOffice? office, CancellationToken cancellationToken);
 
-        Task<RoleActionResult> DeleteUserRole(int userRoleId, CancellationToken cancellationToken);
+        Task<RoleActionResult> DeleteUserRole(int userRoleId, HeadOffice? office, CancellationToken cancellationToken);
     }
 }

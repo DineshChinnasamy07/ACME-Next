@@ -151,3 +151,21 @@ Authorization: Bearer <accessToken>
 | Status | When |
 |---|---|
 | 401 | Missing token, bad token, or expired token |
+
+## Users: /api/users
+
+Auth: bearer token required. Policy `PortalOrHeadOffice` (portal admin or Head Office user; branch users are rejected).
+
+Which database runs the call depends on the token. A portal token (empty `HEAD_OFFICE_CODE`) uses the portal database and lists the users that portal user created. A Head Office token uses that Head Office's own database and lists its Head Office users (rows with no `BRANCH_CODE`). The code is read from the token, never from the request.
+
+| Method | Route | System method | Purpose | Status |
+|---|---|---|---|---|
+| GET | `/api/users` | `FetchUserDetail` | Fetches the user list (name, user name, role, contact, email, gender, status). | Done |
+| GET | `/api/users/{userId}` | `FetchUserDetailsById` | Fetches one user for view or edit. | Done |
+| POST | `/api/users` | `SaveUser` | Adds a user (`userId` 0) or updates one. Body includes `gender` (`M` or `F`). | Done |
+| PUT | `/api/users/{userId}/status` | `UpdateUserStatus` | Activates (`status` 1) or deactivates (`status` 0) a user. The Admin user cannot be deactivated. | Done |
+| DELETE | `/api/users/{userId}` | `DeleteUser` | Deletes an inactive user. The Admin user and active users cannot be deleted. | Done |
+| POST | `/api/users/{userId}/password` | `SetPassword` | Changes a user's password using the old password. | Done |
+| POST | `/api/users/{userId}/reset-password` | `ResetUserPassword` | Admin sets a new password without the old one (`newPassword`, `confirmPassword`). The user must change it at the next login. | Done |
+
+User-facing messages come from `MessageCatalog.User` (English and French in `OfficeMessages.resx` / `OfficeMessages.fr-FR.resx`).

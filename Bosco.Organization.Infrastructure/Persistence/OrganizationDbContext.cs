@@ -25,6 +25,8 @@ namespace Bosco.Organization.Infrastructure.Persistence
 
         public DbSet<TenantUser> TenantUsers { get; set; } = null!;
 
+        public DbSet<BranchLocation> BranchLocations { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrganizationDbContext).Assembly);

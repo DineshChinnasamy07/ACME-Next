@@ -5,12 +5,17 @@
  */
 using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.Features.UserManagement;
+using Bosco.Auth.Infrastructure.Security;
+using Bosco.Common.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Bosco.Auth.Api.Controllers
 {
-    [Authorize]
+    // Portal admin works on the portal database; a head office login works on its own head office database
+    // (HEAD_OFFICE_CODE claim in the token).
+    [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
     [ApiExplorerSettings(GroupName = "Roles")]
     [ApiController]
     [Route("api/roles")]
@@ -23,6 +28,11 @@ namespace Bosco.Auth.Api.Controllers
             _roles = roles;
         }
 
+        private string ReadHeadOfficeCode()
+        {
+            return User.FindFirstValue(JwtTokenService.HeadOfficeCodeClaim) ?? string.Empty;
+        }
+
         /// <summary>
         /// Lists all user roles.
         /// </summary>
@@ -31,7 +41,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> FetchUserRoleDetails(CancellationToken cancellationToken)
         {
-            return Ok(await _roles.FetchUserRoleDetails(cancellationToken));
+            return Ok(await _roles.FetchUserRoleDetails(ReadHeadOfficeCode(), cancellationToken));
         }
 
         /// <summary>
@@ -43,7 +53,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpGet("{userRoleId:int}")]
         public async Task<IActionResult> FillSaveUserRole(int userRoleId, CancellationToken cancellationToken)
         {
-            RoleSaveRequest? row = await _roles.FillSaveUserRole(userRoleId, cancellationToken);
+            RoleSaveRequest? row = await _roles.FillSaveUserRole(userRoleId, ReadHeadOfficeCode(), cancellationToken);
             if (row == null)
             {
                 return NotFound(new { message = "User Role not found." });
@@ -66,7 +76,7 @@ namespace Bosco.Auth.Api.Controllers
                 return BadRequest(new { message = "Role Name is required" });
             }
 
-            RoleActionResult result = await _roles.SaveUserRoles(request, cancellationToken);
+            RoleActionResult result = await _roles.SaveUserRoles(request, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });
@@ -84,7 +94,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpDelete("{userRoleId:int}")]
         public async Task<IActionResult> DeleteUserRole(int userRoleId, CancellationToken cancellationToken)
         {
-            RoleActionResult result = await _roles.DeleteUserRole(userRoleId, cancellationToken);
+            RoleActionResult result = await _roles.DeleteUserRole(userRoleId, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });

@@ -34,6 +34,7 @@ namespace Bosco.Auth.Infrastructure.Persistence.Configurations
             builder.Property(user => user.City).HasColumnName("CITY");
             builder.Property(user => user.CountryCode).HasColumnName("COUNTRY_CODE");
             builder.Property(user => user.CreatedBy).HasColumnName("CreatedBy");
+            builder.Property(user => user.Gender).HasColumnName("GENDER"); // Added 13-11-2026
 
         }
     }

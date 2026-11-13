@@ -145,6 +145,7 @@ namespace Bosco.Organization.Infrastructure.Repositories
                     HeadOfficeCode = headOfficeCode,
                     BranchPartCode = partCode,
                     BranchOfficeCode = fullCode,
+                    BranchKeyCode = string.Empty,
                     BranchOfficeName = name,
                     DeploymentType = request.DeploymentType ?? 0,
                     PersonIncharge = TrimOrNull(request.PersonIncharge),

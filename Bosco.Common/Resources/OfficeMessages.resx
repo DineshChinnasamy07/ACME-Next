@@ -199,4 +199,100 @@
   <data name="HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED" xml:space="preserve">
     <value>Host name, database name, and DB user name are required for a new Head Office.</value>
   </data>
+	<data name="BRANCH_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office status dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_DELETE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office delete dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_SYNC_FAILED" xml:space="preserve">
+  <value>Branch Office HO database sync failed: {0}</value>
+</data>
+	<data name="HEAD_OFFICE_DB_MISSING_FOR_BRANCH" xml:space="preserve">
+  <value>HO database details are missing. Branch Office saved on the portal only.</value>
+</data>
+  <data name="USER_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Name, user name, contact number, email, and role are required.</value>
+  </data>
+  <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="USER_NAME_EXISTS" xml:space="preserve">
+    <value>User name already exists.</value>
+  </data>
+  <data name="USER_SAVED" xml:space="preserve">
+    <value>User saved.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="USER_ACTIVATED" xml:space="preserve">
+    <value>User activated.</value>
+  </data>
+  <data name="USER_DEACTIVATED" xml:space="preserve">
+    <value>User deactivated.</value>
+  </data>
+  <data name="USER_DELETED" xml:space="preserve">
+    <value>User deleted.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ADMIN" xml:space="preserve">
+    <value>Cannot delete the Admin user.</value>
+  </data>
+  <data name="USER_CANNOT_DEACTIVATE_ADMIN" xml:space="preserve">
+    <value>Cannot deactivate the Admin user.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ACTIVE" xml:space="preserve">
+    <value>Cannot delete an active user.</value>
+  </data>
+  <data name="USER_STATUS_INVALID" xml:space="preserve">
+    <value>Status must be 0 or 1.</value>
+  </data>
+  <data name="USER_INVALID_HEAD_OFFICE" xml:space="preserve">
+    <value>Invalid Head Office Code</value>
+  </data>
+  <data name="USER_PASSWORD_MISMATCH" xml:space="preserve">
+    <value>New password and confirm password do not match.</value>
+  </data>
+  <data name="USER_PASSWORD_RULE" xml:space="preserve">
+    <value>New password must be at least 8 characters and include a letter, a number, and a symbol.</value>
+  </data>
+  <data name="USER_PASSWORD_CHANGED" xml:space="preserve">
+    <value>Password has been changed successfully.</value>
+  </data>
+  <data name="BRANCH_LOCATION_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Branch locations are available only for a Head Office login.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Branch Location details are required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NOT_FOUND" xml:space="preserve">
+    <value>Branch Location not found.</value>
+  </data>
+  <data name="BRANCH_LOCATION_BRANCH_REQUIRED" xml:space="preserve">
+    <value>Branch is required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_REQUIRED" xml:space="preserve">
+    <value>Location is required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_MAX" xml:space="preserve">
+    <value>Location can be maximum 200 characters.</value>
+  </data>
+  <data name="BRANCH_LOCATION_EXISTS" xml:space="preserve">
+    <value>Location already exists.</value>
+  </data>
+  <data name="BRANCH_LOCATION_PRIMARY_PROTECTED" xml:space="preserve">
+    <value>The Primary location cannot be changed or deleted.</value>
+  </data>
+  <data name="BRANCH_LOCATION_IN_USE" xml:space="preserve">
+    <value>Location is used in project mapping and cannot be deleted.</value>
+  </data>
+  <data name="BRANCH_LOCATION_SAVED" xml:space="preserve">
+    <value>Branch Location Saved.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DELETED" xml:space="preserve">
+    <value>Branch Location is Deleted.</value>
+  </data>
 </root>

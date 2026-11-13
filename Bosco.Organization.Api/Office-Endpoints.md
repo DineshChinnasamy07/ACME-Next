@@ -73,6 +73,16 @@ Status values: `1` = Created, `2` = Activated, `3` = DeActivated.
 | `DeleteBranchOfficeDetails` | Delete portal `branch_office` by full branch office code (license delete later) | Done |
 | HO dropdown | Only Activated head offices | Done (`GET /api/headoffices/active`) |
 
+### Branch Office access (portal and Head Office users)
+
+The Branch Office routes use the `PortalOrHeadOffice` policy. A portal token (empty `HEAD_OFFICE_CODE`) sees and manages every branch. A Head Office token (`HEAD_OFFICE_CODE` set, `BRANCH_CODE` empty) is limited to its own head office:
+
+- List returns only branches with that `HEAD_OFFICE_CODE`.
+- Get-by-id, status, and delete return 404 for a branch of another head office.
+- Save always uses the token's head office code (the body value is ignored). Updating a branch of another head office returns 404.
+- Branch user tokens (`BRANCH_CODE` set) are rejected (403).
+- `GET /api/headoffices/active` stays portal only. A Head Office user does not need it.
+
 ### Branch Office HTTP API
 
 | HTTP | Route | System method | Purpose |

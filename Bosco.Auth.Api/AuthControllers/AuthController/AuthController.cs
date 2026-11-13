@@ -6,6 +6,7 @@
 using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.DTOs;
 using Bosco.Auth.Application.Features.Authentication.Login;
+using Bosco.Auth.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NpgsqlTypes;
@@ -35,6 +36,11 @@ namespace Bosco.Auth.Api.Controllers
             }
 
             return userId;
+        }
+
+        private string ReadHeadOfficeCode()
+        {
+            return User.FindFirstValue(JwtTokenService.HeadOfficeCodeClaim) ?? string.Empty;
         }
 
         /// <summary>
@@ -124,7 +130,7 @@ namespace Bosco.Auth.Api.Controllers
                 return BadRequest(new { message = "Current password, new password, and confirm password are required." });
             }
 
-            UserActionResult result = await _users.ChangePassword(userId, request, cancellationToken);
+            UserActionResult result = await _users.ChangePassword(userId, ReadHeadOfficeCode(), request, cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });

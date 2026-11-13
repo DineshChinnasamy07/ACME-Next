@@ -756,17 +756,29 @@ namespace Bosco.Common
             public const string USER_NEW_PASSWORD_EMPTY = "USER_NEW_PASSWORD_EMPTY";
             public const string USER_RESET_PASSWORD_SUCCESS = "USER_RESET_PASSWORD_SUCCESS";
             public const string USER_RIGHTS_RESTART_CONFIRM = "USER_RIGHTS_RESTART_CONFIRM";
+
+            public const string FieldsRequired = "USER_FIELDS_REQUIRED";
+            public const string PasswordRequired = "USER_PASSWORD_REQUIRED";
+            public const string NameExists = "USER_NAME_EXISTS";
+            public const string Saved = "USER_SAVED";
+            public const string NotFound = "USER_NOT_FOUND";
+            public const string Activated = "USER_ACTIVATED";
+            public const string Deactivated = "USER_DEACTIVATED";
+            public const string Deleted = "USER_DELETED";
+            public const string CannotDeleteAdmin = "USER_CANNOT_DELETE_ADMIN";
+            public const string CannotDeactivateAdmin = "USER_CANNOT_DEACTIVATE_ADMIN";
+            public const string CannotDeleteActive = "USER_CANNOT_DELETE_ACTIVE";
+            public const string StatusInvalid = "USER_STATUS_INVALID";
+            public const string InvalidHeadOffice = "USER_INVALID_HEAD_OFFICE";
+            public const string PasswordMismatch = "USER_PASSWORD_MISMATCH";
+            public const string PasswordRule = "USER_PASSWORD_RULE";
+            public const string PasswordChanged = "USER_PASSWORD_CHANGED";
         }
+
+
 
         public class UserRole
         {
-            //public const string USERROLE_DELETE_SUCCESS = "USERROLE_DELETE_SUCCESS";
-            // public const string USERROLE_SAVE_SUCCESS = "USERROLE_SAVE_SUCCESS";
-            // public const string USERROLE_CAPTION = "USERROLE_CAPTION";
-            //public const string USERROLE_NAME = "USERROLE_NAME";
-            // public const string USERROLE_DELETE = "USERROLE_DELETE";
-            //public const string USERROLE_DELETE_ASSOCIATION = "USERROLE_DELETE_ASSOCIATION";
-            //  public const string USERROLE_EXITS = "USERROLE_EXITS";
             public const string USER_ROLE_ADD_CAPTION = "USER_ROLE_ADD_CAPTION";
             public const string USER_ROLE_EDIT_CAPTION = "USER_ROLE_EDIT_CAPTION";
             public const string USER_ROLE_DELETE_SUCCESS = "USER_ROLE_DELETE_SUCCESS";
@@ -3579,6 +3591,23 @@ namespace Bosco.Common
             public const string HeadOfficeDbRestoreFailed = "HEAD_OFFICE_DB_RESTORE_FAILED";
             public const string HeadOfficeCodeAndNameRequired = "HEAD_OFFICE_CODE_AND_NAME_REQUIRED";
             public const string HeadOfficeNewDbFieldsRequired = "HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED";
+            public const string BranchOfficeDualWriteSaved = "BRANCH_OFFICE_DUAL_WRITE_SAVED";
+            public const string BranchOfficeStatusDualWriteSaved = "BRANCH_OFFICE_STATUS_DUAL_WRITE_SAVED";
+            public const string BranchOfficeDeleteDualWriteSaved = "BRANCH_OFFICE_DELETE_DUAL_WRITE_SAVED";
+            public const string BranchOfficeSyncFailed = "BRANCH_OFFICE_SYNC_FAILED";
+            public const string HeadOfficeDbMissingForBranch = "HEAD_OFFICE_DB_MISSING_FOR_BRANCH";
+            public const string BranchLocationHeadOfficeOnly = "BRANCH_LOCATION_HEAD_OFFICE_ONLY";
+            public const string BranchLocationDetailsRequired = "BRANCH_LOCATION_DETAILS_REQUIRED";
+            public const string BranchLocationNotFound = "BRANCH_LOCATION_NOT_FOUND";
+            public const string BranchLocationBranchRequired = "BRANCH_LOCATION_BRANCH_REQUIRED";
+            public const string BranchLocationNameRequired = "BRANCH_LOCATION_NAME_REQUIRED";
+            public const string BranchLocationNameMax = "BRANCH_LOCATION_NAME_MAX";
+            public const string BranchLocationNameDuplicate = "BRANCH_LOCATION_EXISTS";
+            public const string BranchLocationPrimaryProtected = "BRANCH_LOCATION_PRIMARY_PROTECTED";
+            public const string BranchLocationInUse = "BRANCH_LOCATION_IN_USE";
+            public const string BranchLocationSaved = "BRANCH_LOCATION_SAVED";
+            public const string BranchLocationDeleted = "BRANCH_LOCATION_DELETED";
+
         }
         #endregion
     }

@@ -7,13 +7,17 @@
 using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.DTOs;
 using Bosco.Auth.Application.Features.Authentication.Login;
+using Bosco.Auth.Infrastructure.Security;
+using Bosco.Common.Security;
+using MessageCatalog = Bosco.Common.MessageCatalog;
+using MessageRender = Bosco.Common.MessageRender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Bosco.Auth.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
     [ApiExplorerSettings(GroupName = "Users")]
     [ApiController]
     [Route("api/users")]
@@ -48,6 +52,11 @@ namespace Bosco.Auth.Api.Controllers
             return userId;
         }
 
+        private string ReadHeadOfficeCode()
+        {
+            return User.FindFirstValue(JwtTokenService.HeadOfficeCodeClaim) ?? string.Empty;
+        }
+
         #endregion
 
 
@@ -66,7 +75,18 @@ namespace Bosco.Auth.Api.Controllers
             {
                 return Unauthorized();
             }
-            return Ok(await _users.FetchUserDetail(createdBy, cancellationToken));
+            return Ok(await _users.FetchUserDetail(createdBy, ReadHeadOfficeCode(), cancellationToken));
+        }
+
+        /// <summary>
+        /// Lists the roles for the user form dropdown (portal roles, or the head office database roles).
+        /// </summary>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The role list.</returns>
+        [HttpGet("roles")]
+        public async Task<IActionResult> FetchUserRoles(CancellationToken cancellationToken)
+        {
+            return Ok(await _users.FetchUserRoles(ReadHeadOfficeCode(), cancellationToken));
         }
 
         /// <summary>
@@ -78,10 +98,10 @@ namespace Bosco.Auth.Api.Controllers
         [HttpGet("{userId:int}")]
         public async Task<IActionResult> FetchUserDetail(int userId, CancellationToken cancellationToken)
         {
-            UserSaveRequest? row = await _users.FetchUserDetailsById(userId, cancellationToken);
+            UserSaveRequest? row = await _users.FetchUserDetailsById(userId, ReadHeadOfficeCode(), cancellationToken);
             if (row == null)
             {
-                return NotFound(new { message = "User not found" });
+                return NotFound(new { message = MessageRender.GetMessage(MessageCatalog.User.NotFound) });
             }
             return Ok(row);
         }
@@ -102,10 +122,10 @@ namespace Bosco.Auth.Api.Controllers
             }
             if (request == null)
             {
-                return BadRequest(new { message = "User details are required." });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.User.FieldsRequired) });
             }
 
-            UserActionResult result = await _users.SaveUser(request, createdBy, cancellationToken);
+            UserActionResult result = await _users.SaveUser(request, createdBy, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });
@@ -122,7 +142,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpDelete("{userId:int}")]
         public async Task<IActionResult> DeleteUser(int userId, CancellationToken cancellationToken)
         {
-            UserActionResult result = await _users.DeleteUser(userId, cancellationToken);
+            UserActionResult result = await _users.DeleteUser(userId, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });
@@ -142,9 +162,9 @@ namespace Bosco.Auth.Api.Controllers
         {
             if (request == null) 
             {
-                return BadRequest(new { message = "status is required" });
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.User.StatusInvalid) });
             }
-            UserActionResult result = await _users.UpdateUserStatus(userId, request.Status, cancellationToken);
+            UserActionResult result = await _users.UpdateUserStatus(userId, request.Status, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });
@@ -173,7 +193,31 @@ namespace Bosco.Auth.Api.Controllers
                 return BadRequest(new { message = "Old password, new password, and confirm password are required." });
             }
 
-            UserActionResult result = await _users.SetPassword(userId, request.OldPassword, request.NewPassword, request.ConfirmPassword, cancellationToken);
+            UserActionResult result = await _users.SetPassword(userId, ReadHeadOfficeCode(), request.OldPassword, request.NewPassword, request.ConfirmPassword, cancellationToken);
+            if (!result.Success)
+            {
+                return BadRequest(new { message = result.Message });
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Sets a new password for a user without the old password (admin reset). The user must change it at the next login.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="request">The new password and confirm password.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The password reset result.</returns>
+        [HttpPost("{userId:int}/reset-password")]
+        public async Task<IActionResult> ResetUserPassword(int userId, [FromBody] ResetPasswordRequest? request, CancellationToken cancellationToken)
+        {
+            if (request == null)
+            {
+                return BadRequest(new { message = MessageRender.GetMessage(MessageCatalog.User.PasswordMismatch) });
+            }
+
+            UserActionResult result = await _users.ResetUserPassword(userId, ReadHeadOfficeCode(), request, cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });

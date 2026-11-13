@@ -19,5 +19,6 @@ namespace Bosco.Auth.Application.Dtos
         public string City { get; set; } = string.Empty;
         public string CountryCode { get; set; } = string.Empty;
         public int RoleId { get; set; }
+        public string Gender { get; set; } = "M"; //13-11-2026
     }
 }

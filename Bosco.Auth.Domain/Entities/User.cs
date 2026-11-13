@@ -45,5 +45,7 @@ namespace Bosco.Auth.Domain.Entities
 
         public int CreatedBy { get; set; }
 
+        public string Gender { get; set; } = "M";
+
     }
 }

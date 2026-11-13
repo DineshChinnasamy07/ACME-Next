@@ -1,57 +1,109 @@
 /*  Class Name      : UserRoleSystem.cs
- *  Purpose         : Portal User Role CRUD matching ACCPPORTAL UserRoleSystem
+ *  Purpose         : User Role CRUD on the portal database or one head office database
  *  Author          : Dinesh C
  *  Created on      : 27-Oct-2026
  */
 using Bosco.Auth.Application.Abstractions.Repositories;
 using Bosco.Auth.Application.Dtos;
+using Bosco.Auth.Domain.Entities;
 
 namespace Bosco.Auth.Application.Features.UserManagement
 {
     public class UserRoleSystem
     {
-        private readonly IRoleRepository _roles;
+        private const string PortalCode = "portal";
 
-        public UserRoleSystem(IRoleRepository roles)
+        private readonly IRoleRepository _roles;
+        private readonly IHeadOfficeRepository _headOffices;
+
+        public UserRoleSystem(IRoleRepository roles, IHeadOfficeRepository headOffices)
         {
             _roles = roles;
+            _headOffices = headOffices;
         }
 
-        public Task<IReadOnlyList<RoleListItemDto>> FetchUserRoleDetails(CancellationToken cancellationToken)
+        // "" or "portal" -> portal database (Office == null). Otherwise that head office database.
+        private async Task<(bool Found, HeadOffice? Office)> ResolveOffice(string headOfficeCode, CancellationToken cancellationToken)
         {
-            return _roles.FetchUserRoleDetails(cancellationToken);
+            string code = headOfficeCode == null ? string.Empty : headOfficeCode.Trim();
+            if (code.Length == 0 || string.Equals(code, PortalCode, StringComparison.OrdinalIgnoreCase))
+            {
+                return (true, null);
+            }
+
+            HeadOffice? office = await _headOffices.FetchDatabase(code, cancellationToken);
+            if (office == null || string.IsNullOrWhiteSpace(office.HostName) || string.IsNullOrWhiteSpace(office.DbName))
+            {
+                return (false, null);
+            }
+
+            return (true, office);
         }
 
-        public Task<RoleSaveRequest?> FillSaveUserRole(int userRoleId, CancellationToken cancellationToken)
+        private static RoleActionResult InvalidOffice()
         {
-            return _roles.FetchUserDetailsbyId(userRoleId, cancellationToken);
+            return new RoleActionResult { Success = false, Message = "Invalid Head Office Code" };
         }
 
-        public Task<RoleActionResult> SaveUserRoles(RoleSaveRequest request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<RoleListItemDto>> FetchUserRoleDetails(string headOfficeCode, CancellationToken cancellationToken)
+        {
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return new List<RoleListItemDto>();
+            }
+
+            return await _roles.FetchUserRoleDetails(target.Office, cancellationToken);
+        }
+
+        public async Task<RoleSaveRequest?> FillSaveUserRole(int userRoleId, string headOfficeCode, CancellationToken cancellationToken)
+        {
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return null;
+            }
+
+            return await _roles.FetchUserDetailsbyId(userRoleId, target.Office, cancellationToken);
+        }
+
+        public async Task<RoleActionResult> SaveUserRoles(RoleSaveRequest request, string headOfficeCode, CancellationToken cancellationToken)
         {
             if (request == null)
             {
-                return Task.FromResult(new RoleActionResult { Success = false, Message = "Role Name is required" });
+                return new RoleActionResult { Success = false, Message = "Role Name is required" };
             }
 
             string userRoleName = (request.UserRoleName ?? string.Empty).Trim();
             if (string.IsNullOrWhiteSpace(userRoleName))
             {
-                return Task.FromResult(new RoleActionResult { Success = false, Message = "Role Name is required" });
+                return new RoleActionResult { Success = false, Message = "Role Name is required" };
             }
 
-            // Portal admin saves with Accessibility.Both = 0
-            return _roles.SaveUserRoles(request, 0, cancellationToken);
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return InvalidOffice();
+            }
+
+            // Accessibility.Both = 0 for portal and head office roles
+            return await _roles.SaveUserRoles(request, 0, target.Office, cancellationToken);
         }
 
-        public Task<RoleActionResult> DeleteUserRole(int userRoleId, CancellationToken cancellationToken)
+        public async Task<RoleActionResult> DeleteUserRole(int userRoleId, string headOfficeCode, CancellationToken cancellationToken)
         {
             if (userRoleId <= 0)
             {
-                return Task.FromResult(new RoleActionResult { Success = false, Message = "User Role not found." });
+                return new RoleActionResult { Success = false, Message = "User Role not found." };
             }
 
-            return _roles.DeleteUserRole(userRoleId, cancellationToken);
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return InvalidOffice();
+            }
+
+            return await _roles.DeleteUserRole(userRoleId, target.Office, cancellationToken);
         }
     }
 }

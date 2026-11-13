@@ -4,6 +4,7 @@
  *  Created on      : 27-Oct-2026
  */
 using Bosco.Common;
+using Bosco.Common.Security;
 using Bosco.Organization.Application.Dtos;
 using Bosco.Organization.Application.Features.Office;
 using Bosco.Organization.Domain.Entities;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bosco.Organization.Api.HeadOfficeControllers
 {
-    [Authorize]
+    [Authorize(Policy = JwtAuthenticationExtensions.PortalOnlyPolicy)]
     [ApiExplorerSettings(GroupName = "HeadOffice")]
     [ApiController]
     [Route("api/headoffices")]
@@ -138,9 +139,10 @@ namespace Bosco.Organization.Api.HeadOfficeControllers
         /// <summary>
         /// Updates HOST_NAME, DB_NAME, USERNAME, and PASSWORD for the head office.
         /// </summary>
-        /// <param name="headOfficeCode"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="headOfficeCode">The head office code.</param>
+        /// <param name="request">The host name, database name, user name, and password to save.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The update result.</returns>
         [HttpPut("{headOfficeCode}/database")]
         public async Task<IActionResult> UpdateDatabase(string headOfficeCode, [FromBody] UpdateDatabaseRequest? request, CancellationToken cancellationToken) 
         {

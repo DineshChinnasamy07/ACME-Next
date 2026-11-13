@@ -35,10 +35,13 @@ namespace Bosco.Organization.Infrastructure.Extensions
 
             services.AddScoped<IHeadOfficeRepository, HeadOfficeRepository>();
             services.AddScoped<IHeadOfficeTenantWriter, HeadOfficeTenantWriter>();
+            services.AddScoped<IBranchOfficeTenantWriter, BranchOfficeTenantWriter>();   
             services.AddScoped<HeadOfficeSystem>();
             services.AddScoped<IHeadOfficeDatabaseRestorer, HeadOfficeDatabaseRestorer>();
             services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
             services.AddScoped<BranchOfficeSystem>();
+            services.AddScoped<IBranchLocationRepository, BranchLocationRepository>();
+            services.AddScoped<BranchLocationSystem>();
 
             return services;
         }

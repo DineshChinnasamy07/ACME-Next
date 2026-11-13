@@ -5,12 +5,17 @@
  */
 using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.Features.UserManagement;
+using Bosco.Auth.Infrastructure.Security;
+using Bosco.Common.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Bosco.Auth.Api.Controllers
 {
-    [Authorize]
+    // Portal admin works on the portal database; a head office login works on its own head office database
+    // (HEAD_OFFICE_CODE claim in the token).
+    [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
     [ApiExplorerSettings(GroupName = "Rights")]
     [ApiController]
     [Route("api/rights")]
@@ -23,6 +28,11 @@ namespace Bosco.Auth.Api.Controllers
             _rights = rights;
         }
 
+        private string ReadHeadOfficeCode()
+        {
+            return User.FindFirstValue(JwtTokenService.HeadOfficeCodeClaim) ?? string.Empty;
+        }
+
         /// <summary>
         /// Lists roles used for the rights screen.
         /// </summary>
@@ -31,7 +41,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpGet("roles")]
         public async Task<IActionResult> GetUsersType(CancellationToken cancellationToken)
         {
-            return Ok(await _rights.GetUsersType(cancellationToken));
+            return Ok(await _rights.GetUsersType(ReadHeadOfficeCode(), cancellationToken));
         }
 
         /// <summary>
@@ -43,7 +53,7 @@ namespace Bosco.Auth.Api.Controllers
         [HttpGet("{roleId:int}")]
         public async Task<IActionResult> GetAllUserRights(int roleId, CancellationToken cancellationToken)
         {
-            return Ok(await _rights.GetAllUserRights(roleId, cancellationToken));
+            return Ok(await _rights.GetAllUserRights(roleId, ReadHeadOfficeCode(), cancellationToken));
         }
 
         /// <summary>
@@ -60,7 +70,7 @@ namespace Bosco.Auth.Api.Controllers
                 return BadRequest(new { message = "Role is required." });
             }
 
-            RightsActionResult result = await _rights.UpdateUserRights(request, cancellationToken);
+            RightsActionResult result = await _rights.UpdateUserRights(request, ReadHeadOfficeCode(), cancellationToken);
             if (!result.Success)
             {
                 return BadRequest(new { message = result.Message });

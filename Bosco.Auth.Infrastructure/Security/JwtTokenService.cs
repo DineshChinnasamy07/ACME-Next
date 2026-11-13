@@ -19,6 +19,7 @@ namespace Bosco.Auth.Infrastructure.Security
     {
         public const string PasswordStatusClaim = "PASSWORD_STATUS";
         public const string HeadOfficeCodeClaim = "HEAD_OFFICE_CODE";
+        public const string BranchCodeClaim = "BRANCH_CODE";
         public const string PasswordChangeRequiredClaim = "password_change_required";
 
         private readonly string _issuer;
@@ -51,6 +52,7 @@ namespace Bosco.Auth.Infrastructure.Security
                 new Claim(ClaimTypes.Role, user.UserRole ?? string.Empty),
                 new Claim(PasswordStatusClaim, user.PasswordStatus.ToString(CultureInfo.InvariantCulture)),
                 new Claim(HeadOfficeCodeClaim, user.HeadOfficeCode ?? string.Empty),
+                new Claim(BranchCodeClaim, user.BranchCode ?? string.Empty),
                 new Claim(PasswordChangeRequiredClaim, user.PasswordChangeRequired ? "true" : "false")
             };
             JwtSecurityToken token = new JwtSecurityToken(_issuer, _audience, claims, expires: DateTime.UtcNow.AddMinutes(ExpiryMinutes), signingCredentials: credentials);

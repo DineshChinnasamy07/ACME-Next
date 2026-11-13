@@ -30,5 +30,9 @@ namespace Bosco.Auth.Application.DTOs
         public int PasswordStatus { get; set; }
 
         public bool PasswordChangeRequired { get; set; }
+
+       public string HeadOfficeName { get; set; } = string.Empty;   // add this line
+
+       
     }
 }

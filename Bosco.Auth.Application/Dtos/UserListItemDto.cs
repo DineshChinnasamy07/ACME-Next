@@ -15,5 +15,7 @@ namespace Bosco.Auth.Application.Dtos
         public string Email { get; set; } = string.Empty;
         public int Status { get; set; }
         public string UserStatus { get; set; } = string.Empty;
+
+        public string Gender { get; set; } = string.Empty; //13-11-2026
     }
 }

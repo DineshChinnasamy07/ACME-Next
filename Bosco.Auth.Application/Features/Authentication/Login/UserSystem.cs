@@ -10,6 +10,8 @@ using Bosco.Auth.Application.Dtos;
 using Bosco.Auth.Application.DTOs;
 using Bosco.Auth.Domain.Entities;
 using Bosco.Contracts.Data;
+using MessageCatalog = Bosco.Common.MessageCatalog;
+using MessageRender = Bosco.Common.MessageRender;
 
 namespace Bosco.Auth.Application.Features.Authentication.Login
 {
@@ -79,6 +81,7 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
             }
 
             UserDto user = matches[0];
+            user.HeadOfficeName = office == null ? string.Empty : (office.HeadOfficeName ?? string.Empty);
             user.PasswordChangeRequired = user.PasswordStatus == AutomaticPassword;
 
             LoginResponseDto response = new LoginResponseDto
@@ -102,17 +105,63 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
             };
         }
 
-        public Task<IReadOnlyList<UserListItemDto>> FetchUserDetail(int createdBy, CancellationToken cancellationToken)
+        // "" or "portal" -> portal database (Office == null). Otherwise that head office database.
+        private async Task<(bool Found, HeadOffice? Office)> ResolveOffice(string headOfficeCode, CancellationToken cancellationToken)
         {
-            return _users.FetchUserDetail(createdBy, cancellationToken);
+            string code = headOfficeCode == null ? string.Empty : headOfficeCode.Trim();
+            if (code.Length == 0 || string.Equals(code, PortalCode, StringComparison.OrdinalIgnoreCase))
+            {
+                return (true, null);
+            }
+
+            HeadOffice? office = await _headOffices.FetchDatabase(code, cancellationToken);
+            if (office == null || string.IsNullOrWhiteSpace(office.HostName) || string.IsNullOrWhiteSpace(office.DbName))
+            {
+                return (false, null);
+            }
+
+            return (true, office);
         }
 
-        public Task<UserSaveRequest?> FetchUserDetailsById(int userId, CancellationToken cancellationToken)
+        private static UserActionResult Fail(string key)
         {
-            return _users.FetchUserDetailsById(userId, cancellationToken);
+            return new UserActionResult { Success = false, Message = MessageRender.GetMessage(key) };
         }
 
-        public Task<UserActionResult> SaveUser(UserSaveRequest request, int createdBy, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<UserListItemDto>> FetchUserDetail(int createdBy, string headOfficeCode, CancellationToken cancellationToken)
+        {
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return new List<UserListItemDto>();
+            }
+
+            return await _users.FetchUserDetail(createdBy, target.Office, cancellationToken);
+        }
+
+        public async Task<IReadOnlyList<RoleListItemDto>> FetchUserRoles(string headOfficeCode, CancellationToken cancellationToken)
+        {
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return new List<RoleListItemDto>();
+            }
+
+            return await _users.FetchUserRoles(target.Office, cancellationToken);
+        }
+
+        public async Task<UserSaveRequest?> FetchUserDetailsById(int userId, string headOfficeCode, CancellationToken cancellationToken)
+        {
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return null;
+            }
+
+            return await _users.FetchUserDetailsById(userId, target.Office, cancellationToken);
+        }
+
+        public async Task<UserActionResult> SaveUser(UserSaveRequest request, int createdBy, string headOfficeCode, CancellationToken cancellationToken)
         {
             request.FirstName = request.FirstName == null ? string.Empty : request.FirstName.Trim();
             request.LastName = request.LastName == null ? string.Empty : request.LastName.Trim();
@@ -125,36 +174,132 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
             request.Place = request.Place == null ? string.Empty : request.Place.Trim();
             request.City = request.City == null ? string.Empty : request.City.Trim();
             request.CountryCode = request.CountryCode == null ? string.Empty : request.CountryCode.Trim();
+            request.Gender = request.Gender == "F" ? "F" : "M"; // only M or F is stored
 
             if (request.FirstName.Length == 0 || request.UserName.Length == 0 || request.MobileNo.Length == 0 || request.Email.Length == 0 || request.RoleId <= 0)
             {
-                return Task.FromResult(new UserActionResult { Success = false, Message = "Name, user name, mobile number, email, and role are required." });
+                return Fail(MessageCatalog.User.FieldsRequired);
             }
 
             if (request.UserId == 0 && request.Password.Length == 0)
             {
-                return Task.FromResult(new UserActionResult { Success = false, Message = "Password is required." });
+                return Fail(MessageCatalog.User.PasswordRequired);
+            }
+
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return Fail(MessageCatalog.User.InvalidHeadOffice);
             }
 
             string encryptedPassword = request.UserId == 0 ? _passwords.EncryptValue(request.Password) : string.Empty;
-            return _users.SaveUser(request, createdBy, encryptedPassword, cancellationToken);
+            return await _users.SaveUser(request, createdBy, encryptedPassword, target.Office, cancellationToken);
         }
 
-        public Task<UserActionResult> UpdateUserStatus(int userId, int status, CancellationToken cancellationToken)
+        public async Task<UserActionResult> UpdateUserStatus(int userId, int status, string headOfficeCode, CancellationToken cancellationToken)
         {
             if (status != 0 && status != 1)
             {
-                return Task.FromResult(new UserActionResult { Success = false, Message = "Status must be 0 or 1." });
+                return Fail(MessageCatalog.User.StatusInvalid);
             }
-            return _users.UpdateUserStatus(userId, status, cancellationToken);
+
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return Fail(MessageCatalog.User.InvalidHeadOffice);
+            }
+
+            return await _users.UpdateUserStatus(userId, status, target.Office, cancellationToken);
         }
 
-        public Task<UserActionResult> DeleteUser(int userId, CancellationToken cancellationToken)
+        public async Task<UserActionResult> DeleteUser(int userId, string headOfficeCode, CancellationToken cancellationToken)
         {
-            return _users.DeleteUser(userId, cancellationToken);
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return Fail(MessageCatalog.User.InvalidHeadOffice);
+            }
+
+            return await _users.DeleteUser(userId, target.Office, cancellationToken);
         }
 
-        public async Task<UserActionResult> ChangePassword(int userId, ChangePasswordRequest request, CancellationToken cancellationToken)
+        // Admin sets a new password for a user without the old password. The user must change it at the next login.
+        public async Task<UserActionResult> ResetUserPassword(int userId, string headOfficeCode, ResetPasswordRequest request, CancellationToken cancellationToken)
+        {
+            string next = request == null || request.NewPassword == null ? string.Empty : request.NewPassword.Trim();
+            string confirm = request == null || request.ConfirmPassword == null ? string.Empty : request.ConfirmPassword.Trim();
+
+            if (next.Length == 0 || confirm.Length == 0 || !string.Equals(next, confirm, StringComparison.Ordinal))
+            {
+                return Fail(MessageCatalog.User.PasswordMismatch);
+            }
+
+            if (!NewPasswordRule.IsMatch(next))
+            {
+                return Fail(MessageCatalog.User.PasswordRule);
+            }
+
+            var target = await ResolveOffice(headOfficeCode, cancellationToken);
+            if (!target.Found)
+            {
+                return Fail(MessageCatalog.User.InvalidHeadOffice);
+            }
+
+            DataBaseType connectTo = target.Office == null ? DataBaseType.Portal : DataBaseType.HeadOffice;
+            UserActionResult result = await _users.ResetPassword(userId, _passwords.EncryptValue(next), AutomaticPassword, connectTo, target.Office, cancellationToken);
+            if (result.Success)
+            {
+                result.Message = MessageRender.GetMessage(MessageCatalog.User.PasswordChanged);
+            }
+
+            return result;
+        }
+
+        // Old portal: ResetPassword / CheckCurrentPassword ran on Portal when the head office code was empty,
+        // otherwise on that head office database. Same rule here, using the code from the login token.
+        private async Task<UserActionResult> ApplyNewPassword(int userId, string headOfficeCode, string currentPassword, string newPassword, CancellationToken cancellationToken)
+        {
+            string code = headOfficeCode == null ? string.Empty : headOfficeCode.Trim();
+            DataBaseType connectTo = DataBaseType.Portal;
+            HeadOffice? office = null;
+
+            if (code.Length > 0 && !string.Equals(code, PortalCode, StringComparison.OrdinalIgnoreCase))
+            {
+                connectTo = DataBaseType.HeadOffice;
+                try
+                {
+                    office = await _headOffices.FetchDatabase(code, cancellationToken);
+                }
+                catch (Exception)
+                {
+                    return new UserActionResult { Success = false, Message = "Server is under the maintenance. sorry for the inconvenience." };
+                }
+
+                if (office == null || string.IsNullOrWhiteSpace(office.HostName) || string.IsNullOrWhiteSpace(office.DbName))
+                {
+                    return new UserActionResult { Success = false, Message = "Invalid Head Office Code" };
+                }
+            }
+
+            try
+            {
+                string encryptedCurrent = _passwords.EncryptValue(currentPassword);
+                bool oldOk = await _users.CheckCurrentPassword(userId, encryptedCurrent, currentPassword, connectTo, office, cancellationToken);
+                if (!oldOk)
+                {
+                    return new UserActionResult { Success = false, Message = "Please Enter Correct Old Password" };
+                }
+
+                string encryptedNew = _passwords.EncryptValue(newPassword);
+                return await _users.ResetPassword(userId, encryptedNew, ResetPasswordStatus, connectTo, office, cancellationToken);
+            }
+            catch (Exception)
+            {
+                return new UserActionResult { Success = false, Message = "Server is under the maintenance. sorry for the inconvenience." };
+            }
+        }
+
+        public async Task<UserActionResult> ChangePassword(int userId, string headOfficeCode, ChangePasswordRequest request, CancellationToken cancellationToken)
         {
             if (userId <= 0)
             {
@@ -180,18 +325,10 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
                 return new UserActionResult { Success = false, Message = "New password must be at least 8 characters and include a letter, a number, and a symbol." };
             }
 
-            string encryptedCurrent = _passwords.EncryptValue(currentPassword);
-            bool oldOk = await _users.CheckCurrentPassword(userId, encryptedCurrent, currentPassword, cancellationToken);
-            if (!oldOk)
-            {
-                return new UserActionResult { Success = false, Message = "Please Enter Correct Old Password" };
-            }
-
-            string encryptedNew = _passwords.EncryptValue(newPassword);
-            return await _users.ResetPassword(userId, encryptedNew, ResetPasswordStatus, cancellationToken);
+            return await ApplyNewPassword(userId, headOfficeCode, currentPassword, newPassword, cancellationToken);
         }
 
-        public async Task<UserActionResult> SetPassword(int userId, string oldPassword, string newPassword, string confirmPassword, CancellationToken cancellationToken)
+        public async Task<UserActionResult> SetPassword(int userId, string headOfficeCode, string oldPassword, string newPassword, string confirmPassword, CancellationToken cancellationToken)
         {
             if (userId <= 0)
             {
@@ -216,15 +353,7 @@ namespace Bosco.Auth.Application.Features.Authentication.Login
                 return new UserActionResult { Success = false, Message = "New password must be at least 8 characters and include a letter, a number, and a symbol." };
             }
 
-            string encryptedCurrent = _passwords.EncryptValue(currentPassword);
-            bool oldOk = await _users.CheckCurrentPassword(userId, encryptedCurrent, currentPassword, cancellationToken);
-            if (!oldOk)
-            {
-                return new UserActionResult { Success = false, Message = "Please Enter Correct Old Password" };
-            }
-
-            string encryptedNew = _passwords.EncryptValue(nextPassword);
-            UserActionResult result = await _users.ResetPassword(userId, encryptedNew, ResetPasswordStatus, cancellationToken);
+            UserActionResult result = await ApplyNewPassword(userId, headOfficeCode, currentPassword, nextPassword, cancellationToken);
             if (result.Success)
             {
                 result.Message = "Password has been changed successfully.";

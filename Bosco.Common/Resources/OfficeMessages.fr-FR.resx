@@ -199,4 +199,100 @@
   <data name="HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED" xml:space="preserve">
     <value>Le nom d'hôte, le nom de la base et le nom d'utilisateur de la base sont obligatoires pour un nouveau siège social.</value>
   </data>
+ <data name="BRANCH_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Double écriture de la succursale enregistrée.</value>
+</data>
+<data name="BRANCH_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Double écriture du statut de la succursale enregistrée.</value>
+</data>
+<data name="BRANCH_OFFICE_DELETE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Double écriture de la suppression de la succursale enregistrée.</value>
+</data>
+<data name="BRANCH_OFFICE_SYNC_FAILED" xml:space="preserve">
+  <value>Échec de la synchronisation de la succursale avec la base du siège : {0}</value>
+</data>
+<data name="HEAD_OFFICE_DB_MISSING_FOR_BRANCH" xml:space="preserve">
+  <value>Les détails de la base du siège sont manquants. Succursale enregistrée sur le portail uniquement.</value>
+</data>
+  <data name="USER_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Le nom, le nom d'utilisateur, le numéro de contact, l'e-mail et le rôle sont obligatoires.</value>
+  </data>
+  <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
+    <value>Le mot de passe est obligatoire.</value>
+  </data>
+  <data name="USER_NAME_EXISTS" xml:space="preserve">
+    <value>Le nom d'utilisateur existe déjà.</value>
+  </data>
+  <data name="USER_SAVED" xml:space="preserve">
+    <value>Utilisateur enregistré.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Utilisateur introuvable.</value>
+  </data>
+  <data name="USER_ACTIVATED" xml:space="preserve">
+    <value>Utilisateur activé.</value>
+  </data>
+  <data name="USER_DEACTIVATED" xml:space="preserve">
+    <value>Utilisateur désactivé.</value>
+  </data>
+  <data name="USER_DELETED" xml:space="preserve">
+    <value>Utilisateur supprimé.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ADMIN" xml:space="preserve">
+    <value>Impossible de supprimer l'utilisateur administrateur.</value>
+  </data>
+  <data name="USER_CANNOT_DEACTIVATE_ADMIN" xml:space="preserve">
+    <value>Impossible de désactiver l'utilisateur administrateur.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ACTIVE" xml:space="preserve">
+    <value>Impossible de supprimer un utilisateur actif.</value>
+  </data>
+  <data name="USER_STATUS_INVALID" xml:space="preserve">
+    <value>Le statut doit être 0 ou 1.</value>
+  </data>
+  <data name="USER_INVALID_HEAD_OFFICE" xml:space="preserve">
+    <value>Code du siège social invalide</value>
+  </data>
+  <data name="USER_PASSWORD_MISMATCH" xml:space="preserve">
+    <value>Le nouveau mot de passe et sa confirmation ne correspondent pas.</value>
+  </data>
+  <data name="USER_PASSWORD_RULE" xml:space="preserve">
+    <value>Le nouveau mot de passe doit contenir au moins 8 caractères, dont une lettre, un chiffre et un symbole.</value>
+  </data>
+  <data name="USER_PASSWORD_CHANGED" xml:space="preserve">
+    <value>Le mot de passe a été modifié avec succès.</value>
+  </data>
+  <data name="BRANCH_LOCATION_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les emplacements de succursale sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de l'emplacement sont obligatoires.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NOT_FOUND" xml:space="preserve">
+    <value>Emplacement de succursale introuvable.</value>
+  </data>
+  <data name="BRANCH_LOCATION_BRANCH_REQUIRED" xml:space="preserve">
+    <value>La succursale est obligatoire.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_REQUIRED" xml:space="preserve">
+    <value>L'emplacement est obligatoire.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_MAX" xml:space="preserve">
+    <value>L'emplacement peut contenir 200 caractères au maximum.</value>
+  </data>
+  <data name="BRANCH_LOCATION_EXISTS" xml:space="preserve">
+    <value>L'emplacement existe déjà.</value>
+  </data>
+  <data name="BRANCH_LOCATION_PRIMARY_PROTECTED" xml:space="preserve">
+    <value>L'emplacement Primary ne peut être ni modifié ni supprimé.</value>
+  </data>
+  <data name="BRANCH_LOCATION_IN_USE" xml:space="preserve">
+    <value>L'emplacement est utilisé dans l'affectation des projets et ne peut pas être supprimé.</value>
+  </data>
+  <data name="BRANCH_LOCATION_SAVED" xml:space="preserve">
+    <value>Emplacement de succursale enregistré.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DELETED" xml:space="preserve">
+    <value>Emplacement de succursale supprimé.</value>
+  </data>
 </root>

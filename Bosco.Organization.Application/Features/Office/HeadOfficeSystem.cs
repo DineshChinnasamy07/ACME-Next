@@ -51,6 +51,8 @@ namespace Bosco.Organization.Application.Features.Office
                     Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDetailsRequired)
                 };
             }
+            // The database is always created in lower case, so the saved name must match it.
+            request.DbName = (request.DbName ?? string.Empty).Trim().ToLowerInvariant();
             if (request.HeadOfficeId == 0)
             {
                 HeadOfficeActionResult restore = await _databaseRestorer.RestoreACPERPdatabase(

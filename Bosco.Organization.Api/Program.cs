@@ -14,7 +14,7 @@ builder.Host.UseBoscoSerilog();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
-builder.Services.AddBoscoSwaggerWithJwt("HeadOffice", "Country", "BranchOffice");
+builder.Services.AddBoscoSwaggerWithJwt("HeadOffice", "Country", "BranchOffice", "BranchLocation");
 builder.Services.AddBoscoJwtAuthentication(builder.Configuration);
 builder.Services.AddOrganizationServices(builder.Configuration);
 builder.Services.AddCors(options =>
@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
-    app.UseBoscoSwaggerUI("HeadOffice", "Country", "BranchOffice");
+    app.UseBoscoSwaggerUI("HeadOffice", "Country", "BranchOffice", "BranchLocation");
 }
 
 if (!app.Environment.IsDevelopment())
