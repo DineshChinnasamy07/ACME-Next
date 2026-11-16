@@ -211,6 +211,15 @@
 <data name="BRANCH_OFFICE_SYNC_FAILED" xml:space="preserve">
   <value>Échec de la synchronisation de la succursale avec la base du siège : {0}</value>
 </data>
+<data name="BRANCH_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+  <value>L'utilisateur administrateur de la succursale existe déjà.</value>
+</data>
+<data name="BRANCH_OFFICE_ADMIN_CREATED" xml:space="preserve">
+  <value>L'utilisateur administrateur de la succursale a été créé.</value>
+</data>
+<data name="BRANCH_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+  <value>Échec de la création de l'administrateur de la succursale : {0}</value>
+</data>
 <data name="HEAD_OFFICE_DB_MISSING_FOR_BRANCH" xml:space="preserve">
   <value>Les détails de la base du siège sont manquants. Succursale enregistrée sur le portail uniquement.</value>
 </data>
@@ -294,5 +303,302 @@
   </data>
   <data name="BRANCH_LOCATION_DELETED" xml:space="preserve">
     <value>Emplacement de succursale supprimé.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_SAVE_SUCCESS" xml:space="preserve">
+    <value>Période comptable enregistrée.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DELETE_SUCCESS" xml:space="preserve">
+    <value>Période comptable supprimée.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_FROM_EMPTY" xml:space="preserve">
+    <value>La date de début est obligatoire.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_TO_EMPTY" xml:space="preserve">
+    <value>La date de fin est obligatoire.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_EQUAL_EMPTY" xml:space="preserve">
+    <value>La date de début ne peut pas être postérieure à la date de fin.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ACTIVE" xml:space="preserve">
+    <value>La période comptable active ne peut pas être supprimée.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CANNOT_DELETE" xml:space="preserve">
+    <value>La période comptable a des transactions et ne peut pas être supprimée.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CHANGE_PERIOD" xml:space="preserve">
+    <value>Période comptable activée.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ONE_ACTIVE" xml:space="preserve">
+    <value>Une seule période comptable peut être active.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de la période comptable sont obligatoires.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_NOT_FOUND" xml:space="preserve">
+    <value>Période comptable introuvable.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_EXISTS" xml:space="preserve">
+    <value>La période comptable existe déjà.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les périodes comptables sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="GROUP_CODE_EMPTY" xml:space="preserve">
+    <value>Le code du groupe est obligatoire.</value>
+  </data>
+  <data name="GROUP_NAME_EMPTY" xml:space="preserve">
+    <value>Le nom du groupe de grand livre est obligatoire.</value>
+  </data>
+  <data name="GROUP_LEVEL_CHECK" xml:space="preserve">
+    <value>Le niveau de groupe suivant ne peut pas être ajouté.</value>
+  </data>
+  <data name="GROUP_SAVE_SUCCESS" xml:space="preserve">
+    <value>Groupe de grand livre enregistré.</value>
+  </data>
+  <data name="GROUP_DELETE_SUCCESS" xml:space="preserve">
+    <value>Groupe de grand livre supprimé.</value>
+  </data>
+  <data name="GROUP_PARENT_EMPTY" xml:space="preserve">
+    <value>Le groupe parent est obligatoire.</value>
+  </data>
+  <data name="GROUP_CAN_DELETE" xml:space="preserve">
+    <value>Le groupe ne peut pas être supprimé. Il a une association.</value>
+  </data>
+  <data name="GROUP_NATURE_DELETE" xml:space="preserve">
+    <value>La nature fixe ne peut pas être supprimée.</value>
+  </data>
+  <data name="GROUP_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du groupe de grand livre sont obligatoires.</value>
+  </data>
+  <data name="GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Groupe de grand livre introuvable.</value>
+  </data>
+  <data name="GROUP_EXISTS" xml:space="preserve">
+    <value>Le groupe de grand livre existe déjà.</value>
+  </data>
+  <data name="GROUP_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les groupes de grand livre sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="GROUP_CODE_MAX" xml:space="preserve">
+    <value>Le code du groupe peut contenir 10 caractères au maximum.</value>
+  </data>
+  <data name="GROUP_NAME_MAX" xml:space="preserve">
+    <value>Le nom du groupe de grand livre peut contenir 100 caractères au maximum.</value>
+  </data>
+  <data name="LEDGER_SUCCESS" xml:space="preserve">
+    <value>Grand livre enregistré.</value>
+  </data>
+  <data name="LEDGER_DELETED" xml:space="preserve">
+    <value>Grand livre supprimé.</value>
+  </data>
+  <data name="LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Le nom du grand livre est obligatoire.</value>
+  </data>
+  <data name="LEDGER_GROUP_EMPTY" xml:space="preserve">
+    <value>Le groupe de grand livre est obligatoire.</value>
+  </data>
+  <data name="FIXED_LEDGER_DELETE" xml:space="preserve">
+    <value>Le grand livre fixe ne peut pas être supprimé.</value>
+  </data>
+  <data name="FIXED_LEDGER_EDIT" xml:space="preserve">
+    <value>Le grand livre fixe ne peut pas être modifié.</value>
+  </data>
+  <data name="LEDGER_TRANSACTION_MADE" xml:space="preserve">
+    <value>Le grand livre a des transactions et ne peut pas être supprimé.</value>
+  </data>
+  <data name="LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du grand livre sont obligatoires.</value>
+  </data>
+  <data name="LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Grand livre introuvable.</value>
+  </data>
+  <data name="LEDGER_EXISTS" xml:space="preserve">
+    <value>Le grand livre existe déjà.</value>
+  </data>
+  <data name="LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les grands livres sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Le code du grand livre peut contenir 15 caractères au maximum.</value>
+  </data>
+  <data name="LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Le nom du grand livre peut contenir 100 caractères au maximum.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_SAVE_SUCCESS" xml:space="preserve">
+    <value>Catégorie de projet enregistrée.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DELETE_SUCCESS" xml:space="preserve">
+    <value>Catégorie de projet supprimée.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_EMPTY" xml:space="preserve">
+    <value>Le nom de la catégorie de projet est obligatoire.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_AVAILABLE" xml:space="preserve">
+    <value>La catégorie de projet existe déjà.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de la catégorie de projet sont obligatoires.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NOT_FOUND" xml:space="preserve">
+    <value>Catégorie de projet introuvable.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NAME_MAX" xml:space="preserve">
+    <value>Le nom de la catégorie de projet peut contenir 30 caractères au maximum.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les catégories de projet sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="PROJECT_SUCCESS" xml:space="preserve">
+    <value>Projet enregistré.</value>
+  </data>
+  <data name="PROJECT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Projet supprimé.</value>
+  </data>
+  <data name="PROJECT_CODE_EMPTY" xml:space="preserve">
+    <value>Le code du projet est obligatoire.</value>
+  </data>
+  <data name="PROJECT_NAME_EMPTY" xml:space="preserve">
+    <value>Le nom du projet est obligatoire.</value>
+  </data>
+  <data name="PROJECT_CATEGORY_EMPTY" xml:space="preserve">
+    <value>La catégorie de projet est obligatoire.</value>
+  </data>
+  <data name="PROJECT_DIVISION_EMPTY" xml:space="preserve">
+    <value>La division est obligatoire.</value>
+  </data>
+  <data name="PROJECT_DATE_VALIDATION" xml:space="preserve">
+    <value>La date de début ne peut pas être postérieure à la date de clôture.</value>
+  </data>
+  <data name="PROJECT_DELETE_ASSOCIATION" xml:space="preserve">
+    <value>Suppression impossible. Il existe une association.</value>
+  </data>
+  <data name="PROJECT_TRANSACTION_MADE" xml:space="preserve">
+    <value>Le projet a des transactions et ne peut pas être supprimé.</value>
+  </data>
+  <data name="PROJECT_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du projet sont obligatoires.</value>
+  </data>
+  <data name="PROJECT_NOT_FOUND" xml:space="preserve">
+    <value>Projet introuvable.</value>
+  </data>
+  <data name="PROJECT_EXISTS" xml:space="preserve">
+    <value>Le projet existe déjà.</value>
+  </data>
+  <data name="PROJECT_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les projets sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="PROJECT_CODE_MAX" xml:space="preserve">
+    <value>Le code du projet peut contenir 15 caractères au maximum.</value>
+  </data>
+  <data name="PROJECT_NAME_MAX" xml:space="preserve">
+    <value>Le nom du projet peut contenir 100 caractères au maximum.</value>
+  </data>
+  <data name="PURPOSE_SAVE_SUCCESS" xml:space="preserve">
+    <value>Objectif FC enregistré.</value>
+  </data>
+  <data name="PURPOSE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Objectif FC supprimé.</value>
+  </data>
+  <data name="PURPOSE_DELETE_FAILURE" xml:space="preserve">
+    <value>L'objectif FC n'a pas pu être supprimé.</value>
+  </data>
+  <data name="PURPOSE_CODE_EMPTY" xml:space="preserve">
+    <value>Le code de l'objectif FC est obligatoire.</value>
+  </data>
+  <data name="PURPOSE_HEAD_EMPTY" xml:space="preserve">
+    <value>L'objectif FC est obligatoire.</value>
+  </data>
+  <data name="PURPOSE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails de l'objectif FC sont obligatoires.</value>
+  </data>
+  <data name="PURPOSE_NOT_FOUND" xml:space="preserve">
+    <value>Objectif FC introuvable.</value>
+  </data>
+  <data name="PURPOSE_EXISTS" xml:space="preserve">
+    <value>L'objectif FC existe déjà.</value>
+  </data>
+  <data name="PURPOSE_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les objectifs FC sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="PURPOSE_CODE_MAX" xml:space="preserve">
+    <value>Le code de l'objectif FC peut contenir 10 caractères au maximum.</value>
+  </data>
+  <data name="PURPOSE_HEAD_MAX" xml:space="preserve">
+    <value>L'objectif FC peut contenir 150 caractères au maximum.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Groupe de grand livre généralat enregistré.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Groupe de grand livre généralat supprimé.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_EMPTY" xml:space="preserve">
+    <value>Le code est obligatoire.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Le nom est obligatoire.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_PARENT_EMPTY" xml:space="preserve">
+    <value>Le parent est obligatoire.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du groupe de grand livre généralat sont obligatoires.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Groupe de grand livre généralat introuvable.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_EXISTS" xml:space="preserve">
+    <value>Le groupe de grand livre généralat existe déjà.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CAN_DELETE" xml:space="preserve">
+    <value>Le groupe de grand livre généralat ne peut pas être supprimé. Il a une association.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les groupes de grand livre généralat sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Le code peut contenir 10 caractères au maximum.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Le nom peut contenir 100 caractères au maximum.</value>
+  </data>
+  <data name="LOCK_VOUCHER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Verrouillage de pièce enregistré.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Verrouillage de pièce supprimé.</value>
+  </data>
+  <data name="LOCK_VOUCHER_BRANCH_EMPTY" xml:space="preserve">
+    <value>La branche est obligatoire.</value>
+  </data>
+  <data name="LOCK_VOUCHER_PROJECT_EMPTY" xml:space="preserve">
+    <value>Le projet est obligatoire.</value>
+  </data>
+  <data name="DATE_FROM_EMPTY" xml:space="preserve">
+    <value>La date de début est obligatoire.</value>
+  </data>
+  <data name="DATETOEMPTY" xml:space="preserve">
+    <value>La date de fin est obligatoire.</value>
+  </data>
+  <data name="PASSWORDEMPTY" xml:space="preserve">
+    <value>Le mot de passe est obligatoire.</value>
+  </data>
+  <data name="PASSWORD_HINT_EMPTY" xml:space="preserve">
+    <value>L'indice de mot de passe est obligatoire.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Les détails du verrouillage de pièce sont obligatoires.</value>
+  </data>
+  <data name="LOCK_VOUCHER_NOT_FOUND" xml:space="preserve">
+    <value>Verrouillage de pièce introuvable.</value>
+  </data>
+  <data name="LOCK_VOUCHER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Les verrouillages de pièce sont disponibles uniquement pour une connexion Siège.</value>
+  </data>
+  <data name="LOCK_CLOSE_DATE" xml:space="preserve">
+    <value>La date de fin ne peut pas être antérieure à la date de début.</value>
+  </data>
+  <data name="DATE_FROM_FUTURE" xml:space="preserve">
+    <value>La date de début ne peut pas être une date future.</value>
   </data>
 </root>

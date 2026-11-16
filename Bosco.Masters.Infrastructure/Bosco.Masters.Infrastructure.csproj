@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bosco.Common\Bosco.Common.csproj" />
+    <ProjectReference Include="..\Bosco.Masters.Application\Bosco.Masters.Application.csproj" />
+    <ProjectReference Include="..\Bosco.Masters.Domain\Bosco.Masters.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Configurations\HeadOfficeMasters\FinanceMasters\" />
+    <Folder Include="Persistence\Configurations\HeadOfficeMasters\StatutoryMasters\" />
+    <Folder Include="Persistence\Configurations\HeadOfficeMasters\Mapping\" />
+    <Folder Include="Persistence\Configurations\HeadOfficeMasters\Vouchers\" />
+    <Folder Include="Persistence\Configurations\FinanceMasters\" />
+    <Folder Include="Persistence\Configurations\AssetMasters\" />
+    <Folder Include="Persistence\Configurations\PayrollMasters\" />
+    <Folder Include="Repositories\HeadOfficeMasters\FinanceMasters\" />
+    <Folder Include="Repositories\HeadOfficeMasters\StatutoryMasters\" />
+    <Folder Include="Repositories\HeadOfficeMasters\Mapping\" />
+    <Folder Include="Repositories\HeadOfficeMasters\Vouchers\" />
+    <Folder Include="Repositories\FinanceMasters\" />
+    <Folder Include="Repositories\AssetMasters\" />
+    <Folder Include="Repositories\PayrollMasters\" />
+  </ItemGroup>
+
+</Project>

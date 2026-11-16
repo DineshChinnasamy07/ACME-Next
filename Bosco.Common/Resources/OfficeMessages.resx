@@ -211,6 +211,15 @@
 	<data name="BRANCH_OFFICE_SYNC_FAILED" xml:space="preserve">
   <value>Branch Office HO database sync failed: {0}</value>
 </data>
+	<data name="BRANCH_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+  <value>Branch Office admin user already exists.</value>
+</data>
+	<data name="BRANCH_OFFICE_ADMIN_CREATED" xml:space="preserve">
+  <value>Branch Office admin user created.</value>
+</data>
+	<data name="BRANCH_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+  <value>Branch admin user create failed: {0}</value>
+</data>
 	<data name="HEAD_OFFICE_DB_MISSING_FOR_BRANCH" xml:space="preserve">
   <value>HO database details are missing. Branch Office saved on the portal only.</value>
 </data>
@@ -294,5 +303,302 @@
   </data>
   <data name="BRANCH_LOCATION_DELETED" xml:space="preserve">
     <value>Branch Location is Deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_SAVE_SUCCESS" xml:space="preserve">
+    <value>Accounting Period saved.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DELETE_SUCCESS" xml:space="preserve">
+    <value>Accounting Period deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_FROM_EMPTY" xml:space="preserve">
+    <value>Year From is required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_TO_EMPTY" xml:space="preserve">
+    <value>Year To is required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_EQUAL_EMPTY" xml:space="preserve">
+    <value>Year From cannot be greater than Year To.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ACTIVE" xml:space="preserve">
+    <value>Active Accounting Period cannot be deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CANNOT_DELETE" xml:space="preserve">
+    <value>Accounting Period has transactions and cannot be deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CHANGE_PERIOD" xml:space="preserve">
+    <value>Accounting Period activated.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ONE_ACTIVE" xml:space="preserve">
+    <value>Only one Accounting Period can be active.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Accounting Period details are required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_NOT_FOUND" xml:space="preserve">
+    <value>Accounting Period not found.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_EXISTS" xml:space="preserve">
+    <value>Accounting Period already exists.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Accounting Periods are available only for a Head Office login.</value>
+  </data>
+  <data name="GROUP_CODE_EMPTY" xml:space="preserve">
+    <value>Group code is required.</value>
+  </data>
+  <data name="GROUP_NAME_EMPTY" xml:space="preserve">
+    <value>Ledger group name is required.</value>
+  </data>
+  <data name="GROUP_LEVEL_CHECK" xml:space="preserve">
+    <value>Next group level can't be added.</value>
+  </data>
+  <data name="GROUP_SAVE_SUCCESS" xml:space="preserve">
+    <value>Ledger Group saved.</value>
+  </data>
+  <data name="GROUP_DELETE_SUCCESS" xml:space="preserve">
+    <value>Ledger Group deleted.</value>
+  </data>
+  <data name="GROUP_PARENT_EMPTY" xml:space="preserve">
+    <value>Parent group is required.</value>
+  </data>
+  <data name="GROUP_CAN_DELETE" xml:space="preserve">
+    <value>Group cannot be deleted. It has association.</value>
+  </data>
+  <data name="GROUP_NATURE_DELETE" xml:space="preserve">
+    <value>Fixed Nature cannot be deleted.</value>
+  </data>
+  <data name="GROUP_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Ledger Group details are required.</value>
+  </data>
+  <data name="GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Ledger Group not found.</value>
+  </data>
+  <data name="GROUP_EXISTS" xml:space="preserve">
+    <value>Ledger Group already exists.</value>
+  </data>
+  <data name="GROUP_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Ledger Groups are available only for a Head Office login.</value>
+  </data>
+  <data name="GROUP_CODE_MAX" xml:space="preserve">
+    <value>Group code can be maximum 10 characters.</value>
+  </data>
+  <data name="GROUP_NAME_MAX" xml:space="preserve">
+    <value>Ledger group name can be maximum 100 characters.</value>
+  </data>
+  <data name="LEDGER_SUCCESS" xml:space="preserve">
+    <value>Ledger saved.</value>
+  </data>
+  <data name="LEDGER_DELETED" xml:space="preserve">
+    <value>Ledger deleted.</value>
+  </data>
+  <data name="LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Ledger name is required.</value>
+  </data>
+  <data name="LEDGER_GROUP_EMPTY" xml:space="preserve">
+    <value>Ledger group is required.</value>
+  </data>
+  <data name="FIXED_LEDGER_DELETE" xml:space="preserve">
+    <value>Fixed ledger cannot be deleted.</value>
+  </data>
+  <data name="FIXED_LEDGER_EDIT" xml:space="preserve">
+    <value>Fixed ledger cannot be edited.</value>
+  </data>
+  <data name="LEDGER_TRANSACTION_MADE" xml:space="preserve">
+    <value>Ledger has transactions and cannot be deleted.</value>
+  </data>
+  <data name="LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Ledger details are required.</value>
+  </data>
+  <data name="LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Ledger not found.</value>
+  </data>
+  <data name="LEDGER_EXISTS" xml:space="preserve">
+    <value>Ledger already exists.</value>
+  </data>
+  <data name="LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Ledgers are available only for a Head Office login.</value>
+  </data>
+  <data name="LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Ledger code can be maximum 15 characters.</value>
+  </data>
+  <data name="LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Ledger name can be maximum 100 characters.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_SAVE_SUCCESS" xml:space="preserve">
+    <value>Project Category saved.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DELETE_SUCCESS" xml:space="preserve">
+    <value>Project Category deleted.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_EMPTY" xml:space="preserve">
+    <value>Project Category name is required.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_AVAILABLE" xml:space="preserve">
+    <value>Project Category already exists.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Project Category details are required.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NOT_FOUND" xml:space="preserve">
+    <value>Project Category not found.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NAME_MAX" xml:space="preserve">
+    <value>Project Category name can be maximum 30 characters.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Project Categories are available only for a Head Office login.</value>
+  </data>
+  <data name="PROJECT_SUCCESS" xml:space="preserve">
+    <value>Project saved.</value>
+  </data>
+  <data name="PROJECT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Project deleted.</value>
+  </data>
+  <data name="PROJECT_CODE_EMPTY" xml:space="preserve">
+    <value>Project code is required.</value>
+  </data>
+  <data name="PROJECT_NAME_EMPTY" xml:space="preserve">
+    <value>Project name is required.</value>
+  </data>
+  <data name="PROJECT_CATEGORY_EMPTY" xml:space="preserve">
+    <value>Project category is required.</value>
+  </data>
+  <data name="PROJECT_DIVISION_EMPTY" xml:space="preserve">
+    <value>Division is required.</value>
+  </data>
+  <data name="PROJECT_DATE_VALIDATION" xml:space="preserve">
+    <value>Start date cannot be greater than close date.</value>
+  </data>
+  <data name="PROJECT_DELETE_ASSOCIATION" xml:space="preserve">
+    <value>Cannot delete. It has association.</value>
+  </data>
+  <data name="PROJECT_TRANSACTION_MADE" xml:space="preserve">
+    <value>Project has transactions and cannot be deleted.</value>
+  </data>
+  <data name="PROJECT_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Project details are required.</value>
+  </data>
+  <data name="PROJECT_NOT_FOUND" xml:space="preserve">
+    <value>Project not found.</value>
+  </data>
+  <data name="PROJECT_EXISTS" xml:space="preserve">
+    <value>Project already exists.</value>
+  </data>
+  <data name="PROJECT_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Projects are available only for a Head Office login.</value>
+  </data>
+  <data name="PROJECT_CODE_MAX" xml:space="preserve">
+    <value>Project code can be maximum 15 characters.</value>
+  </data>
+  <data name="PROJECT_NAME_MAX" xml:space="preserve">
+    <value>Project name can be maximum 100 characters.</value>
+  </data>
+  <data name="PURPOSE_SAVE_SUCCESS" xml:space="preserve">
+    <value>FC Purpose saved.</value>
+  </data>
+  <data name="PURPOSE_DELETE_SUCCESS" xml:space="preserve">
+    <value>FC Purpose deleted.</value>
+  </data>
+  <data name="PURPOSE_DELETE_FAILURE" xml:space="preserve">
+    <value>FC Purpose could not be deleted.</value>
+  </data>
+  <data name="PURPOSE_CODE_EMPTY" xml:space="preserve">
+    <value>FC Purpose code is required.</value>
+  </data>
+  <data name="PURPOSE_HEAD_EMPTY" xml:space="preserve">
+    <value>FC Purpose is required.</value>
+  </data>
+  <data name="PURPOSE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>FC Purpose details are required.</value>
+  </data>
+  <data name="PURPOSE_NOT_FOUND" xml:space="preserve">
+    <value>FC Purpose not found.</value>
+  </data>
+  <data name="PURPOSE_EXISTS" xml:space="preserve">
+    <value>FC Purpose already exists.</value>
+  </data>
+  <data name="PURPOSE_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>FC Purposes are available only for a Head Office login.</value>
+  </data>
+  <data name="PURPOSE_CODE_MAX" xml:space="preserve">
+    <value>FC Purpose code can be maximum 10 characters.</value>
+  </data>
+  <data name="PURPOSE_HEAD_MAX" xml:space="preserve">
+    <value>FC Purpose can be maximum 150 characters.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Generalate Ledger Group saved.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Generalate Ledger Group deleted.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_EMPTY" xml:space="preserve">
+    <value>Code is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_PARENT_EMPTY" xml:space="preserve">
+    <value>Parent is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Generalate Ledger Group details are required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Generalate Ledger Group not found.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_EXISTS" xml:space="preserve">
+    <value>Generalate Ledger Group already exists.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CAN_DELETE" xml:space="preserve">
+    <value>Generalate Ledger Group cannot be deleted. It has association.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Generalate Ledger Groups are available only for a Head Office login.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Code can be maximum 10 characters.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Name can be maximum 100 characters.</value>
+  </data>
+  <data name="LOCK_VOUCHER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Lock Voucher saved.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Lock Voucher deleted.</value>
+  </data>
+  <data name="LOCK_VOUCHER_BRANCH_EMPTY" xml:space="preserve">
+    <value>Branch is required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_PROJECT_EMPTY" xml:space="preserve">
+    <value>Project is required.</value>
+  </data>
+  <data name="DATE_FROM_EMPTY" xml:space="preserve">
+    <value>Date From is required.</value>
+  </data>
+  <data name="DATETOEMPTY" xml:space="preserve">
+    <value>Date To is required.</value>
+  </data>
+  <data name="PASSWORDEMPTY" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="PASSWORD_HINT_EMPTY" xml:space="preserve">
+    <value>Password hint is required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Lock Voucher details are required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_NOT_FOUND" xml:space="preserve">
+    <value>Lock Voucher not found.</value>
+  </data>
+  <data name="LOCK_VOUCHER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Lock Vouchers are available only for a Head Office login.</value>
+  </data>
+  <data name="LOCK_CLOSE_DATE" xml:space="preserve">
+    <value>Date To cannot be earlier than Date From.</value>
+  </data>
+  <data name="DATE_FROM_FUTURE" xml:space="preserve">
+    <value>Date From cannot be a future date.</value>
   </data>
 </root>

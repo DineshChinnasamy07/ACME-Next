@@ -12,5 +12,7 @@ namespace Bosco.Organization.Application.Dtos
         public string Message { get; set; } = string.Empty;
 
         public int BranchOfficeId { get; set; }
+
+        public string? GeneratedAdminPassword { get; set; }
     }
 }

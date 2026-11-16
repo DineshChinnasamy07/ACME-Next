@@ -7,6 +7,7 @@
     { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7107 }], "UpstreamPathTemplate": "/reports/{everything}", "UpstreamHttpMethod": [] },
     { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7163 }], "UpstreamPathTemplate": "/budget/{everything}", "UpstreamHttpMethod": [] },
     { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7153 }], "UpstreamPathTemplate": "/organization/{everything}", "UpstreamHttpMethod": [] },
+    { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7231 }], "UpstreamPathTemplate": "/masters/{everything}", "UpstreamHttpMethod": [] },
     { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7261 }], "UpstreamPathTemplate": "/system/{everything}", "UpstreamHttpMethod": [] },
     { "DownstreamPathTemplate": "/{everything}", "DownstreamScheme": "https", "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 7071 }], "UpstreamPathTemplate": "/ticketing/{everything}", "UpstreamHttpMethod": [] }
   ],

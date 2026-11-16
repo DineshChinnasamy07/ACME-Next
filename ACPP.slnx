@@ -42,6 +42,12 @@
     <Project Path="Bosco.Finance.Domain/Bosco.Finance.Domain.csproj" />
     <Project Path="Bosco.Finance.Infrastructure/Bosco.Finance.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Services/Masters/">
+    <Project Path="Bosco.Masters.Api/Bosco.Masters.Api.csproj" Id="06c52189-0f8b-405d-8e9a-9f17bf33c7bb" />
+    <Project Path="Bosco.Masters.Application/Bosco.Masters.Application.csproj" Id="60b358ca-3fc6-4d2c-937a-1d0b1409a16c" />
+    <Project Path="Bosco.Masters.Domain/Bosco.Masters.Domain.csproj" Id="a426beb1-52ae-4f6c-bb8e-23455516f885" />
+    <Project Path="Bosco.Masters.Infrastructure/Bosco.Masters.Infrastructure.csproj" Id="5ceb870b-0068-42c0-9255-746a14471d93" />
+  </Folder>
   <Folder Name="/Services/Organization/">
     <Project Path="Bosco.Organization.Api/Bosco.Organization.Api.csproj" Id="735f7ec8-a976-4a0d-95e7-1524eb31fdb9" />
     <Project Path="Bosco.Organization.Application/Bosco.Organization.Application.csproj" Id="973e6a75-62b5-462a-9cc8-2551f5076a73" />

@@ -203,6 +203,19 @@ namespace Bosco.Organization.Infrastructure.Repositories
             return Ok(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeSaved), existing.BranchOfficeId);
         }
 
+        public Task<BranchOffice?> BranchOfficeDetailsByCode(string branchOfficeCode, CancellationToken cancellationToken)
+        {
+            string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            if (code.Length == 0)
+            {
+                return Task.FromResult<BranchOffice?>(null);
+            }
+
+            return _portal.BranchOffices.AsNoTracking().FirstOrDefaultAsync(
+                branch => branch.BranchOfficeCode == code,
+                cancellationToken);
+        }
+
         public async Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode,int status, CancellationToken cancellationToken) 
         {
             string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
@@ -230,6 +243,33 @@ namespace Bosco.Organization.Infrastructure.Repositories
                     ? MessageCatalog.Office.BranchOfficeActivated
                     : MessageCatalog.Office.BranchOfficeDeactivated;
             return Ok(MessageRender.GetMessage(statusMessage), existing.BranchOfficeId);
+        }
+
+        public async Task<BranchOfficeActionResult> UpdateUserCreatedStatus(string branchOfficeCode, int userCreatedStatus, CancellationToken cancellationToken)
+        {
+            string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            if (code.Length == 0)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeCodeRequired));
+            }
+
+            if (userCreatedStatus < 0 || userCreatedStatus > 3)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.UserCreatedStatusInvalid));
+            }
+
+            BranchOffice? existing = await _portal.BranchOffices.FirstOrDefaultAsync(
+                branch => branch.BranchOfficeCode == code,
+                cancellationToken);
+            if (existing == null)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeNotFound));
+            }
+
+            existing.UserCreatedStatus = userCreatedStatus;
+            existing.ModifiedDate = DateTime.UtcNow;
+            await _portal.SaveChangesAsync(cancellationToken);
+            return Ok(MessageRender.GetMessage(MessageCatalog.Office.UserCreatedStatusUpdated), existing.BranchOfficeId);
         }
 
         public async Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken) 

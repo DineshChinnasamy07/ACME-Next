@@ -15,5 +15,7 @@ namespace Bosco.Organization.Application.Abstractions.Services
         Task<BranchOfficeActionResult> UpdateOfficeStatus(HeadOffice headOffice, BranchOffice portalBranch, int status, CancellationToken cancellationToken);
 
         Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(HeadOffice headOffice, string branchOfficeCode, CancellationToken cancellationToken);
+
+        Task<BranchOfficeActionResult> EnsureBranchOfficeAdminUser(HeadOffice headOffice, BranchOffice portalBranch, CancellationToken cancellationToken);
     }
 }

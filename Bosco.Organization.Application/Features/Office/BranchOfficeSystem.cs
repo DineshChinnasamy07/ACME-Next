@@ -74,6 +74,10 @@ namespace Bosco.Organization.Application.Features.Office
 
         public async Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode, int status, CancellationToken cancellationToken)
         {
+            BranchOffice? before = await _branchOffices.BranchOfficeDetailsByCode(branchOfficeCode, cancellationToken);
+            int previousStatus = before == null ? 0 : before.Status;
+            int isSubBranch = before == null ? 0 : before.IsSubBranch;
+
             BranchOfficeActionResult portalResult = await _branchOffices.UpdateOfficeStatus(branchOfficeCode, status, cancellationToken);
             if (!portalResult.Success)
             {
@@ -93,7 +97,37 @@ namespace Bosco.Organization.Application.Features.Office
             }
 
             BranchOfficeActionResult tenantResult = await _tenantWriter.UpdateOfficeStatus(headOffice, portalBranch, status, cancellationToken);
-            return WithTenantNote(portalResult, tenantResult);
+            string message = portalResult.Message;
+            if (!tenantResult.Success)
+            {
+                message = (message + " " + tenantResult.Message).Trim();
+            }
+
+            string? generatedPassword = null;
+            if (previousStatus == 1 && status == 2 && isSubBranch == 0)
+            {
+                BranchOfficeActionResult adminResult = await _tenantWriter.EnsureBranchOfficeAdminUser(headOffice, portalBranch, cancellationToken);
+                if (adminResult.Success)
+                {
+                    generatedPassword = adminResult.GeneratedAdminPassword;
+                    message = (message + " " + adminResult.Message).Trim();
+                    await _branchOffices.UpdateUserCreatedStatus(portalBranch.BranchOfficeCode, 2, cancellationToken);
+                    portalBranch.UserCreatedStatus = 2;
+                    await _tenantWriter.SaveBranchOfficeDetails(headOffice, portalBranch, cancellationToken);
+                }
+                else
+                {
+                    message = (message + " " + adminResult.Message).Trim();
+                }
+            }
+
+            return new BranchOfficeActionResult
+            {
+                Success = true,
+                Message = message,
+                BranchOfficeId = portalResult.BranchOfficeId,
+                GeneratedAdminPassword = generatedPassword
+            };
         }
 
         public async Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken)

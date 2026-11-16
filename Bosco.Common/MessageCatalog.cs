@@ -1352,7 +1352,10 @@ namespace Bosco.Common
                 public const string TRANSACTION_PERIOD_SET_EMPTY = "TRANSACTION_PERIOD_SET_EMPTY";
                 public const string ACCOUNTING_PERIOD_NOT_CREATED = "ACCOUNTING_PERIOD_NOT_CREATED";
                 public const string ACCOUNTING_SET_YEAR_VALIDATION = "ACCOUNTING_SET_YEAR_VALIDATION";
-
+                public const string ACCOUNTING_PERIOD_DETAILS_REQUIRED = "ACCOUNTING_PERIOD_DETAILS_REQUIRED";
+                public const string ACCOUNTING_PERIOD_NOT_FOUND = "ACCOUNTING_PERIOD_NOT_FOUND";
+                public const string ACCOUNTING_PERIOD_EXISTS = "ACCOUNTING_PERIOD_EXISTS";
+                public const string ACCOUNTING_PERIOD_HEAD_OFFICE_ONLY = "ACCOUNTING_PERIOD_HEAD_OFFICE_ONLY";
             }
 
             public class AddressBook
@@ -1406,6 +1409,28 @@ namespace Bosco.Common
                 public const string PURPOSE_CODE_EMPTY = "PURPOSE_CODE_EMPTY";
                 public const string PURPOSE_HEAD_EMPTY = "PURPOSE_HEAD_EMPTY";
                 public const string PURPOSE_PRINT_CAPTION = "PURPOSE_PRINT_CAPTION";
+                public const string PURPOSE_DETAILS_REQUIRED = "PURPOSE_DETAILS_REQUIRED";
+                public const string PURPOSE_NOT_FOUND = "PURPOSE_NOT_FOUND";
+                public const string PURPOSE_EXISTS = "PURPOSE_EXISTS";
+                public const string PURPOSE_HEAD_OFFICE_ONLY = "PURPOSE_HEAD_OFFICE_ONLY";
+                public const string PURPOSE_CODE_MAX = "PURPOSE_CODE_MAX";
+                public const string PURPOSE_HEAD_MAX = "PURPOSE_HEAD_MAX";
+            }
+
+            public class GeneralateLedger
+            {
+                public const string GENERALATE_LEDGER_SAVE_SUCCESS = "GENERALATE_LEDGER_SAVE_SUCCESS";
+                public const string GENERALATE_LEDGER_DELETE_SUCCESS = "GENERALATE_LEDGER_DELETE_SUCCESS";
+                public const string GENERALATE_LEDGER_CODE_EMPTY = "GENERALATE_LEDGER_CODE_EMPTY";
+                public const string GENERALATE_LEDGER_NAME_EMPTY = "GENERALATE_LEDGER_NAME_EMPTY";
+                public const string GENERALATE_LEDGER_PARENT_EMPTY = "GENERALATE_LEDGER_PARENT_EMPTY";
+                public const string GENERALATE_LEDGER_DETAILS_REQUIRED = "GENERALATE_LEDGER_DETAILS_REQUIRED";
+                public const string GENERALATE_LEDGER_NOT_FOUND = "GENERALATE_LEDGER_NOT_FOUND";
+                public const string GENERALATE_LEDGER_EXISTS = "GENERALATE_LEDGER_EXISTS";
+                public const string GENERALATE_LEDGER_CAN_DELETE = "GENERALATE_LEDGER_CAN_DELETE";
+                public const string GENERALATE_LEDGER_HEAD_OFFICE_ONLY = "GENERALATE_LEDGER_HEAD_OFFICE_ONLY";
+                public const string GENERALATE_LEDGER_CODE_MAX = "GENERALATE_LEDGER_CODE_MAX";
+                public const string GENERALATE_LEDGER_NAME_MAX = "GENERALATE_LEDGER_NAME_MAX";
             }
 
             public class StatisticsType
@@ -1435,6 +1460,12 @@ namespace Bosco.Common
                 public const string GROUP_CAN_EDIT = "GROUP_CAN_EDIT";
                 public const string GROUP_NATURE_DELETE = "GROUP_NATURE_DELETE";
                 public const string GROUP_FIXED_EDIT = "GROUP_FIXED_EDIT";
+                public const string GROUP_DETAILS_REQUIRED = "GROUP_DETAILS_REQUIRED";
+                public const string GROUP_NOT_FOUND = "GROUP_NOT_FOUND";
+                public const string GROUP_EXISTS = "GROUP_EXISTS";
+                public const string GROUP_HEAD_OFFICE_ONLY = "GROUP_HEAD_OFFICE_ONLY";
+                public const string GROUP_CODE_MAX = "GROUP_CODE_MAX";
+                public const string GROUP_NAME_MAX = "GROUP_NAME_MAX";
             }
 
             public class Voucher
@@ -1503,6 +1534,13 @@ namespace Bosco.Common
                 public const string PURPOSE = "PURPOSE";
                 public const string TRANSACTION_MADE_CANT_UNMAP = "TRANSACTION_MADE_CANT_UNMAP";
                 public const string TRANSACTION_MADE_SOME_LEDGER_CANT_UNMAP = "TRANSACTION_MADE_SOME_LEDGER_CANT_UNMAP";
+                public const string PROJECT_DETAILS_REQUIRED = "PROJECT_DETAILS_REQUIRED";
+                public const string PROJECT_NOT_FOUND = "PROJECT_NOT_FOUND";
+                public const string PROJECT_EXISTS = "PROJECT_EXISTS";
+                public const string PROJECT_HEAD_OFFICE_ONLY = "PROJECT_HEAD_OFFICE_ONLY";
+                public const string PROJECT_CODE_MAX = "PROJECT_CODE_MAX";
+                public const string PROJECT_NAME_MAX = "PROJECT_NAME_MAX";
+                public const string PROJECT_DIVISION_EMPTY = "PROJECT_DIVISION_EMPTY";
             }
 
             public class ProjectCatogory
@@ -1514,6 +1552,10 @@ namespace Bosco.Common
                 public const string PROJECT_CATEGORY_EDIT_CAPTION = "PROJECT_CATEGORY_EDIT_CAPTION";
                 public const string PROJECT_CATOGORY_AVAILABLE = "PROJECT_CATOGORY_AVAILABLE";
                 public const string PROJECT_CATEGORY_PRINT_CAPTION = "PROJECT_CATEGORY_PRINT_CAPTION";
+                public const string PROJECT_CATOGORY_DETAILS_REQUIRED = "PROJECT_CATOGORY_DETAILS_REQUIRED";
+                public const string PROJECT_CATOGORY_NOT_FOUND = "PROJECT_CATOGORY_NOT_FOUND";
+                public const string PROJECT_CATOGORY_NAME_MAX = "PROJECT_CATOGORY_NAME_MAX";
+                public const string PROJECT_CATOGORY_HEAD_OFFICE_ONLY = "PROJECT_CATOGORY_HEAD_OFFICE_ONLY";
             }
 
             public class AuditorInfo
@@ -1571,7 +1613,12 @@ namespace Bosco.Common
                 public const string LEDGER_NAME = "LEDGER_NAME";
                 public const string ACCOUNT_NUMBER = "ACCOUNT_NUMBER";
                 public const string LEDGERS_CAPTION = "LEDGERS_CAPTION";
-
+                public const string LEDGER_DETAILS_REQUIRED = "LEDGER_DETAILS_REQUIRED";
+                public const string LEDGER_NOT_FOUND = "LEDGER_NOT_FOUND";
+                public const string LEDGER_EXISTS = "LEDGER_EXISTS";
+                public const string LEDGER_HEAD_OFFICE_ONLY = "LEDGER_HEAD_OFFICE_ONLY";
+                public const string LEDGER_CODE_MAX = "LEDGER_CODE_MAX";
+                public const string LEDGER_NAME_MAX = "LEDGER_NAME_MAX";
             }
 
             public class FixedDeposit
@@ -1778,6 +1825,15 @@ namespace Bosco.Common
                 public const string PASSWORD_INVALID = "PASSWORD_INVALID";
                 public const string PASSWORD_RESET = "PASSWORD_RESET";
                 public const string HINT_INVALID = "HINT_INVALID";
+                public const string LOCK_VOUCHER_SAVE_SUCCESS = "LOCK_VOUCHER_SAVE_SUCCESS";
+                public const string LOCK_VOUCHER_DELETE_SUCCESS = "LOCK_VOUCHER_DELETE_SUCCESS";
+                public const string LOCK_VOUCHER_BRANCH_EMPTY = "LOCK_VOUCHER_BRANCH_EMPTY";
+                public const string LOCK_VOUCHER_PROJECT_EMPTY = "LOCK_VOUCHER_PROJECT_EMPTY";
+                public const string LOCK_VOUCHER_DETAILS_REQUIRED = "LOCK_VOUCHER_DETAILS_REQUIRED";
+                public const string LOCK_VOUCHER_NOT_FOUND = "LOCK_VOUCHER_NOT_FOUND";
+                public const string LOCK_VOUCHER_HEAD_OFFICE_ONLY = "LOCK_VOUCHER_HEAD_OFFICE_ONLY";
+                public const string LOCK_CLOSE_DATE = "LOCK_CLOSE_DATE";
+                public const string DATE_FROM_FUTURE = "DATE_FROM_FUTURE";
             }
         }
         #endregion
@@ -3595,6 +3651,9 @@ namespace Bosco.Common
             public const string BranchOfficeStatusDualWriteSaved = "BRANCH_OFFICE_STATUS_DUAL_WRITE_SAVED";
             public const string BranchOfficeDeleteDualWriteSaved = "BRANCH_OFFICE_DELETE_DUAL_WRITE_SAVED";
             public const string BranchOfficeSyncFailed = "BRANCH_OFFICE_SYNC_FAILED";
+            public const string BranchOfficeAdminExists = "BRANCH_OFFICE_ADMIN_EXISTS";
+            public const string BranchOfficeAdminCreated = "BRANCH_OFFICE_ADMIN_CREATED";
+            public const string BranchOfficeAdminCreateFailed = "BRANCH_OFFICE_ADMIN_CREATE_FAILED";
             public const string HeadOfficeDbMissingForBranch = "HEAD_OFFICE_DB_MISSING_FOR_BRANCH";
             public const string BranchLocationHeadOfficeOnly = "BRANCH_LOCATION_HEAD_OFFICE_ONLY";
             public const string BranchLocationDetailsRequired = "BRANCH_LOCATION_DETAILS_REQUIRED";
