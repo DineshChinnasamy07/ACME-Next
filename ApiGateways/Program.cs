@@ -1,19 +1,16 @@
-using Bosco.Common.Swagger;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
+using Acme.Common.Swagger;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile(
-    $"ocelot.{builder.Environment.EnvironmentName}.json",
-    optional: false,
-    reloadOnChange: true);
-
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddBoscoSwaggerWithJwt();
-builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddAcmeSwaggerWithJwt();
+
+// YARP reverse proxy: routes and clusters come from the "ReverseProxy" section
+// of appsettings.{Environment}.json (reloaded automatically when the file changes).
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 builder.Host.UseSerilog((context, configuration) =>
 {
@@ -30,7 +27,6 @@ app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -38,6 +34,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
-await app.UseOcelot();
+app.MapReverseProxy();
 
 app.Run();

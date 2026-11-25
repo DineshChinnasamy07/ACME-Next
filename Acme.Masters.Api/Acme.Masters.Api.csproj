@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acme.Common\Acme.Common.csproj" />
+    <ProjectReference Include="..\Acme.Masters.Application\Acme.Masters.Application.csproj" />
+    <ProjectReference Include="..\Acme.Masters.Domain\Acme.Masters.Domain.csproj" />
+    <ProjectReference Include="..\Acme.Masters.Infrastructure\Acme.Masters.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MastersControllers\HeadOfficeMastersController\FinanceMasters\" />
+    <Folder Include="MastersControllers\HeadOfficeMastersController\StatutoryMasters\" />
+    <Folder Include="MastersControllers\HeadOfficeMastersController\Mapping\" />
+    <Folder Include="MastersControllers\HeadOfficeMastersController\Vouchers\" />
+    <Folder Include="MastersControllers\FinanceMastersController\" />
+    <Folder Include="MastersControllers\AssetMastersController\" />
+    <Folder Include="MastersControllers\PayrollMastersController\" />
+    <Folder Include="serilogs\" />
+  </ItemGroup>
+
+</Project>

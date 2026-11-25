@@ -5,7 +5,7 @@
  */
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bosco.Payroll.Infrastructure.Extensions
+namespace Acme.Payroll.Infrastructure.Extensions
 {
     public static class PayrollServiceCollectionExtensions
     {

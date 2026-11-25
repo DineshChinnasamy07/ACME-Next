@@ -1,0 +1,186 @@
+/*  Class Name      : BranchOfficeSystem.cs
+ *  Purpose         : Branch Office use cases (list, get, save, status, delete) with dual-write into the HO tenant DB
+ *  Author          : Dinesh C
+ *  Created on      : 02-Nov-2026
+ */
+using Acme.Common;
+using Acme.Organization.Application.Abstractions.Repositories;
+using Acme.Organization.Application.Abstractions.Services;
+using Acme.Organization.Application.Dtos;
+using Acme.Organization.Domain.Entities;
+
+namespace Acme.Organization.Application.Features.Office
+{
+    public class BranchOfficeSystem
+    {
+        private readonly IBranchOfficeRepository _branchOffices;
+        private readonly IHeadOfficeRepository _headOffices;
+        private readonly IBranchOfficeTenantWriter _tenantWriter;
+
+        public BranchOfficeSystem(IBranchOfficeRepository branchOffices, IHeadOfficeRepository headOffices, IBranchOfficeTenantWriter tenantWriter)
+        {
+            _branchOffices = branchOffices;
+            _headOffices = headOffices;
+            _tenantWriter = tenantWriter;
+        }
+
+        public Task<IReadOnlyList<BranchOfficeListItemDto>> FetchBranchOfficeDetails(CancellationToken cancellationToken)
+        {
+            return _branchOffices.FetchBranchOfficeDetails(cancellationToken);
+        }
+
+        public Task<BranchOffice?> FillBranchOfficeDetails(int branchOfficeId, CancellationToken cancellationToken)
+        {
+            if (branchOfficeId <= 0)
+            {
+                return Task.FromResult<BranchOffice?>(null);
+            }
+
+            return _branchOffices.FillBranchOfficeDetails(branchOfficeId, cancellationToken);
+        }
+
+        public async Task<BranchOfficeActionResult> SaveBranchOfficeDetails(BranchOfficeSaveRequest? request, int modifiedBy, CancellationToken cancellationToken)
+        {
+            if (request == null)
+            {
+                return new BranchOfficeActionResult
+                {
+                    Success = false,
+                    Message = MessageRender.GetMessage(MessageCatalog.Office.BranchOfficeDetailsRequired)
+                };
+            }
+
+            BranchOfficeActionResult portalResult = await _branchOffices.SaveBranchOfficeDetails(request, modifiedBy, cancellationToken);
+            if (!portalResult.Success)
+            {
+                return portalResult;
+            }
+
+            BranchOffice? portalBranch = await _branchOffices.FillBranchOfficeDetails(portalResult.BranchOfficeId, cancellationToken);
+            if (portalBranch == null)
+            {
+                return portalResult;
+            }
+
+            HeadOffice? headOffice = await _headOffices.HeadOfficeDetailByCode(portalBranch.HeadOfficeCode, cancellationToken);
+            if (headOffice == null)
+            {
+                return portalResult;
+            }
+
+            // ACCPPORTAL BranchOfficeAdd: portal save first, then HO save; HO failure is shown to the user.
+            BranchOfficeActionResult tenantResult = await _tenantWriter.SaveBranchOfficeDetails(headOffice, portalBranch, cancellationToken);
+            return MergeTenantResult(portalResult, tenantResult);
+        }
+
+        public async Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode, int status, CancellationToken cancellationToken)
+        {
+            BranchOffice? before = await _branchOffices.BranchOfficeDetailsByCode(branchOfficeCode, cancellationToken);
+            int previousStatus = before == null ? 0 : before.Status;
+            int isSubBranch = before == null ? 0 : before.IsSubBranch;
+
+            BranchOfficeActionResult portalResult = await _branchOffices.UpdateOfficeStatus(branchOfficeCode, status, cancellationToken);
+            if (!portalResult.Success)
+            {
+                return portalResult;
+            }
+
+            BranchOffice? portalBranch = await _branchOffices.FillBranchOfficeDetails(portalResult.BranchOfficeId, cancellationToken);
+            if (portalBranch == null)
+            {
+                return portalResult;
+            }
+
+            HeadOffice? headOffice = await _headOffices.HeadOfficeDetailByCode(portalBranch.HeadOfficeCode, cancellationToken);
+            if (headOffice == null)
+            {
+                return portalResult;
+            }
+
+            // HO branch_office must exist before admin user (ACCPPORTAL SaveBranchOfficeDetails then SaveUserUpdateDetails).
+            BranchOfficeActionResult tenantResult = await _tenantWriter.UpdateOfficeStatus(headOffice, portalBranch, status, cancellationToken);
+            if (!tenantResult.Success)
+            {
+                return new BranchOfficeActionResult
+                {
+                    Success = false,
+                    Message = tenantResult.Message,
+                    BranchOfficeId = portalResult.BranchOfficeId
+                };
+            }
+
+            string message = portalResult.Message;
+            string? generatedPassword = null;
+            // ACCPPORTAL creates branch admin in HO after branch_office save; create/repair when activated.
+            int userCreated = portalBranch.UserCreatedStatus ?? 0;
+            if (status == 2 && isSubBranch == 0 && (previousStatus == 1 || userCreated != 2))
+            {
+                BranchOfficeActionResult adminResult = await _tenantWriter.EnsureBranchOfficeAdminUser(headOffice, portalBranch, cancellationToken);
+                if (adminResult.Success)
+                {
+                    generatedPassword = adminResult.GeneratedAdminPassword;
+                    message = (message + " " + adminResult.Message).Trim();
+                    await _branchOffices.UpdateUserCreatedStatus(portalBranch.BranchOfficeCode, 2, cancellationToken);
+                    portalBranch.UserCreatedStatus = 2;
+                    await _tenantWriter.SaveBranchOfficeDetails(headOffice, portalBranch, cancellationToken);
+                }
+                else
+                {
+                    return new BranchOfficeActionResult
+                    {
+                        Success = false,
+                        Message = adminResult.Message,
+                        BranchOfficeId = portalResult.BranchOfficeId
+                    };
+                }
+            }
+
+            return new BranchOfficeActionResult
+            {
+                Success = true,
+                Message = message,
+                BranchOfficeId = portalResult.BranchOfficeId,
+                GeneratedAdminPassword = generatedPassword
+            };
+        }
+
+        public async Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken)
+        {
+            // The head office code is needed to reach the tenant DB, so read it before the portal row is gone.
+            string code = (branchOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            IReadOnlyList<BranchOfficeListItemDto> rows = await _branchOffices.FetchBranchOfficeDetails(cancellationToken);
+            BranchOfficeListItemDto? match = rows.FirstOrDefault(row => (row.HeadOfficeCode + row.Code).Trim().ToLowerInvariant() == code);
+
+            BranchOfficeActionResult portalResult = await _branchOffices.DeleteBranchOfficeDetails(branchOfficeCode ?? string.Empty, cancellationToken);
+            if (!portalResult.Success || match == null)
+            {
+                return portalResult;
+            }
+
+            HeadOffice? headOffice = await _headOffices.HeadOfficeDetailByCode(match.HeadOfficeCode, cancellationToken);
+            if (headOffice == null)
+            {
+                return portalResult;
+            }
+
+            BranchOfficeActionResult tenantResult = await _tenantWriter.DeleteBranchOfficeDetails(headOffice, code, cancellationToken);
+            return MergeTenantResult(portalResult, tenantResult);
+        }
+
+        // Portal row may already be saved. HO failure must not look like full success (ACCPPORTAL BranchOfficeAdd).
+        private static BranchOfficeActionResult MergeTenantResult(BranchOfficeActionResult portalResult, BranchOfficeActionResult tenantResult)
+        {
+            if (!tenantResult.Success)
+            {
+                return new BranchOfficeActionResult
+                {
+                    Success = false,
+                    Message = tenantResult.Message,
+                    BranchOfficeId = portalResult.BranchOfficeId
+                };
+            }
+
+            return portalResult;
+        }
+    }
+}

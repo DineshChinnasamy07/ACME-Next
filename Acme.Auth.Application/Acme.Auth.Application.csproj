@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acme.Auth.Domain\Acme.Auth.Domain.csproj" />
+    <ProjectReference Include="..\Acme.Common\Acme.Common.csproj" />
+    <ProjectReference Include="..\Acme.Contracts\Acme.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

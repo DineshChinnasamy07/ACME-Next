@@ -3,28 +3,27 @@
  *  Author          : Dinesh C
  *  Created on      : 22-Oct-2026
  */
-using Bosco.Budget.Infrastructure.Extensions;
-using Bosco.Common.Logging;
-using Bosco.Common.Security;
-using Bosco.Common.Swagger;
-using Bosco.Data;
+using Acme.Budget.Infrastructure.Extensions;
+using Acme.Common.Logging;
+using Acme.Common.Security;
+using Acme.Common.Swagger;
+using Acme.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseBoscoSerilog();
+builder.Host.UseAcmeSerilog();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
-builder.Services.AddBoscoSwaggerWithJwt();
-builder.Services.AddBoscoJwtAuthentication(builder.Configuration);
-builder.Services.AddBoscoDatabase(builder.Configuration);
+builder.Services.AddAcmeSwaggerWithJwt();
+builder.Services.AddAcmeJwtAuthentication(builder.Configuration);
+builder.Services.AddAcmeDatabase(builder.Configuration);
 builder.Services.AddBudgetServices();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseBoscoSwaggerBasicAuth();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();

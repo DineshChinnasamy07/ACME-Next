@@ -10,14 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
-    <PackageReference Include="Ocelot" Version="25.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.1-dev-02312" />
     <PackageReference Include="Serilog.Sinks.File" Version="8.0.0-nblumhardt-02322" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+    <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bosco.Common\Bosco.Common.csproj" />
+    <ProjectReference Include="..\Acme.Common\Acme.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

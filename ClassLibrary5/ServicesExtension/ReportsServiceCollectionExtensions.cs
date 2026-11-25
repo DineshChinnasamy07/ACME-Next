@@ -5,7 +5,7 @@
  */
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bosco.Reports.Infrastructure.Extensions
+namespace Acme.Reports.Infrastructure.Extensions
 {
     public static class ReportsServiceCollectionExtensions
     {

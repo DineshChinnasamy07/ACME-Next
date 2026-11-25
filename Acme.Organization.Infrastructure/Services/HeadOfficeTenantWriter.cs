@@ -1,0 +1,291 @@
+/*  Class Name      : HeadOfficeTenantWriter.cs
+ *  Purpose         : Dual-write HO row, status, and admin user into HO tenant DB
+ *  Author          : Dinesh C
+ *  Created on      : 28-Oct-2026
+ */
+using System.Security.Cryptography;
+using Acme.Common;
+using Acme.Organization.Application.Abstractions.Services;
+using Acme.Organization.Application.Dtos;
+using Acme.Organization.Domain.Entities;
+using Acme.Organization.Infrastructure.Persistence;
+using Acme.Organization.Infrastructure.Security;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+namespace Acme.Organization.Infrastructure.Services
+{
+    public class HeadOfficeTenantWriter : IHeadOfficeTenantWriter
+    {
+        private readonly IConfiguration _configuration;
+
+        public HeadOfficeTenantWriter(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<HeadOfficeActionResult> SaveHeadOfficeDetails(HeadOffice portalOffice, CancellationToken cancellationToken)
+        {
+            OrganizationDbContext? tenant;
+            HeadOfficeActionResult open = TryOpenTenant(portalOffice, out tenant);
+            if (!open.Success || tenant == null)
+            {
+                return open;
+            }
+
+            try
+            {
+                await using (tenant)
+                {
+                    string code = (portalOffice.HeadOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+                    HeadOffice? existing = await tenant.HeadOffices.FirstOrDefaultAsync(
+                        office => office.HeadOfficeCode == code,
+                        cancellationToken);
+
+                    if (existing == null)
+                    {
+                        HeadOffice row = CopyWithoutSecrets(portalOffice);
+                        row.HeadOfficeId = 0;
+                        tenant.HeadOffices.Add(row);
+                        await tenant.SaveChangesAsync(cancellationToken);
+                        return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDualWriteSaved), row.HeadOfficeId);
+                    }
+
+                    ApplyWithoutSecrets(existing, portalOffice);
+                    existing.ModifiedDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                    await tenant.SaveChangesAsync(cancellationToken);
+                    return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDualWriteSaved), existing.HeadOfficeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeSyncFailed, ex.Message));
+            }
+        }
+
+        public async Task<HeadOfficeActionResult> UpdateOfficeStatus(HeadOffice portalOffice, int status, CancellationToken cancellationToken)
+        {
+            OrganizationDbContext? tenant;
+            HeadOfficeActionResult open = TryOpenTenant(portalOffice, out tenant);
+            if (!open.Success || tenant == null)
+            {
+                return open;
+            }
+
+            try
+            {
+                await using (tenant)
+                {
+                    string code = (portalOffice.HeadOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+                    HeadOffice? existing = await tenant.HeadOffices.FirstOrDefaultAsync(
+                        office => office.HeadOfficeCode == code,
+                        cancellationToken);
+
+                    if (existing == null)
+                    {
+                        HeadOffice row = CopyWithoutSecrets(portalOffice);
+                        row.HeadOfficeId = 0;
+                        row.Status = status;
+                        tenant.HeadOffices.Add(row);
+                        await tenant.SaveChangesAsync(cancellationToken);
+                        return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusDualWriteSaved), row.HeadOfficeId);
+                    }
+
+                    existing.Status = status;
+                    existing.ModifiedDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                    await tenant.SaveChangesAsync(cancellationToken);
+                    return Ok(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusDualWriteSaved), existing.HeadOfficeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeStatusSyncFailed, ex.Message));
+            }
+        }
+
+        public async Task<HeadOfficeActionResult> EnsureHeadOfficeAdminUser(HeadOffice portalOffice, CancellationToken cancellationToken)
+        {
+            OrganizationDbContext? tenant;
+            HeadOfficeActionResult open = TryOpenTenant(portalOffice, out tenant);
+            if (!open.Success || tenant == null)
+            {
+                return open;
+            }
+
+            string code = (portalOffice.HeadOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            if (code.Length == 0)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeCodeRequired));
+            }
+
+            string plainPassword = CreateRandomPassword();
+            string encryptedPassword = LegacyPasswordCipher.EncryptValue(plainPassword);
+
+            try
+            {
+                await using (tenant)
+                {
+                    bool exists = await tenant.TenantUsers.AnyAsync(
+                        user => user.UserName == code && user.HeadOfficeCode == code,
+                        cancellationToken);
+                    if (exists)
+                    {
+                        return new HeadOfficeActionResult
+                        {
+                            Success = true,
+                            Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminExists),
+                            HeadOfficeId = portalOffice.HeadOfficeId
+                        };
+                    }
+
+                    TenantUser row = new TenantUser
+                    {
+                        FirstName = code,
+                        UserName = code,
+                        Password = encryptedPassword,
+                        EmailId = (portalOffice.OrgMailId ?? string.Empty).Trim().ToLowerInvariant(),
+                        ContactNo = (portalOffice.MobileNo ?? string.Empty).Trim(),
+                        RoleId = 1,
+                        UserType = 1,
+                        Status = 1,
+                        PasswordStatus = 0,
+                        HeadOfficeCode = code,
+                        BranchCode = null,
+                        CreatedBy = 0
+                    };
+
+                    tenant.TenantUsers.Add(row);
+                    await tenant.SaveChangesAsync(cancellationToken);
+
+                    return new HeadOfficeActionResult
+                    {
+                        Success = true,
+                        Message = MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminCreated),
+                        HeadOfficeId = portalOffice.HeadOfficeId,
+                        GeneratedAdminPassword = plainPassword
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeAdminCreateFailed, ex.Message));
+            }
+        }
+
+        private HeadOfficeActionResult TryOpenTenant(HeadOffice portalOffice, out OrganizationDbContext? tenant)
+        {
+            tenant = null;
+            if (portalOffice == null)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDetailsRequired));
+            }
+
+            string host = (portalOffice.HostName ?? string.Empty).Trim();
+            string database = (portalOffice.DbName ?? string.Empty).Trim();
+            string user = (portalOffice.UserName ?? string.Empty).Trim();
+            string password = portalOffice.Password ?? string.Empty;
+
+            if (host.Length == 0 || database.Length == 0 || user.Length == 0)
+            {
+                return Fail(MessageRender.GetMessage(MessageCatalog.Office.HeadOfficeDbConnectionRequired));
+            }
+
+            string connectionString = BuildTenantConnectionString(host, database, user, password);
+            DbContextOptionsBuilder<OrganizationDbContext> optionsBuilder = new DbContextOptionsBuilder<OrganizationDbContext>();
+            optionsBuilder.UseNpgsql(connectionString);
+            tenant = new OrganizationDbContext(optionsBuilder.Options);
+            return new HeadOfficeActionResult { Success = true };
+        }
+
+        private string BuildTenantConnectionString(string host, string database, string user, string password)
+        {
+            string portText = _configuration["HeadOfficeTenant:Port"] ?? "3308";
+            int port;
+            if (!int.TryParse(portText, out port) || port <= 0)
+            {
+                port = 3308;
+            }
+
+            return "Host=" + host
+                + ";Port=" + port.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + ";Database=" + database
+                + ";Username=" + user
+                + ";Password=" + password;
+        }
+
+        private static string CreateRandomPassword()
+        {
+            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+            char[] buffer = new char[10];
+            byte[] bytes = new byte[10];
+            RandomNumberGenerator.Fill(bytes);
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = chars[bytes[i] % chars.Length];
+            }
+
+            return new string(buffer);
+        }
+
+        private static HeadOfficeActionResult Ok(string message, int headOfficeId)
+        {
+            return new HeadOfficeActionResult { Success = true, Message = message, HeadOfficeId = headOfficeId };
+        }
+
+        private static HeadOfficeActionResult Fail(string message)
+        {
+            return new HeadOfficeActionResult { Success = false, Message = message };
+        }
+
+        private static HeadOffice CopyWithoutSecrets(HeadOffice source)
+        {
+            HeadOffice row = new HeadOffice();
+            ApplyWithoutSecrets(row, source);
+            row.CreatedDate = source.CreatedDate;
+            row.CreatedBy = source.CreatedBy;
+            row.Status = source.Status;
+            row.UserCreatedStatus = source.UserCreatedStatus;
+            return row;
+        }
+
+        private static string? Truncate(string? value, int maxLength)
+        {
+            if (value == null || value.Length <= maxLength)
+            {
+                return value;
+            }
+
+            return value.Substring(0, maxLength);
+        }
+
+        private static void ApplyWithoutSecrets(HeadOffice target, HeadOffice source)
+        {
+            target.HeadOfficeCode = (source.HeadOfficeCode ?? string.Empty).Trim().ToLowerInvariant();
+            target.HeadOfficeName = Truncate(source.HeadOfficeName, 100);
+            target.TypeId = source.TypeId;
+            target.BelongsTo = Truncate(source.BelongsTo, 100);
+            target.Designation = Truncate(source.Designation, 100);
+            target.OrgMailId = Truncate(source.OrgMailId, 100);
+            target.InchargeName = Truncate(source.InchargeName, 50);
+            target.Address = source.Address;
+            target.City = source.City;
+            target.MobileNo = source.MobileNo;
+            target.PhoneNo = source.PhoneNo;
+            target.CountryId = source.CountryId;
+            target.StateId = source.StateId;
+            target.Pincode = source.Pincode;
+            target.CountryCode = source.CountryCode;
+            target.SrInchargeName = source.SrInchargeName;
+            target.SrMobileNo = source.SrMobileNo;
+            target.SrPhoneNo = source.SrPhoneNo;
+            target.SrMailId = source.SrMailId;
+            target.AccountingYearType = source.AccountingYearType;
+            target.Status = source.Status;
+            target.UserCreatedStatus = source.UserCreatedStatus;
+            target.HostName = null;
+            target.DbName = null;
+            target.UserName = null;
+            target.Password = null;
+        }
+    }
+}

@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OFFICE_STATUS_REQUIRED" xml:space="preserve">
+    <value>Status is required.</value>
+  </data>
+  <data name="OFFICE_STATUS_INVALID" xml:space="preserve">
+    <value>Status must be 1, 2, or 3.</value>
+  </data>
+  <data name="HEAD_OFFICE_REQUIRED" xml:space="preserve">
+    <value>Head Office is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_MUST_BE_ACTIVATED" xml:space="preserve">
+    <value>Head Office must be Activated.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Branch Office details are required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Branch Office not found.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Branch Office Code is required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_LENGTH" xml:space="preserve">
+    <value>Code or Username is minimum of 6 and maximum of 10 characters required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_SAME_AS_HO" xml:space="preserve">
+    <value>Branch Office code can'not be same as Head Office</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Branch Office Name is required.</value>
+  </data>
+  <data name="BRANCH_OFFICE_NAME_MAX" xml:space="preserve">
+    <value>Branch Office Name max length is 50.</value>
+  </data>
+  <data name="BRANCH_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Branch Office Code already exists.</value>
+  </data>
+  <data name="BRANCH_OFFICE_SAVED" xml:space="preserve">
+    <value>Branch Office Saved.</value>
+  </data>
+  <data name="BRANCH_OFFICE_DELETED" xml:space="preserve">
+    <value>Branch Office is Deleted</value>
+  </data>
+  <data name="BRANCH_OFFICE_CREATED" xml:space="preserve">
+    <value>Branch Office Created.</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>Branch Office is activated</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>Branch Office deactivated</value>
+  </data>
+  <data name="BRANCH_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activate {0}?</value>
+  </data>
+  <data name="BRANCH_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Deactivate {0}?</value>
+  </data>
+  <data name="HEAD_OFFICE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Head Office details are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_NOT_FOUND" xml:space="preserve">
+    <value>Head Office not found.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_REQUIRED" xml:space="preserve">
+    <value>Head Office Code is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_MAX" xml:space="preserve">
+    <value>Head Office Code is required (max 6 characters).</value>
+  </data>
+  <data name="HEAD_OFFICE_NAME_REQUIRED" xml:space="preserve">
+    <value>Head Office Name is required.</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_EXISTS" xml:space="preserve">
+    <value>Head Office Code already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED" xml:space="preserve">
+    <value>Head Office Saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_ONLY" xml:space="preserve">
+    <value>Head Office Saved on portal. HO database sync skipped (portal row not found).</value>
+  </data>
+  <data name="HEAD_OFFICE_SAVED_PORTAL_WITH_NOTE" xml:space="preserve">
+    <value>Head Office Saved on portal. {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CREATED" xml:space="preserve">
+    <value>Head Office Created.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATED" xml:space="preserve">
+    <value>Head Office is activated</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATED" xml:space="preserve">
+    <value>Head Office is deactivated</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DEACTIVATE" xml:space="preserve">
+    <value>Head Office cannot be deactivated</value>
+  </data>
+  <data name="HEAD_OFFICE_CANNOT_DELETE_ACTIVATED" xml:space="preserve">
+    <value>Cannot delete an Activated Head Office.</value>
+  </data>
+  <data name="HEAD_OFFICE_DELETED" xml:space="preserve">
+    <value>Head Office Deleted.</value>
+  </data>
+  <data name="HEAD_OFFICE_ACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Activate {0}?</value>
+  </data>
+  <data name="HEAD_OFFICE_DEACTIVATE_CONFIRM" xml:space="preserve">
+    <value>Deactivate {0}?</value>
+  </data>
+  <data name="DATABASE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Database details are required.</value>
+  </data>
+  <data name="DATABASE_INFO_UPDATED" xml:space="preserve">
+    <value>Database info updated.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_REQUIRED" xml:space="preserve">
+    <value>UserCreatedStatus is required.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_INVALID" xml:space="preserve">
+    <value>UserCreatedStatus must be 0, 1, 2, or 3.</value>
+  </data>
+  <data name="USER_CREATED_STATUS_UPDATED" xml:space="preserve">
+    <value>User created status updated.</value>
+  </data>
+  <data name="HEAD_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Head Office dual-write saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+    <value>Head Office status dual-write saved.</value>
+  </data>
+  <data name="HEAD_OFFICE_SYNC_FAILED" xml:space="preserve">
+    <value>HO database sync failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_STATUS_SYNC_FAILED" xml:space="preserve">
+    <value>HO status sync failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+    <value>Head Office admin user already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATED" xml:space="preserve">
+    <value>Head Office admin user created.</value>
+  </data>
+  <data name="HEAD_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+    <value>HO admin user create failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CONNECTION_REQUIRED" xml:space="preserve">
+    <value>HO database connection details (HostName, DbName, UserName) are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_CREATE_FIELDS_REQUIRED" xml:space="preserve">
+    <value>HostName, DbName, and UserName are required to create HO database.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_NAME_INVALID" xml:space="preserve">
+    <value>DbName must start with a letter and use only letters, numbers, underscore.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_ALREADY_EXISTS" xml:space="preserve">
+    <value>HO database already exists.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_TEMPLATE_MISSING" xml:space="preserve">
+    <value>HO database created, but TemplateSqlPath is missing or file not found: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORED" xml:space="preserve">
+    <value>HO database created and template restored.</value>
+  </data>
+  <data name="HEAD_OFFICE_DB_RESTORE_FAILED" xml:space="preserve">
+    <value>HO database restore failed: {0}</value>
+  </data>
+  <data name="HEAD_OFFICE_CODE_AND_NAME_REQUIRED" xml:space="preserve">
+    <value>Head Office code and name are required.</value>
+  </data>
+  <data name="HEAD_OFFICE_NEW_DB_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Host name, database name, and DB user name are required for a new Head Office.</value>
+  </data>
+	<data name="BRANCH_OFFICE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_STATUS_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office status dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_DELETE_DUAL_WRITE_SAVED" xml:space="preserve">
+  <value>Branch Office delete dual-write saved.</value>
+</data>
+	<data name="BRANCH_OFFICE_SYNC_FAILED" xml:space="preserve">
+  <value>Branch Office HO database sync failed: {0}</value>
+</data>
+	<data name="BRANCH_OFFICE_ADMIN_EXISTS" xml:space="preserve">
+  <value>Branch Office admin user already exists.</value>
+</data>
+	<data name="BRANCH_OFFICE_ADMIN_CREATED" xml:space="preserve">
+  <value>Branch Office admin user created.</value>
+</data>
+	<data name="BRANCH_OFFICE_ADMIN_CREATE_FAILED" xml:space="preserve">
+  <value>Branch admin user create failed: {0}</value>
+</data>
+	<data name="HEAD_OFFICE_DB_MISSING_FOR_BRANCH" xml:space="preserve">
+  <value>HO database details are missing. Branch Office saved on the portal only.</value>
+</data>
+  <data name="USER_FIELDS_REQUIRED" xml:space="preserve">
+    <value>Name, user name, contact number, email, and role are required.</value>
+  </data>
+  <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="USER_NAME_EXISTS" xml:space="preserve">
+    <value>User name already exists.</value>
+  </data>
+  <data name="USER_SAVED" xml:space="preserve">
+    <value>User saved.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="USER_ACTIVATED" xml:space="preserve">
+    <value>User activated.</value>
+  </data>
+  <data name="USER_DEACTIVATED" xml:space="preserve">
+    <value>User deactivated.</value>
+  </data>
+  <data name="USER_DELETED" xml:space="preserve">
+    <value>User deleted.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ADMIN" xml:space="preserve">
+    <value>Cannot delete the Admin user.</value>
+  </data>
+  <data name="USER_CANNOT_DEACTIVATE_ADMIN" xml:space="preserve">
+    <value>Cannot deactivate the Admin user.</value>
+  </data>
+  <data name="USER_CANNOT_DELETE_ACTIVE" xml:space="preserve">
+    <value>Cannot delete an active user.</value>
+  </data>
+  <data name="USER_STATUS_INVALID" xml:space="preserve">
+    <value>Status must be 0 or 1.</value>
+  </data>
+  <data name="USER_INVALID_HEAD_OFFICE" xml:space="preserve">
+    <value>Invalid Head Office Code</value>
+  </data>
+  <data name="USER_PASSWORD_MISMATCH" xml:space="preserve">
+    <value>New password and confirm password do not match.</value>
+  </data>
+  <data name="USER_PASSWORD_RULE" xml:space="preserve">
+    <value>New password must be at least 8 characters and include a letter, a number, and a symbol.</value>
+  </data>
+  <data name="USER_PASSWORD_CHANGED" xml:space="preserve">
+    <value>Password has been changed successfully.</value>
+  </data>
+  <data name="BRANCH_LOCATION_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Branch locations are available only for a Head Office login.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Branch Location details are required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NOT_FOUND" xml:space="preserve">
+    <value>Branch Location not found.</value>
+  </data>
+  <data name="BRANCH_LOCATION_BRANCH_REQUIRED" xml:space="preserve">
+    <value>Branch is required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_REQUIRED" xml:space="preserve">
+    <value>Location is required.</value>
+  </data>
+  <data name="BRANCH_LOCATION_NAME_MAX" xml:space="preserve">
+    <value>Location can be maximum 200 characters.</value>
+  </data>
+  <data name="BRANCH_LOCATION_EXISTS" xml:space="preserve">
+    <value>Location already exists.</value>
+  </data>
+  <data name="BRANCH_LOCATION_PRIMARY_PROTECTED" xml:space="preserve">
+    <value>The Primary location cannot be changed or deleted.</value>
+  </data>
+  <data name="BRANCH_LOCATION_IN_USE" xml:space="preserve">
+    <value>Location is used in project mapping and cannot be deleted.</value>
+  </data>
+  <data name="BRANCH_LOCATION_SAVED" xml:space="preserve">
+    <value>Branch Location Saved.</value>
+  </data>
+  <data name="BRANCH_LOCATION_DELETED" xml:space="preserve">
+    <value>Branch Location is Deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_SAVE_SUCCESS" xml:space="preserve">
+    <value>Accounting Period saved.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DELETE_SUCCESS" xml:space="preserve">
+    <value>Accounting Period deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_FROM_EMPTY" xml:space="preserve">
+    <value>Year From is required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_TO_EMPTY" xml:space="preserve">
+    <value>Year To is required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_YEAR_EQUAL_EMPTY" xml:space="preserve">
+    <value>Year From cannot be greater than Year To.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ACTIVE" xml:space="preserve">
+    <value>Active Accounting Period cannot be deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CANNOT_DELETE" xml:space="preserve">
+    <value>Accounting Period has transactions and cannot be deleted.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_CHANGE_PERIOD" xml:space="preserve">
+    <value>Accounting Period activated.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_ONE_ACTIVE" xml:space="preserve">
+    <value>Only one Accounting Period can be active.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Accounting Period details are required.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_NOT_FOUND" xml:space="preserve">
+    <value>Accounting Period not found.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_EXISTS" xml:space="preserve">
+    <value>Accounting Period already exists.</value>
+  </data>
+  <data name="ACCOUNTING_PERIOD_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Accounting Periods are available only for a Head Office login.</value>
+  </data>
+  <data name="GROUP_CODE_EMPTY" xml:space="preserve">
+    <value>Group code is required.</value>
+  </data>
+  <data name="GROUP_NAME_EMPTY" xml:space="preserve">
+    <value>Ledger group name is required.</value>
+  </data>
+  <data name="GROUP_LEVEL_CHECK" xml:space="preserve">
+    <value>Next group level can't be added.</value>
+  </data>
+  <data name="GROUP_SAVE_SUCCESS" xml:space="preserve">
+    <value>Ledger Group saved.</value>
+  </data>
+  <data name="GROUP_DELETE_SUCCESS" xml:space="preserve">
+    <value>Ledger Group deleted.</value>
+  </data>
+  <data name="GROUP_PARENT_EMPTY" xml:space="preserve">
+    <value>Parent group is required.</value>
+  </data>
+  <data name="GROUP_CAN_DELETE" xml:space="preserve">
+    <value>Group cannot be deleted. It has association.</value>
+  </data>
+  <data name="GROUP_NATURE_DELETE" xml:space="preserve">
+    <value>Fixed Nature cannot be deleted.</value>
+  </data>
+  <data name="GROUP_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Ledger Group details are required.</value>
+  </data>
+  <data name="GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Ledger Group not found.</value>
+  </data>
+  <data name="GROUP_EXISTS" xml:space="preserve">
+    <value>Ledger Group already exists.</value>
+  </data>
+  <data name="GROUP_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Ledger Groups are available only for a Head Office login.</value>
+  </data>
+  <data name="GROUP_CODE_MAX" xml:space="preserve">
+    <value>Group code can be maximum 10 characters.</value>
+  </data>
+  <data name="GROUP_NAME_MAX" xml:space="preserve">
+    <value>Ledger group name can be maximum 100 characters.</value>
+  </data>
+  <data name="LEDGER_SUCCESS" xml:space="preserve">
+    <value>Ledger saved.</value>
+  </data>
+  <data name="LEDGER_DELETED" xml:space="preserve">
+    <value>Ledger deleted.</value>
+  </data>
+  <data name="LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Ledger name is required.</value>
+  </data>
+  <data name="LEDGER_GROUP_EMPTY" xml:space="preserve">
+    <value>Ledger group is required.</value>
+  </data>
+  <data name="FIXED_LEDGER_DELETE" xml:space="preserve">
+    <value>Fixed ledger cannot be deleted.</value>
+  </data>
+  <data name="FIXED_LEDGER_EDIT" xml:space="preserve">
+    <value>Fixed ledger cannot be edited.</value>
+  </data>
+  <data name="LEDGER_TRANSACTION_MADE" xml:space="preserve">
+    <value>Ledger has transactions and cannot be deleted.</value>
+  </data>
+  <data name="LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Ledger details are required.</value>
+  </data>
+  <data name="LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Ledger not found.</value>
+  </data>
+  <data name="LEDGER_EXISTS" xml:space="preserve">
+    <value>Ledger already exists.</value>
+  </data>
+  <data name="LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Ledgers are available only for a Head Office login.</value>
+  </data>
+  <data name="LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Ledger code can be maximum 15 characters.</value>
+  </data>
+  <data name="LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Ledger name can be maximum 100 characters.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_SAVE_SUCCESS" xml:space="preserve">
+    <value>Project Category saved.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DELETE_SUCCESS" xml:space="preserve">
+    <value>Project Category deleted.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_EMPTY" xml:space="preserve">
+    <value>Project Category name is required.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_AVAILABLE" xml:space="preserve">
+    <value>Project Category already exists.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Project Category details are required.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NOT_FOUND" xml:space="preserve">
+    <value>Project Category not found.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_NAME_MAX" xml:space="preserve">
+    <value>Project Category name can be maximum 30 characters.</value>
+  </data>
+  <data name="PROJECT_CATOGORY_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Project Categories are available only for a Head Office login.</value>
+  </data>
+  <data name="PROJECT_SUCCESS" xml:space="preserve">
+    <value>Project saved.</value>
+  </data>
+  <data name="PROJECT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Project deleted.</value>
+  </data>
+  <data name="PROJECT_CODE_EMPTY" xml:space="preserve">
+    <value>Project code is required.</value>
+  </data>
+  <data name="PROJECT_NAME_EMPTY" xml:space="preserve">
+    <value>Project name is required.</value>
+  </data>
+  <data name="PROJECT_CATEGORY_EMPTY" xml:space="preserve">
+    <value>Project category is required.</value>
+  </data>
+  <data name="PROJECT_DIVISION_EMPTY" xml:space="preserve">
+    <value>Division is required.</value>
+  </data>
+  <data name="PROJECT_DATE_VALIDATION" xml:space="preserve">
+    <value>Start date cannot be greater than close date.</value>
+  </data>
+  <data name="PROJECT_DELETE_ASSOCIATION" xml:space="preserve">
+    <value>Cannot delete. It has association.</value>
+  </data>
+  <data name="PROJECT_TRANSACTION_MADE" xml:space="preserve">
+    <value>Project has transactions and cannot be deleted.</value>
+  </data>
+  <data name="PROJECT_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Project details are required.</value>
+  </data>
+  <data name="PROJECT_NOT_FOUND" xml:space="preserve">
+    <value>Project not found.</value>
+  </data>
+  <data name="PROJECT_EXISTS" xml:space="preserve">
+    <value>Project already exists.</value>
+  </data>
+  <data name="PROJECT_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Projects are available only for a Head Office login.</value>
+  </data>
+  <data name="PROJECT_CODE_MAX" xml:space="preserve">
+    <value>Project code can be maximum 15 characters.</value>
+  </data>
+  <data name="PROJECT_NAME_MAX" xml:space="preserve">
+    <value>Project name can be maximum 100 characters.</value>
+  </data>
+  <data name="PURPOSE_SAVE_SUCCESS" xml:space="preserve">
+    <value>FC Purpose saved.</value>
+  </data>
+  <data name="PURPOSE_DELETE_SUCCESS" xml:space="preserve">
+    <value>FC Purpose deleted.</value>
+  </data>
+  <data name="PURPOSE_DELETE_FAILURE" xml:space="preserve">
+    <value>FC Purpose could not be deleted.</value>
+  </data>
+  <data name="PURPOSE_CODE_EMPTY" xml:space="preserve">
+    <value>FC Purpose code is required.</value>
+  </data>
+  <data name="PURPOSE_HEAD_EMPTY" xml:space="preserve">
+    <value>FC Purpose is required.</value>
+  </data>
+  <data name="PURPOSE_DETAILS_REQUIRED" xml:space="preserve">
+    <value>FC Purpose details are required.</value>
+  </data>
+  <data name="PURPOSE_NOT_FOUND" xml:space="preserve">
+    <value>FC Purpose not found.</value>
+  </data>
+  <data name="PURPOSE_EXISTS" xml:space="preserve">
+    <value>FC Purpose already exists.</value>
+  </data>
+  <data name="PURPOSE_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>FC Purposes are available only for a Head Office login.</value>
+  </data>
+  <data name="PURPOSE_CODE_MAX" xml:space="preserve">
+    <value>FC Purpose code can be maximum 10 characters.</value>
+  </data>
+  <data name="PURPOSE_HEAD_MAX" xml:space="preserve">
+    <value>FC Purpose can be maximum 150 characters.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Generalate Ledger Group saved.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Generalate Ledger Group deleted.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_EMPTY" xml:space="preserve">
+    <value>Code is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_EMPTY" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_PARENT_EMPTY" xml:space="preserve">
+    <value>Parent is required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Generalate Ledger Group details are required.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NOT_FOUND" xml:space="preserve">
+    <value>Generalate Ledger Group not found.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_EXISTS" xml:space="preserve">
+    <value>Generalate Ledger Group already exists.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CAN_DELETE" xml:space="preserve">
+    <value>Generalate Ledger Group cannot be deleted. It has association.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Generalate Ledger Groups are available only for a Head Office login.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_CODE_MAX" xml:space="preserve">
+    <value>Code can be maximum 10 characters.</value>
+  </data>
+  <data name="GENERALATE_LEDGER_NAME_MAX" xml:space="preserve">
+    <value>Name can be maximum 100 characters.</value>
+  </data>
+  <data name="LOCK_VOUCHER_SAVE_SUCCESS" xml:space="preserve">
+    <value>Lock Voucher saved.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Lock Voucher deleted.</value>
+  </data>
+  <data name="LOCK_VOUCHER_BRANCH_EMPTY" xml:space="preserve">
+    <value>Branch is required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_PROJECT_EMPTY" xml:space="preserve">
+    <value>Project is required.</value>
+  </data>
+  <data name="DATE_FROM_EMPTY" xml:space="preserve">
+    <value>Date From is required.</value>
+  </data>
+  <data name="DATETOEMPTY" xml:space="preserve">
+    <value>Date To is required.</value>
+  </data>
+  <data name="PASSWORDEMPTY" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="PASSWORD_HINT_EMPTY" xml:space="preserve">
+    <value>Password hint is required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Lock Voucher details are required.</value>
+  </data>
+  <data name="LOCK_VOUCHER_NOT_FOUND" xml:space="preserve">
+    <value>Lock Voucher not found.</value>
+  </data>
+  <data name="LOCK_VOUCHER_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Lock Vouchers are available only for a Head Office login.</value>
+  </data>
+  <data name="LOCK_CLOSE_DATE" xml:space="preserve">
+    <value>Date To cannot be earlier than Date From.</value>
+  </data>
+  <data name="DATE_FROM_FUTURE" xml:space="preserve">
+    <value>Date From cannot be a future date.</value>
+  </data>
+  <data name="TDS_POLICY_NATURE_OF_PAYMENT_EMPTY" xml:space="preserve">
+    <value>Select the nature of payment.</value>
+  </data>
+  <data name="TDS_APPLICABLE_FROM_EMPTY" xml:space="preserve">
+    <value>Applicable From date is required.</value>
+  </data>
+  <data name="TDS_DATE_DUPLICATE" xml:space="preserve">
+    <value>A TDS policy already exists for this deductee type, nature of payment and applicable date.</value>
+  </data>
+  <data name="TDS_TAX_TYPE_NOT_EXISTS" xml:space="preserve">
+    <value>The selected duty / tax type does not exist or is inactive.</value>
+  </data>
+  <data name="TDS_POLICY_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>TDS Policy is available only for a head office login.</value>
+  </data>
+  <data name="TDS_POLICY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>TDS policy details are required.</value>
+  </data>
+  <data name="TDS_POLICY_DEDUCTEE_TYPE_EMPTY" xml:space="preserve">
+    <value>Select the deductee type.</value>
+  </data>
+  <data name="TDS_POLICY_RATE_EMPTY" xml:space="preserve">
+    <value>Enter the TDS rate for at least one tax type.</value>
+  </data>
+  <data name="TDS_POLICY_RATE_INVALID" xml:space="preserve">
+    <value>TDS rate must be between 0 and 100 with up to 2 decimals.</value>
+  </data>
+  <data name="TDS_POLICY_EXEMPTION_INVALID" xml:space="preserve">
+    <value>Exemption limit must be between 0 and 99,999,999.99 with up to 2 decimals.</value>
+  </data>
+  <data name="TDS_POLICY_TAX_TYPE_DUPLICATE" xml:space="preserve">
+    <value>A tax type can be entered only once in a policy.</value>
+  </data>
+  <data name="TDS_POLICY_NOT_FOUND" xml:space="preserve">
+    <value>TDS policy not found.</value>
+  </data>
+  <data name="TDS_POLICY_SAVE_SUCCESS" xml:space="preserve">
+    <value>TDS policy saved successfully.</value>
+  </data>
+  <data name="TDS_POLICY_DELETE_SUCCESS" xml:space="preserve">
+    <value>TDS policy deleted successfully.</value>
+  </data>
+  <data name="TDS_CODE_EMPTY" xml:space="preserve">
+    <value>Section Code is required.</value>
+  </data>
+  <data name="TDS_NAME_EMPTY" xml:space="preserve">
+    <value>Section Name is required.</value>
+  </data>
+  <data name="TDS_SAVE_SUCCESS" xml:space="preserve">
+    <value>TDS Section saved successfully.</value>
+  </data>
+  <data name="TDS_CANNOT_SET_INACTIVE" xml:space="preserve">
+    <value>This section is used by an active Nature of Payment and cannot be made inactive.</value>
+  </data>
+  <data name="TDS_SECTION_DELETE_INFO" xml:space="preserve">
+    <value>This section is used by a Nature of Payment and cannot be deleted.</value>
+  </data>
+  <data name="TDS_NATUREPAYMENT_PAYMENT_NAME_EMPTY" xml:space="preserve">
+    <value>Nature of Payment name is required.</value>
+  </data>
+  <data name="TDS_NATUREPAYMENT_PAYMENT_CODE_EMPTY" xml:space="preserve">
+    <value>Payment Code is required.</value>
+  </data>
+  <data name="TDS_NATUREOFPAYEMNTS_SECTION_EMPTY" xml:space="preserve">
+    <value>Section is required.</value>
+  </data>
+  <data name="TDS_CANNOT_SET_INACTIVE_INFO" xml:space="preserve">
+    <value>This Nature of Payment is used in a TDS Policy or a ledger TDS profile and cannot be made inactive.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_SUCCESS" xml:space="preserve">
+    <value>Deductee Type saved successfully.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_NAME_EMPTY" xml:space="preserve">
+    <value>Deductee Type name is required.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_EMPTY" xml:space="preserve">
+    <value>Deductee Status must be Company or Non Company.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPES_INACTIVE_INFO" xml:space="preserve">
+    <value>This Deductee Type is used in a TDS Policy or a ledger TDS profile and cannot be made inactive.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_NAME_EMPTY" xml:space="preserve">
+    <value>Duty Tax name is required.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_TYPE_CANNOT_EDIT_INFO" xml:space="preserve">
+    <value>Built-in duty tax types cannot be renamed.</value>
+  </data>
+  <data name="TDS_MASTERS_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>TDS masters are available only for a Head Office login.</value>
+  </data>
+  <data name="TDS_DETAILS_REQUIRED" xml:space="preserve">
+    <value>TDS master details are required.</value>
+  </data>
+  <data name="TDS_STATUS_INVALID" xml:space="preserve">
+    <value>Status must be Active or Inactive.</value>
+  </data>
+  <data name="TDS_SECTION_NOT_FOUND" xml:space="preserve">
+    <value>TDS Section not found.</value>
+  </data>
+  <data name="TDS_SECTION_CODE_MAX" xml:space="preserve">
+    <value>Section Code cannot exceed 45 characters.</value>
+  </data>
+  <data name="TDS_SECTION_NAME_MAX" xml:space="preserve">
+    <value>Section Name cannot exceed 100 characters.</value>
+  </data>
+  <data name="TDS_SECTION_CODE_EXISTS" xml:space="preserve">
+    <value>A TDS Section with this code already exists.</value>
+  </data>
+  <data name="TDS_SECTION_NAME_EXISTS" xml:space="preserve">
+    <value>A TDS Section with this name already exists.</value>
+  </data>
+  <data name="TDS_SECTION_DELETE_SUCCESS" xml:space="preserve">
+    <value>TDS Section deleted successfully.</value>
+  </data>
+  <data name="TDS_SECTION_DELETE_FAILURE" xml:space="preserve">
+    <value>TDS Section could not be deleted.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_NOT_FOUND" xml:space="preserve">
+    <value>Nature of Payment not found.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_NAME_MAX" xml:space="preserve">
+    <value>Nature of Payment name cannot exceed 150 characters.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_CODE_MAX" xml:space="preserve">
+    <value>Payment Code cannot exceed 7 characters.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_DESCRIPTION_MAX" xml:space="preserve">
+    <value>Description cannot exceed 400 characters.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_EXISTS" xml:space="preserve">
+    <value>A Nature of Payment with this name already exists.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_SECTION_INVALID" xml:space="preserve">
+    <value>The selected TDS Section does not exist or is inactive.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_IN_USE" xml:space="preserve">
+    <value>This Nature of Payment is used in a TDS Policy or a ledger TDS profile and cannot be deleted.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_SAVE_SUCCESS" xml:space="preserve">
+    <value>Nature of Payment saved successfully.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Nature of Payment deleted successfully.</value>
+  </data>
+  <data name="TDS_NATURE_PAYMENT_DELETE_FAILURE" xml:space="preserve">
+    <value>Nature of Payment could not be deleted.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_NOT_FOUND" xml:space="preserve">
+    <value>Deductee Type not found.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_NAME_MAX" xml:space="preserve">
+    <value>Deductee Type name cannot exceed 100 characters.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_RESIDENTIAL_STATUS_INVALID" xml:space="preserve">
+    <value>Residential Status must be Resident or Non Resident.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_EXISTS" xml:space="preserve">
+    <value>A Deductee Type with this name already exists.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_IN_USE" xml:space="preserve">
+    <value>This Deductee Type is used in a TDS Policy or a ledger TDS profile and cannot be deleted.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Deductee Type deleted successfully.</value>
+  </data>
+  <data name="TDS_DEDUCTEE_TYPE_DELETE_FAILURE" xml:space="preserve">
+    <value>Deductee Type could not be deleted.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_NOT_FOUND" xml:space="preserve">
+    <value>Duty Tax type not found.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_NAME_MAX" xml:space="preserve">
+    <value>Duty Tax name cannot exceed 50 characters.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_EXISTS" xml:space="preserve">
+    <value>A Duty Tax type with this name already exists.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_IN_USE" xml:space="preserve">
+    <value>This Duty Tax type is used in a TDS tax rate and cannot be deleted.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_SYSTEM_DELETE" xml:space="preserve">
+    <value>Built-in duty tax types cannot be deleted.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_SAVE_SUCCESS" xml:space="preserve">
+    <value>Duty Tax saved successfully.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_DELETE_SUCCESS" xml:space="preserve">
+    <value>Duty Tax deleted successfully.</value>
+  </data>
+  <data name="TDS_DUTY_TAX_DELETE_FAILURE" xml:space="preserve">
+    <value>Duty Tax could not be deleted.</value>
+  </data>
+  <data name="SOCIETY_NAME_EMPTY" xml:space="preserve">
+    <value>Society name is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_REGNO_EMPTY" xml:space="preserve">
+    <value>Society registration number is required.</value>
+  </data>
+  <data name="EXECUTIVE_NAME_EMPTY" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="EXECUTIVE_NATIONALITY_EMPTY" xml:space="preserve">
+    <value>Nationality is required.</value>
+  </data>
+  <data name="EXECUTIVE_JOIN_DOB" xml:space="preserve">
+    <value>Date of Joining can't be less than Date of Birth.</value>
+  </data>
+  <data name="EXECUTIVE_DOB_EXIT" xml:space="preserve">
+    <value>Date of Exit can't be less than Date of Birth.</value>
+  </data>
+  <data name="EXECUTIVE_EXIT_JOIN" xml:space="preserve">
+    <value>Date of Exit can't be less than Date of Joining.</value>
+  </data>
+  <data name="EXECUTIVE_COUNTRY_EMPTY" xml:space="preserve">
+    <value>Country is required.</value>
+  </data>
+  <data name="EXECUTIVE_EMAIL_EMPTY" xml:space="preserve">
+    <value>Enter a valid email address.</value>
+  </data>
+  <data name="EXECUTIVE_SAVE_SUCCESS" xml:space="preserve">
+    <value>Governing body member saved.</value>
+  </data>
+  <data name="EXECUTIVE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Governing body member deleted.</value>
+  </data>
+  <data name="EXECUTIVE_DELETE_FAILURE" xml:space="preserve">
+    <value>Governing body member could not be deleted.</value>
+  </data>
+  <data name="STATUTORY_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>Statutory masters are available only for a Head Office login.</value>
+  </data>
+  <data name="STATUTORY_FIELD_MAX" xml:space="preserve">
+    <value>{0} cannot exceed {1} characters.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Legal entity details are required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_NOT_FOUND" xml:space="preserve">
+    <value>Legal entity not found.</value>
+  </data>
+  <data name="LEGAL_ENTITY_EXISTS" xml:space="preserve">
+    <value>A legal entity with this society name already exists.</value>
+  </data>
+  <data name="LEGAL_ENTITY_COUNTRY_EMPTY" xml:space="preserve">
+    <value>Country is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_STATE_EMPTY" xml:space="preserve">
+    <value>State/Province is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_REG_DATE_FUTURE" xml:space="preserve">
+    <value>Registration date cannot be a future date.</value>
+  </data>
+  <data name="LEGAL_ENTITY_PERMISSION_DATE_FUTURE" xml:space="preserve">
+    <value>Prior permission date cannot be a future date.</value>
+  </data>
+  <data name="LEGAL_ENTITY_ASSOCIATION_NATURE_EMPTY" xml:space="preserve">
+    <value>Select the association nature.</value>
+  </data>
+  <data name="LEGAL_ENTITY_ASSOCIATION_OTHER_EMPTY" xml:space="preserve">
+    <value>Enter the other association nature.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DENOMINATION_EMPTY" xml:space="preserve">
+    <value>Select the denomination.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DENOMINATION_OTHER_EMPTY" xml:space="preserve">
+    <value>Enter the other denomination.</value>
+  </data>
+  <data name="LEGAL_ENTITY_EMAIL_INVALID" xml:space="preserve">
+    <value>Enter a valid email address.</value>
+  </data>
+  <data name="LEGAL_ENTITY_SAVE_SUCCESS" xml:space="preserve">
+    <value>Legal entity saved.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DELETE_SUCCESS" xml:space="preserve">
+    <value>Legal entity deleted.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DELETE_FAILURE" xml:space="preserve">
+    <value>Legal entity could not be deleted.</value>
+  </data>
+  <data name="LEGAL_ENTITY_USED_BY_PROJECT" xml:space="preserve">
+    <value>This legal entity is linked to projects and cannot be deleted.</value>
+  </data>
+  <data name="LEGAL_ENTITY_MAPPED_TO_GOVERNING_BODY" xml:space="preserve">
+    <value>This legal entity is mapped to governing bodies and cannot be deleted.</value>
+  </data>
+  <data name="GOVERNING_BODY_DETAILS_REQUIRED" xml:space="preserve">
+    <value>Governing body member details are required.</value>
+  </data>
+  <data name="GOVERNING_BODY_NOT_FOUND" xml:space="preserve">
+    <value>Governing body member not found.</value>
+  </data>
+  <data name="GOVERNING_BODY_STATE_EMPTY" xml:space="preserve">
+    <value>State is required.</value>
+  </data>
+  <data name="GOVERNING_BODY_MAPPED_TO_LEGAL_ENTITY" xml:space="preserve">
+    <value>This governing body member is mapped to a legal entity and cannot be deleted.</value>
+  </data>
+  <data name="MAP_GOVERNING_LEGAL_ENTITY_EMPTY" xml:space="preserve">
+    <value>Select the legal entity.</value>
+  </data>
+  <data name="MAP_GOVERNING_MEMBER_INVALID" xml:space="preserve">
+    <value>One or more selected governing body members no longer exist.</value>
+  </data>
+  <data name="MAP_GOVERNING_SAVE_SUCCESS" xml:space="preserve">
+    <value>Governing bodies mapped to the legal entity.</value>
+  </data>
+  <data name="MAP_GOVERNING_UNMAP_SUCCESS" xml:space="preserve">
+    <value>Governing bodies unmapped from the legal entity.</value>
+  </data>
+</root>

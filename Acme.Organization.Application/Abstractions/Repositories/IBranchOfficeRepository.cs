@@ -1,0 +1,29 @@
+/*  Class Name      : IBranchOfficeRepository.cs
+ *  Purpose         : Portal branch_office access for BranchOfficeSystem
+ *  Author          : Dinesh C
+ *  Created on      : 02-Nov-2026
+ */
+using Acme.Organization.Application.Dtos;
+using Acme.Organization.Domain.Entities;
+
+namespace Acme.Organization.Application.Abstractions.Repositories
+{
+    public interface IBranchOfficeRepository
+    {
+        Task<IReadOnlyList<BranchOfficeListItemDto>> FetchBranchOfficeDetails(CancellationToken cancellationToken);
+
+        Task<BranchOffice?> FillBranchOfficeDetails(int branchOfficeId, CancellationToken cancellationToken);
+
+        Task<BranchOffice?> BranchOfficeDetailsByCode(string branchOfficeCode, CancellationToken cancellationToken);
+
+        Task<BranchOfficeActionResult> SaveBranchOfficeDetails(BranchOfficeSaveRequest request, int modifiedBy, CancellationToken cancellationToken);
+
+
+        Task<BranchOfficeActionResult> UpdateOfficeStatus(string branchOfficeCode, int status, CancellationToken cancellationToken);
+
+        Task<BranchOfficeActionResult> UpdateUserCreatedStatus(string branchOfficeCode, int userCreatedStatus, CancellationToken cancellationToken);
+
+        Task<BranchOfficeActionResult> DeleteBranchOfficeDetails(string branchOfficeCode, CancellationToken cancellationToken);
+
+    }
+}
