@@ -3,12 +3,8 @@
     <Project Path="ApiGateways/ApiGateways.csproj" />
   </Folder>
   <Folder Name="/BuildingBlocks/">
-    <Project Path="Acme.Common/Acme.Common.csproj">
-      <BuildType Project="Release" />
-    </Project>
-    <Project Path="Acme.Contracts/Acme.Contracts.csproj">
-      <BuildType Project="Release" />
-    </Project>
+    <Project Path="Acme.Common/Acme.Common.csproj" />
+    <Project Path="Acme.Contracts/Acme.Contracts.csproj" />
     <Project Path="Acme.Messaging/Acme.Messaging.csproj" />
   </Folder>
   <Folder Name="/Services/" />
@@ -20,15 +16,9 @@
   </Folder>
   <Folder Name="/Services/Auth/">
     <Project Path="Acme.Auth.Api/Acme.Auth.Api.csproj" />
-    <Project Path="Acme.Auth.Application/Acme.Auth.Application.csproj">
-      <BuildType Project="Release" />
-    </Project>
-    <Project Path="Acme.Auth.Domain/Acme.Auth.Domain.csproj">
-      <BuildType Project="Release" />
-    </Project>
-    <Project Path="Acme.Auth.Infrastructure/Acme.Auth.Infrastructure.csproj">
-      <BuildType Project="Release" />
-    </Project>
+    <Project Path="Acme.Auth.Application/Acme.Auth.Application.csproj" />
+    <Project Path="Acme.Auth.Domain/Acme.Auth.Domain.csproj" />
+    <Project Path="Acme.Auth.Infrastructure/Acme.Auth.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Services/Budget/">
     <Project Path="Acme.Budget.Application/Acme.Budget.Application.csproj" Id="e8f7e6e3-eacb-4731-9681-62666a4f821d" />

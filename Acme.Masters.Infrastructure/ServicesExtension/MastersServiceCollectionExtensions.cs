@@ -46,6 +46,9 @@ using Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.StatutoryMaster
 using Acme.Masters.Application.Abstractions.Repositories.HeadOfficeMasters.StatutoryMasters.LegalEntity;
 using Acme.Masters.Application.Features.HeadOfficeMasters.StatutoryMasters.LegalEntity;
 using Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.StatutoryMasters.LegalEntity;
+using Acme.Masters.Application.Abstractions.Repositories.HeadOfficeMasters.Mapping.MapProjects;
+using Acme.Masters.Application.Features.HeadOfficeMasters.Mapping.MapProjects;
+using Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.Mapping.MapProjects;
 using Acme.Masters.Application.Abstractions.Repositories.HeadOfficeMasters.StatutoryMasters.GoverningBodies;
 using Acme.Masters.Application.Features.HeadOfficeMasters.StatutoryMasters.GoverningBodies;
 using Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.StatutoryMasters.GoverningBodies;
@@ -104,6 +107,8 @@ namespace Acme.Masters.Infrastructure.Extensions
             services.AddScoped<TdsPolicySystem>();
             services.AddScoped<ILegalEntityRepository, LegalEntityRepository>();
             services.AddScoped<LegalEntitySystem>();
+            services.AddScoped<IMapProjectsRepository, MapProjectsRepository>();
+            services.AddScoped<MapProjectsSystem>();
             services.AddScoped<IGoverningBodiesRepository, GoverningBodiesRepository>();
             services.AddScoped<ExecutiveMemberSystem>();
             services.AddScoped<IMapGoverningBodiesRepository, MapGoverningBodiesRepository>();

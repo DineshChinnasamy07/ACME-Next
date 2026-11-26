@@ -19,9 +19,9 @@ namespace Acme.Masters.Infrastructure.Persistence.Configurations.HeadOfficeMaste
             builder.Property(row => row.ProjectCode).HasColumnName("PROJECT_CODE").HasMaxLength(15);
             builder.Property(row => row.Project).HasColumnName("PROJECT").HasMaxLength(100);
             builder.Property(row => row.DivisionId).HasColumnName("DIVISION_ID");
-            builder.Property(row => row.AccountDate).HasColumnName("ACCOUNT_DATE");
-            builder.Property(row => row.DateStarted).HasColumnName("DATE_STARTED");
-            builder.Property(row => row.DateClosed).HasColumnName("DATE_CLOSED");
+            builder.Property(row => row.AccountDate).HasColumnName("ACCOUNT_DATE").HasColumnType("timestamp without time zone");
+            builder.Property(row => row.DateStarted).HasColumnName("DATE_STARTED").HasColumnType("timestamp without time zone");
+            builder.Property(row => row.DateClosed).HasColumnName("DATE_CLOSED").HasColumnType("timestamp without time zone");
             builder.Property(row => row.ClosedBy).HasColumnName("CLOSED_BY");
             builder.Property(row => row.Description).HasColumnName("DESCRIPTION").HasMaxLength(200);
             builder.Property(row => row.Notes).HasColumnName("NOTES").HasMaxLength(500);

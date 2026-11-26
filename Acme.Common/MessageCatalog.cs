@@ -1543,6 +1543,25 @@ namespace Acme.Common
                 public const string PROJECT_DIVISION_EMPTY = "PROJECT_DIVISION_EMPTY";
             }
 
+            public class ProjectMapping
+            {
+                public const string PROJECT_MAPPING_PROJECT_EMPTY = "PROJECT_MAPPING_PROJECT_EMPTY";
+                public const string PROJECT_MAPPING_BRANCH_EMPTY = "PROJECT_MAPPING_BRANCH_EMPTY";
+                public const string PROJECT_MAPPING_ROW_BRANCH_EMPTY = "PROJECT_MAPPING_ROW_BRANCH_EMPTY";
+                public const string PROJECT_MAPPING_BRANCH_DUPLICATE = "PROJECT_MAPPING_BRANCH_DUPLICATE";
+                public const string PROJECT_MAPPING_ROW_LOCATION_EMPTY = "PROJECT_MAPPING_ROW_LOCATION_EMPTY";
+                public const string PROJECT_MAPPING_ROW_SOCIETY_EMPTY = "PROJECT_MAPPING_ROW_SOCIETY_EMPTY";
+                public const string PROJECT_MAPPING_ROW_CATEGORY_EMPTY = "PROJECT_MAPPING_ROW_CATEGORY_EMPTY";
+                public const string PROJECT_MAPPING_ROW_DIVISION_EMPTY = "PROJECT_MAPPING_ROW_DIVISION_EMPTY";
+                public const string PROJECT_MAPPING_ROW_START_EMPTY = "PROJECT_MAPPING_ROW_START_EMPTY";
+                public const string PROJECT_MAPPING_ROW_DATE_ORDER = "PROJECT_MAPPING_ROW_DATE_ORDER";
+                public const string PROJECT_MAPPING_ROW_USER_EMPTY = "PROJECT_MAPPING_ROW_USER_EMPTY";
+                public const string PROJECT_MAPPING_USER_INVALID = "PROJECT_MAPPING_USER_INVALID";
+                public const string PROJECT_MAPPING_LOCATION_INVALID = "PROJECT_MAPPING_LOCATION_INVALID";
+                public const string PROJECT_MAPPING_BRANCH_HAS_TRANSACTIONS = "PROJECT_MAPPING_BRANCH_HAS_TRANSACTIONS";
+                public const string PROJECT_MAPPING_SAVED = "PROJECT_MAPPING_SAVED";
+            }
+
             public class ProjectCatogory
             {
                 public const string PROJECT_CATOGORY_DELETE_SUCCESS = "PROJECT_CATOGORY_DELETE_SUCCESS";

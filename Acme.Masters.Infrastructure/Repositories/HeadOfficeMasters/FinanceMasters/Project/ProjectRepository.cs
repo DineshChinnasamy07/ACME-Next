@@ -117,7 +117,8 @@ namespace Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.FinanceMast
                         Society = society ?? string.Empty,
                         DateStarted = row.DateStarted,
                         DateClosed = row.DateClosed,
-                        Description = row.Description ?? string.Empty
+                        Description = row.Description ?? string.Empty,
+                        AccountDate = row.AccountDate
                     });
                 }
 
@@ -200,14 +201,11 @@ namespace Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.FinanceMast
                 return Fail(MessageRender.GetMessage(MessageCatalog.Master.Project.PROJECT_NAME_MAX));
             }
 
-            if (request.DivisionId <= 0)
+            // Division, category and society are optional here since 26-11-2026: a project is created with code,
+            // name, description and creation date only, and Project Mapping sets them per branch (0 = not mapped).
+            if (request.DivisionId < 0 || request.ProjectCategroyId < 0 || request.SocietyId < 0)
             {
                 return Fail(MessageRender.GetMessage(MessageCatalog.Master.Project.PROJECT_DIVISION_EMPTY));
-            }
-
-            if (request.ProjectCategroyId <= 0)
-            {
-                return Fail(MessageRender.GetMessage(MessageCatalog.Master.Project.PROJECT_CATEGORY_EMPTY));
             }
 
             DateTime? started = NormalizeDate(request.StartedOn);
@@ -221,13 +219,14 @@ namespace Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.FinanceMast
             {
                 await using (MastersDbContext tenant = OpenTenant(office))
                 {
-                    bool divisionOk = await tenant.Divisions.AnyAsync(row => row.DivisionId == request.DivisionId, cancellationToken);
+                    bool divisionOk = request.DivisionId == 0
+                        || await tenant.Divisions.AnyAsync(row => row.DivisionId == request.DivisionId, cancellationToken);
                     if (!divisionOk)
                     {
                         return Fail(MessageRender.GetMessage(MessageCatalog.Master.Project.PROJECT_DIVISION_EMPTY));
                     }
 
-                    bool categoryOk = await tenant.ProjectCatogories.AnyAsync(
+                    bool categoryOk = request.ProjectCategroyId == 0 || await tenant.ProjectCatogories.AnyAsync(
                         row => row.ProjectCatogoryId == request.ProjectCategroyId, cancellationToken);
                     if (!categoryOk)
                     {

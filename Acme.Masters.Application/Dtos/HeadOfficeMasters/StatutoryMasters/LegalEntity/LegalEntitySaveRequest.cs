@@ -2,6 +2,7 @@
  *  Purpose         : Legal Entity add (CustomerId = 0) / update request
  *  Author          : Dinesh C
  *  Created on      : 24-Nov-2026
+ *  Modified on     : 26-Nov-2026 - Society master statutory fields and TAN list
  */
 namespace Acme.Masters.Application.Dtos.HeadOfficeMasters.StatutoryMasters.LegalEntity
 {
@@ -72,5 +73,55 @@ namespace Acme.Masters.Application.Dtos.HeadOfficeMasters.StatutoryMasters.Legal
         public bool IsFoundation { get; set; }
 
         public string? PrincipalActivity { get; set; }
+
+        // Society master sheet (26-Nov-2026) - stored in MASTER_INSTI_STATUTORY / MASTER_INSTI_TAN.
+
+        /// <summary>1 Society, 2 Trust.</summary>
+        public int? EntityType { get; set; }
+
+        public string? TrustDocNo { get; set; }
+
+        public string? BranchIncharge { get; set; }
+
+        /// <summary>1 Obtained, 0 Not Obtained.</summary>
+        public int? PanStatus { get; set; }
+
+        public string? PanName { get; set; }
+
+        public DateTime? PanRegDate { get; set; }
+
+        /// <summary>1 Registered, 0 Not Registered (same for DARPAN, 12A, 80G, FCRA).</summary>
+        public int? DarpanStatus { get; set; }
+
+        public string? DarpanId { get; set; }
+
+        public DateTime? DarpanRegDate { get; set; }
+
+        public string? DarpanName { get; set; }
+
+        /// <summary>All TANs of the legal entity (TANNO keeps the first one for older readers).</summary>
+        public List<LegalEntityTanDto> Tans { get; set; } = new List<LegalEntityTanDto>();
+
+        public int? A12Status { get; set; }
+
+        public DateTime? A12ValidFrom { get; set; }
+
+        public DateTime? A12ValidTo { get; set; }
+
+        public string? A12Name { get; set; }
+
+        public int? EightyGStatus { get; set; }
+
+        public DateTime? EightyGValidFrom { get; set; }
+
+        public DateTime? EightyGValidTo { get; set; }
+
+        public string? EightyGName { get; set; }
+
+        public int? FcraStatus { get; set; }
+
+        public DateTime? FcraValidFrom { get; set; }
+
+        public DateTime? FcraValidTo { get; set; }
     }
 }

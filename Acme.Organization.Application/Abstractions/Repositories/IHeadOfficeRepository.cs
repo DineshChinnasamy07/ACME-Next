@@ -10,8 +10,9 @@ namespace Acme.Organization.Application.Abstractions.Repositories
 {
     public interface IHeadOfficeRepository
     {
-        Task<IReadOnlyList<HeadOfficeListItemDto>> FetchHeadOfficeDetails(CancellationToken cancellationToken);
+        //Task<IReadOnlyList<HeadOfficeListItemDto>> FetchHeadOfficeDetails(CancellationToken cancellationToken);
 
+        Task<IReadOnlyList<HeadOfficeListItemDto>> FetchHeadOfficeDetails(CancellationToken cancellationToken);
         Task<HeadOffice?> HeadOfficeDetailById(int headOfficeId, CancellationToken cancellationToken);
 
         Task<HeadOffice?> HeadOfficeDetailByCode(string headOfficeCode, CancellationToken cancellationToken);

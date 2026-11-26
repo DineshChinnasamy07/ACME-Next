@@ -35,7 +35,7 @@ namespace Acme.Organization.Infrastructure.Repositories
         #endregion
 
         #region Implemantion
-       
+
         public async Task<IReadOnlyList<HeadOfficeListItemDto>> FetchHeadOfficeDetails(CancellationToken cancellationToken)
         {
             return await _portal.HeadOffices

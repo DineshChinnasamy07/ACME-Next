@@ -910,4 +910,97 @@
   <data name="MAP_GOVERNING_UNMAP_SUCCESS" xml:space="preserve">
     <value>Governing bodies unmapped from the legal entity.</value>
   </data>
+  <data name="LEGAL_ENTITY_TYPE_EMPTY" xml:space="preserve">
+    <value>Select whether the legal entity is a Society or a Trust.</value>
+  </data>
+  <data name="LEGAL_ENTITY_TRUST_DOC_EMPTY" xml:space="preserve">
+    <value>Trust Doc Number is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_REG_DATE_EMPTY" xml:space="preserve">
+    <value>Society/Trust Registration Date is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_BRANCH_INCHARGE_EMPTY" xml:space="preserve">
+    <value>Branch and Users In-charge is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_PAN_STATUS_EMPTY" xml:space="preserve">
+    <value>Select the PAN status.</value>
+  </data>
+  <data name="LEGAL_ENTITY_PAN_NO_EMPTY" xml:space="preserve">
+    <value>PAN Number is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_PAN_NO_INVALID" xml:space="preserve">
+    <value>Enter a valid PAN Number (for example ABCDE1234F).</value>
+  </data>
+  <data name="LEGAL_ENTITY_PAN_NAME_EMPTY" xml:space="preserve">
+    <value>PAN Name is required.</value>
+  </data>
+  <data name="LEGAL_ENTITY_STATUS_INVALID" xml:space="preserve">
+    <value>Invalid {0} status.</value>
+  </data>
+  <data name="LEGAL_ENTITY_DATE_FUTURE" xml:space="preserve">
+    <value>{0} cannot be a future date.</value>
+  </data>
+  <data name="LEGAL_ENTITY_STATUS_NUMBER_EMPTY" xml:space="preserve">
+    <value>{0} is required when the status is Registered.</value>
+  </data>
+  <data name="LEGAL_ENTITY_TAN_NO_EMPTY" xml:space="preserve">
+    <value>Enter the TAN number in every TAN row.</value>
+  </data>
+  <data name="LEGAL_ENTITY_TAN_INVALID" xml:space="preserve">
+    <value>Enter a valid TAN (for example ABCD12345E): {0}.</value>
+  </data>
+  <data name="LEGAL_ENTITY_TAN_DUPLICATE" xml:space="preserve">
+    <value>TAN {0} is listed more than once.</value>
+  </data>
+  <data name="LEGAL_ENTITY_VALIDITY_INCOMPLETE" xml:space="preserve">
+    <value>Enter both the From and To dates of the {0} validity.</value>
+  </data>
+  <data name="LEGAL_ENTITY_VALIDITY_ORDER" xml:space="preserve">
+    <value>{0} validity To date must be after the From date.</value>
+  </data>
+  <data name="PROJECT_MAPPING_PROJECT_EMPTY" xml:space="preserve">
+    <value>Select the project to map.</value>
+  </data>
+  <data name="PROJECT_MAPPING_BRANCH_EMPTY" xml:space="preserve">
+    <value>Add at least one branch to map this project.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_BRANCH_EMPTY" xml:space="preserve">
+    <value>{0}: select the branch office.</value>
+  </data>
+  <data name="PROJECT_MAPPING_BRANCH_DUPLICATE" xml:space="preserve">
+    <value>{0}: this branch is already added to the project.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_LOCATION_EMPTY" xml:space="preserve">
+    <value>{0}: select the branch location.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_SOCIETY_EMPTY" xml:space="preserve">
+    <value>{0}: select the society.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_CATEGORY_EMPTY" xml:space="preserve">
+    <value>{0}: select the project category.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_DIVISION_EMPTY" xml:space="preserve">
+    <value>{0}: select the division.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_START_EMPTY" xml:space="preserve">
+    <value>{0}: select the start date.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_DATE_ORDER" xml:space="preserve">
+    <value>{0}: end date cannot be before the start date.</value>
+  </data>
+  <data name="PROJECT_MAPPING_ROW_USER_EMPTY" xml:space="preserve">
+    <value>{0}: select the user in charge.</value>
+  </data>
+  <data name="PROJECT_MAPPING_USER_INVALID" xml:space="preserve">
+    <value>{0}: the user in charge does not belong to this branch.</value>
+  </data>
+  <data name="PROJECT_MAPPING_BRANCH_HAS_TRANSACTIONS" xml:space="preserve">
+    <value>Branch {0} has transactions for this project and cannot be removed from the mapping.</value>
+  </data>
+  <data name="PROJECT_MAPPING_SAVED" xml:space="preserve">
+    <value>Project mapping saved for {0} branch(es).</value>
+  </data>
+  <data name="PROJECT_MAPPING_LOCATION_INVALID" xml:space="preserve">
+    <value>{0}: the location does not belong to this branch.</value>
+  </data>
 </root>

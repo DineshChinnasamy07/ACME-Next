@@ -29,13 +29,24 @@ namespace Acme.Organization.Api.HeadOfficeControllers
         /// <summary>
         /// Lists all portal head offices for the grid.
         /// </summary>
-        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <param name = "cancellationToken" > A token to cancel the operation.</param>
         /// <returns>The head office list.</returns>
         [HttpGet]
         public async Task<IActionResult> FetchHeadOfficeDetails(CancellationToken cancellationToken)
         {
             return Ok(await _headOffices.FetchHeadOfficeDetails(cancellationToken));
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> FetchHeadOfficeDetails(CancellationToken cancellationToken) 
+        //{
+
+        //}
+
+
+
+
+
 
         /// <summary>
         /// Lists only Activated head offices (STATUS = 2) for the Branch Office dropdown.

@@ -4,6 +4,9 @@ namespace Acme.Masters.Application.Dtos.HeadOfficeMasters.FinanceMasters.Project
     {
         public int ProjectId { get; set; }
 
+        // Project creation date (ACCOUNT_DATE).
+        public DateTime? AccountDate { get; set; }
+
         public string ProjectCode { get; set; } = string.Empty;
 
         public string ProjectName { get; set; } = string.Empty;
