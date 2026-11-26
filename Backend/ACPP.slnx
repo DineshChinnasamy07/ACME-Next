@@ -5,6 +5,7 @@
   <Folder Name="/BuildingBlocks/">
     <Project Path="Acme.Common/Acme.Common.csproj" />
     <Project Path="Acme.Contracts/Acme.Contracts.csproj" />
+    <Project Path="Acme.Data/Acme.Data.csproj" />
     <Project Path="Acme.Messaging/Acme.Messaging.csproj" />
   </Folder>
   <Folder Name="/Services/" />
