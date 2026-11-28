@@ -1003,4 +1003,7 @@
   <data name="PROJECT_MAPPING_LOCATION_INVALID" xml:space="preserve">
     <value>{0}: the location does not belong to this branch.</value>
   </data>
+  <data name="DASHBOARD_HEAD_OFFICE_ONLY" xml:space="preserve">
+    <value>The dashboard is available to head office logins only.</value>
+  </data>
 </root>

@@ -24,11 +24,12 @@ const columns = [
 ];
 
 // Add / Edit is a 3-step form; each step lists the fields it validates before moving on.
-const STEPS = ['Head Office Info', 'Address', 'Senior Incharge & Database'];
+// Senior Incharge fields were removed from the form (27-11-2026); existing values are kept on edit.
+const STEPS = ['Head Office Info', 'Address', 'Database'];
 const STEP_FIELDS = [
     ['headOfficeCode', 'headOfficeName', 'typeId', 'belongsTo', 'inchargeName', 'designation', 'orgMailId', 'mobileNo', 'phoneNo'],
     ['address', 'city', 'countryId', 'stateId', 'pincode', 'countryCode'],
-    ['srInchargeName', 'srMailId', 'srMobileNo', 'srPhoneNo', 'hostName', 'dbName', 'userName', 'password'],
+    ['hostName', 'dbName', 'userName', 'password'],
 ];
 
 function stepOf(field) {
@@ -168,6 +169,8 @@ export function HeadOfficePage() {
                 typeId: form.typeId ? Number(form.typeId) : null,
                 countryId: form.countryId ? Number(form.countryId) : null,
                 stateId: form.stateId ? Number(form.stateId) : null,
+                // Not on the form any more: a new head office saves them empty, an edit sends back what was loaded.
+                ...(form.headOfficeId === 0 ? { srInchargeName: '', srMailId: '', srMobileNo: '', srPhoneNo: '' } : {}),
             };
             const result = await headOfficeApi.saveHeadOffice(session, request);
             announce(result, pushToast, 'Head office saved.');
@@ -258,10 +261,6 @@ export function HeadOfficePage() {
         </FieldGrid> : null}
 
         {form && step === 2 ? <FieldGrid>
-          <Input id="ho-sr-name" label="Senior Incharge Name" value={form.srInchargeName} onChange={set('srInchargeName')}/>
-          <Input id="ho-sr-mail" label="Senior Incharge Email" type="email" value={form.srMailId} onChange={set('srMailId')}/>
-          <Input id="ho-sr-mobile" label="Senior Incharge Mobile No" value={form.srMobileNo} onChange={set('srMobileNo')}/>
-          <Input id="ho-sr-phone" label="Senior Incharge Phone No" value={form.srPhoneNo} onChange={set('srPhoneNo')}/>
           <Input id="ho-host" label={isNew ? 'Host Name (database is created on save)' : 'Host Name'} required={isNew} value={form.hostName} error={errors.hostName} onChange={set('hostName')}/>
           <Input id="ho-db" label="Database Name" required={isNew} value={form.dbName} error={errors.dbName} onChange={set('dbName')}/>
           <Input id="ho-dbuser" label="DB User Name" required={isNew} value={form.userName} error={errors.userName} autoComplete="off" onChange={set('userName')}/>

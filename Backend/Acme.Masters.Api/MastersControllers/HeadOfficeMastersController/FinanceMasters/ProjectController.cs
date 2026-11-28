@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Acme.Masters.Api.MastersControllers.HeadOfficeMastersController.FinanceMasters
 {
-    [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
+    // Reads allow a branch login (the branch Finance masters need the list); the write actions
+    // below re-assert PortalOrHeadOfficePolicy so a branch user cannot create/update/delete.
+    [Authorize(Policy = JwtAuthenticationExtensions.PortalHeadOfficeOrBranchPolicy)]
     [ApiExplorerSettings(GroupName = "HeadOfficeMasters")]
     [ApiController]
     [Route("api/projects")]
@@ -27,7 +29,9 @@ namespace Acme.Masters.Api.MastersControllers.HeadOfficeMastersController.Financ
         {
             (HeadOfficeConnection? office, IActionResult? error) = await ResolveOffice(cancellationToken);
             if (office == null) return error!;
-            return Ok(await _projects.FetchProjectDetails(office, cancellationToken));
+            // Branch login: scope the list to the projects mapped to that branch. Head office: null = all.
+            string? branchScope = User.FindBranchScope();
+            return Ok(await _projects.FetchProjectDetails(office, branchScope, cancellationToken));
         }
 
         [HttpGet("divisions")]
@@ -69,6 +73,7 @@ namespace Acme.Masters.Api.MastersControllers.HeadOfficeMastersController.Financ
         }
 
         [HttpPost]
+        [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
         public async Task<IActionResult> SaveProjectDetails([FromBody] ProjectSaveRequest? request, CancellationToken cancellationToken)
         {
             (HeadOfficeConnection? office, IActionResult? error) = await ResolveOffice(cancellationToken);
@@ -79,6 +84,7 @@ namespace Acme.Masters.Api.MastersControllers.HeadOfficeMastersController.Financ
         }
 
         [HttpDelete("{projectId:int}")]
+        [Authorize(Policy = JwtAuthenticationExtensions.PortalOrHeadOfficePolicy)]
         public async Task<IActionResult> DeleteProjectDetails(int projectId, CancellationToken cancellationToken)
         {
             (HeadOfficeConnection? office, IActionResult? error) = await ResolveOffice(cancellationToken);

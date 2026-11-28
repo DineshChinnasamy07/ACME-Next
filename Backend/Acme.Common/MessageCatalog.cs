@@ -1543,6 +1543,11 @@ namespace Acme.Common
                 public const string PROJECT_DIVISION_EMPTY = "PROJECT_DIVISION_EMPTY";
             }
 
+            public class Dashboard
+            {
+                public const string DASHBOARD_HEAD_OFFICE_ONLY = "DASHBOARD_HEAD_OFFICE_ONLY";
+            }
+
             public class ProjectMapping
             {
                 public const string PROJECT_MAPPING_PROJECT_EMPTY = "PROJECT_MAPPING_PROJECT_EMPTY";

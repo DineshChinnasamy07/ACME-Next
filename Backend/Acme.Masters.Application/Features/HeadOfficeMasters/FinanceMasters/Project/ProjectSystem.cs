@@ -20,9 +20,9 @@ namespace Acme.Masters.Application.Features.HeadOfficeMasters.FinanceMasters.Pro
             return _projects.ResolveOffice(headOfficeCode, cancellationToken);
         }
 
-        public Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, CancellationToken cancellationToken)
+        public Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, string? branchScope, CancellationToken cancellationToken)
         {
-            return _projects.FetchProjectDetails(office, cancellationToken);
+            return _projects.FetchProjectDetails(office, branchScope, cancellationToken);
         }
 
         public Task<MasterProject?> FillProjectDetails(HeadOfficeConnection office, int projectId, CancellationToken cancellationToken)

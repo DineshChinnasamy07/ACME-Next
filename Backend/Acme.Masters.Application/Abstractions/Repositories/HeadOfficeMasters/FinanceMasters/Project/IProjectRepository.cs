@@ -8,7 +8,8 @@ namespace Acme.Masters.Application.Abstractions.Repositories.HeadOfficeMasters.F
     {
         Task<HeadOfficeConnection?> ResolveOffice(string headOfficeCode, CancellationToken cancellationToken);
 
-        Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, CancellationToken cancellationToken);
+        // branchScope: null/empty = head office (all projects); a branch code = only that branch's mapped projects.
+        Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, string? branchScope, CancellationToken cancellationToken);
 
         Task<MasterProject?> FillProjectDetails(HeadOfficeConnection office, int projectId, CancellationToken cancellationToken);
 

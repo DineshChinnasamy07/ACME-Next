@@ -11,6 +11,7 @@ using Acme.Masters.Domain.Entities.HeadOfficeMasters.FinanceMasters.LedgerGroup;
 using Acme.Masters.Domain.Entities.HeadOfficeMasters.FinanceMasters.LockVoucher;
 using Acme.Masters.Domain.Entities.HeadOfficeMasters.FinanceMasters.Project;
 using Acme.Masters.Domain.Entities.HeadOfficeMasters.FinanceMasters.ProjectCategory;
+using Acme.Masters.Domain.Entities.HeadOfficeMasters.Mapping.MapBranchMasters;
 using Microsoft.EntityFrameworkCore;
 
 namespace Acme.Masters.Infrastructure.Persistence
@@ -52,6 +53,8 @@ namespace Acme.Masters.Infrastructure.Persistence
         public DbSet<MasterBranchOffice> BranchOffices { get; set; } = null!;
 
         public DbSet<ProjectBranch> ProjectBranches { get; set; } = null!;
+
+        public DbSet<MasterBranchMap> MasterBranchMaps { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

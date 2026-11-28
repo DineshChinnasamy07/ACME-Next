@@ -21,6 +21,9 @@ import { FcPurposePage } from '../Modules/Data/pages/FcPurposePage';
 import { GeneralateLedgerGroupPage } from '../Modules/Data/pages/GeneralateLedgerGroupPage';
 import { BranchLocationPage } from '../Modules/Office/pages/BranchLocationPage';
 import { BranchOfficePage } from '../Modules/Office/pages/BranchOfficePage';
+import { BranchProjectPage } from '../Modules/Branch/pages/BranchProjectPage';
+import { BranchLedgerPage, BranchLedgerGroupPage, BranchProjectCategoryPage, BranchLegalEntityPage, BranchPurposePage } from '../Modules/Branch/pages/BranchMasterListPage';
+import { BranchMasterMappingPage } from '../Modules/Data/pages/BranchMasterMappingPage';
 import { HeadOfficePage } from '../Modules/Office/pages/HeadOfficePage';
 import { ChangePasswordPage } from '../Modules/User/pages/ChangePasswordPage';
 import { ProjectMappingPage } from '../Modules/Data/pages/ProjectMappingPage';
@@ -56,6 +59,15 @@ const screens = {
     'data.tdsdeducteetypeview': DeducteeTypePage,
     'data.tdspolicyview': TdsPolicyPage,
     'data.tdsdutytaxview': DutyTaxPage,
+    // Head office: map master records to a branch (generic engine).
+    'data.branchmastermapping': BranchMasterMappingPage,
+    // Branch login › Finance › Masters. Each list is scoped to the logged-in branch by the backend.
+    'branch.finance.masters.project': BranchProjectPage,
+    'branch.finance.masters.ledger': BranchLedgerPage,
+    'branch.finance.masters.ledgergroup': BranchLedgerGroupPage,
+    'branch.finance.masters.projectcategory': BranchProjectCategoryPage,
+    'branch.finance.masters.legalentities': BranchLegalEntityPage,
+    'branch.finance.masters.purpose': BranchPurposePage,
 };
 
 // One dropdown level; a child with its own children opens a fly-out to the right on hover / focus.

@@ -86,6 +86,7 @@ export const headOfficeMenu = [
         ]),
         group('Mapping', 'Data', 'GoverningMemberView', [
             leaf('Project Mapping', 'Data', 'ProjectMapping'),
+            leaf('Branch Master Mapping', 'Data', 'BranchMasterMapping', 'data.branchmastermapping'),
             leaf('Map Ledgers', 'Data', 'MapLedgerstoBranch'),
             leaf('Map Branch to User', 'Data', 'MapBranchToUser'),
             leaf('Map Subsidy Ledgers', 'Data', 'MapSubsidyLedgers'),

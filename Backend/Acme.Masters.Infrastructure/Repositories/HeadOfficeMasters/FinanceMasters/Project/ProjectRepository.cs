@@ -78,12 +78,45 @@ namespace Acme.Masters.Infrastructure.Repositories.HeadOfficeMasters.FinanceMast
                 .FirstOrDefaultAsync(office => office.HeadOfficeCode == code, cancellationToken);
         }
 
-        public async Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<ProjectListItemDto>> FetchProjectDetails(HeadOfficeConnection office, string? branchScope, CancellationToken cancellationToken)
         {
             await using (MastersDbContext tenant = OpenTenant(office))
             {
-                List<MasterProject> rows = await tenant.Projects.AsNoTracking()
-                    .Where(row => row.DeleteFlag != 1)
+                // Branch login: limit to the projects mapped to that branch. The branch code from the
+                // token maps to branch_office.BRANCH_OFFICE_ID; project_branch holds the mapping
+                // (kept in sync by Project Mapping). An unknown branch sees nothing, never everything.
+                string branch = (branchScope ?? string.Empty).Trim().ToLowerInvariant();
+                HashSet<int>? mappedProjectIds = null;
+                if (branch.Length > 0)
+                {
+                    int branchId = await tenant.BranchOffices.AsNoTracking()
+                        .Where(b => (b.BranchOfficeCode ?? string.Empty).ToLower() == branch)
+                        .Select(b => b.BranchOfficeId)
+                        .FirstOrDefaultAsync(cancellationToken);
+                    if (branchId <= 0)
+                    {
+                        return Array.Empty<ProjectListItemDto>();
+                    }
+
+                    mappedProjectIds = new HashSet<int>(
+                        await tenant.ProjectBranches.AsNoTracking()
+                            .Where(row => row.BranchId == branchId)
+                            .Select(row => row.ProjectId)
+                            .Distinct()
+                            .ToListAsync(cancellationToken));
+                    if (mappedProjectIds.Count == 0)
+                    {
+                        return Array.Empty<ProjectListItemDto>();
+                    }
+                }
+
+                IQueryable<MasterProject> query = tenant.Projects.AsNoTracking().Where(row => row.DeleteFlag != 1);
+                if (mappedProjectIds != null)
+                {
+                    query = query.Where(row => mappedProjectIds.Contains(row.ProjectId));
+                }
+
+                List<MasterProject> rows = await query
                     .OrderBy(row => row.ProjectCode)
                     .ThenBy(row => row.Project)
                     .ToListAsync(cancellationToken);

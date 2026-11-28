@@ -23,6 +23,11 @@ namespace Acme.Common.Security
         public const string PortalOrHeadOfficePolicy = "PortalOrHeadOffice";
         public const string BranchCodeClaim = "BRANCH_CODE";
 
+        // Any authenticated tenant user: portal, head office, OR branch. Used by read endpoints
+        // that a branch login must reach (e.g. the branch Finance masters). Writes stay on
+        // PortalOrHeadOfficePolicy so a branch user cannot create/update/delete masters.
+        public const string PortalHeadOfficeOrBranchPolicy = "PortalHeadOfficeOrBranch";
+
         public static IServiceCollection AddAcmeJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -50,6 +55,11 @@ namespace Acme.Common.Security
                         return string.IsNullOrWhiteSpace(branchCode);
                     });
                 });
+                // Portal, head office, or branch: any authenticated user is allowed through.
+                options.AddPolicy(PortalHeadOfficeOrBranchPolicy, policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                });
             });
             return services;
         }
@@ -58,6 +68,19 @@ namespace Acme.Common.Security
         public static string? FindHeadOfficeScope(this ClaimsPrincipal user)
         {
             string? code = user.FindFirst(HeadOfficeCodeClaim)?.Value;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return null;
+            }
+
+            return code.Trim().ToLowerInvariant();
+        }
+
+        // Returns null for a portal / head office user (no branch limit). Returns the lowercase
+        // branch code for a branch user, so read endpoints can scope results to that branch.
+        public static string? FindBranchScope(this ClaimsPrincipal user)
+        {
+            string? code = user.FindFirst(BranchCodeClaim)?.Value;
             if (string.IsNullOrWhiteSpace(code))
             {
                 return null;
